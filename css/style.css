@@ -1,8 +1,29 @@
 @import url("photographer.css");
 
+:root {
+
+--main-color:#901C1C;
+--second-color:#D3573C;
+--black-color:#000;
+--white-color:#FFF;
+
+--body-font-family:"DM Sans", sans-serif;
+--body-font-size:1rem;
+--title-font-family:"DM Sans", sans-serif;
+--title-font-size:1rem;
+
+--skeleton:100%;
+--radius:5px;
+
+}
+
+
 body {
-    font-family: "DM Sans", sans-serif;
+    --layout:"Desk";
+    font-family:var(--body-font-family);
     margin: 0;
+    padding-bottom:2rem;
+    box-sizing: border-box;
 }
 
 
@@ -15,7 +36,7 @@ header {
 }
 
 h1 {
-    color: #901C1C;
+    color: var(--main-color);
     margin-right: 100px;
 }
 
@@ -25,26 +46,51 @@ h1 {
 }
 
 .photographer_section {
+    --gap:70px;
+    --nbCol:3;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 70px;
+    grid-template-columns: repeat(var(--nbCol),1fr);
+    gap: var(--gap);
     margin-top: 100px;
 }
 
 .photographer_section article {
-    justify-self: center;
+    /* justify-self: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column; */
+}
+
+
+.card {
+    display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-self: center;
 }
 
-.photographer_section article h2 {
-    color: #D3573C;
-    font-size: 36px;
+.card-photographer{
+    width: 400px;
+    padding: 1rem;
+    font-size:1.2rem;
+    color:var(--white-color);
+    border-radius: var(--radius);
+    background:var(--second-color);
+    box-shadow:0 0 2px var(--black-color);
+    
+
 }
 
-.photographer_section article img {
+.title-photographer {
+    color: var(--main-color);
+    font-size: 2.25rem;
+}
+
+ .thumbnail-photographer {
     height: 200px;
     width: 200px;
+    background:var(--white-color);
+    clip-path: polygon(0% 25%,33% 25%,33% 0%, 66% 0%,66% 25%,100% 25%,100% 100%,0% 100%);
 }
