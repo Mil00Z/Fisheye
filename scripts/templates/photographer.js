@@ -1,4 +1,4 @@
-function photographerTemplate(data) {
+export function photographerTemplate(data) {
 
     const { name, portrait, city, tagline,price } = data;
 
@@ -12,7 +12,7 @@ function photographerTemplate(data) {
         article.classList.add('card','card-photographer');
 
         const img = document.createElement( 'img' );
-        img.classList.add('thumb-photographer');
+        img.classList.add('thumbnail-photographer');
         img.setAttribute("src", picturePath);
 
         const h2 = document.createElement( 'h2' );
