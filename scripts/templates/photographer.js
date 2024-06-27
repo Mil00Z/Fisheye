@@ -4,25 +4,24 @@ function photographerTemplate(data) {
 
     // console.log(data);
 
-    const picture = `assets/photographers/${portrait}`;
+    const picturePath = `../assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
 
         const article = document.createElement( 'article' );
-        article.classList.add('card','card-photographer')
+        article.classList.add('card','card-photographer');
 
         const img = document.createElement( 'img' );
-        img.classList.add('thumb-photographer')
-        img.setAttribute("src", picture)
+        img.classList.add('thumb-photographer');
+        img.setAttribute("src", picturePath);
 
         const h2 = document.createElement( 'h2' );
         h2.classList.add('title-photographer')
-        h2.textContent = name;
+        h2.textContent = `${name}`;
         
-
         const cityName = document.createElement('span');
         cityName.classList.add('photographer-city');
-        cityName.textContent = `${city}`
+        cityName.textContent = `${city}`;
 
 
         const taglineText = document.createElement('span');
@@ -38,5 +37,5 @@ function photographerTemplate(data) {
         return (article);
     }
 
-    return { name, picture, getUserCardDOM }
+    return { data, getUserCardDOM }
 }
