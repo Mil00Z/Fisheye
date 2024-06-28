@@ -1,6 +1,6 @@
 export function photographerTemplate(data) {
 
-    const { name, portrait, city, tagline,price } = data;
+    const { name,id, portrait, city, tagline,price } = data;
 
     // console.log(data);
 
@@ -8,8 +8,10 @@ export function photographerTemplate(data) {
 
     function getUserCardDOM() {
 
-        const article = document.createElement( 'article' );
+        const article = document.createElement( 'a' );
         article.classList.add('card','card-photographer');
+        article.setAttribute('href',`./photographer.html?id=${id}`);
+        article.setAttribute('aria-label',`Lien vers la page du photographe ${name}`);
 
         const img = document.createElement( 'img' );
         img.classList.add('thumbnail-photographer');
