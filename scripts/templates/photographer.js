@@ -1,6 +1,6 @@
 export function photographerTemplate(data) {
 
-    const { name, portrait, city, tagline,price } = data;
+    const {name,id,portrait,city,country,tagline, price } = data;
 
     // console.log(data);
 
@@ -8,31 +8,33 @@ export function photographerTemplate(data) {
 
     function getUserCardDOM() {
 
-        const article = document.createElement( 'article' );
+        const article = document.createElement( 'a' );
         article.classList.add('card','card-photographer');
+        article.setAttribute('href',`./photographer.html?id=${id}`);
+        article.setAttribute('aria-label',`Lien vers la page du photographe ${name}`);
 
         const img = document.createElement( 'img' );
-        img.classList.add('thumbnail-photographer');
+        img.classList.add('photographer-thumbnail');
         img.setAttribute("src", picturePath);
 
-        const h2 = document.createElement( 'h2' );
-        h2.classList.add('title-photographer')
-        h2.textContent = `${name}`;
+        const proName = document.createElement( 'h2' );
+        proName.classList.add('photographer-name')
+        proName.textContent = `${name}`;
         
-        const cityName = document.createElement('span');
-        cityName.classList.add('photographer-city');
-        cityName.textContent = `${city}`;
+        const proCity = document.createElement('span');
+        proCity.classList.add('photographer-city');
+        proCity.textContent = `${city} , ${country} `;
 
 
-        const taglineText = document.createElement('span');
-        taglineText.classList.add('photographer-tagline');
-         taglineText.textContent = ` 👉 ${tagline}`;
+        const proTagline = document.createElement('span');
+        proTagline.classList.add('photographer-tagline');
+        proTagline.textContent = `${tagline}`;
 
-         const pricingRange = document.createElement('p');
-         pricingRange .classList.add('photographer-pricing');
-        pricingRange .textContent = `${price} euros`;
+        const proPricing = document.createElement('p');
+        proPricing.classList.add('photographer-pricing');
+        proPricing.textContent = `${price} euros / jour`;
 
-        article.append(img,h2,pricingRange,cityName,taglineText,);
+        article.append(img,proName,proCity,proTagline,proPricing);
 
         return (article);
     }

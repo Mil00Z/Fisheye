@@ -7,15 +7,24 @@
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
   </head>
-  <body>
-    <header>
-      <img src="assets/images/logo.png" class="logo" />
+
+  <body class="photographer">
+
+    <header class="wrapper">
+      <a href="./" alt="Fisheye Home Page" class="link-home">
+        <img src="assets/images/logo.png" class="logo" alt="Logo Fisheye"/>
+      </a>
     </header>
+
     <main id="main">
+
+      <div class="wrapper">
       <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
       </div>
+
+    </div>
     </main>
+
     <div id="contact_modal">
 			<div class="modal">
 				<header>
@@ -31,7 +40,9 @@
 				</form>
 			</div>
 		</div>
+
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+
   </body>
 </html>
