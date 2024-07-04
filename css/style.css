@@ -4,6 +4,7 @@
 
 --main-color:#901C1C;
 --second-color:#D3573C;
+--pricing-color:#757575;
 --black-color:#000;
 --white-color:#FFF;
 
@@ -12,18 +13,23 @@
 --title-font-family:"DM Sans", sans-serif;
 --title-font-size:1rem;
 
---skeleton:100%;
 --radius:5px;
-
+--regTransi:all .26s ease-in-out;
 }
 
 
 body {
     --layout:"Desk";
+    --skeleton:1300px;
     font-family:var(--body-font-family);
     margin: 0;
     padding-bottom:2rem;
     box-sizing: border-box;
+}
+
+.wrapper {
+    max-width: var(--skeleton);
+    margin:0 auto;
 }
 
 
@@ -35,14 +41,42 @@ header {
     height: 90px;
 }
 
-h1 {
+
+.main-title {
+    padding-inline:.45rem;
+    font-size:2.25rem;
     color: var(--main-color);
-    margin-right: 100px;
+    transition: var(--regTransi);
+    position: relative;
+}
+
+.main-title::after{
+    --offset:0%;
+    content:'';
+    display: block;
+    width: 0;
+    height:100%;
+    position: absolute;
+    left:0;
+    bottom:var(--offset);
+    z-index: -1;
+    border-radius: var(--radius);
+    background:var(--main-color);
+    transition: var(--regTransi);
+    
+}
+
+.main-title:hover {
+    color:var(--white-color);
+}
+
+.main-title:hover::after{
+    width:100%;
+
 }
 
 .logo {
     height: 50px;
-    margin-left: 100px;
 }
 
 .photographer_section {
@@ -50,18 +84,13 @@ h1 {
     --nbCol:3;
     display: grid;
     grid-template-columns: repeat(var(--nbCol),1fr);
+    grid-template-areas:
+    "a b c" "d e f";
     gap: var(--gap);
-    margin-top: 100px;
+    align-items: start;
+    margin-top: 8vh;
+    /* outline: 1px solid black; */
 }
-
-.photographer_section article {
-    /* justify-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
-}
-
 
 .card {
     display: flex;
@@ -69,28 +98,66 @@ h1 {
     justify-content: center;
     align-items: center;
     justify-self: center;
+    transition: var(--regTransi);
 }
 
 .card-photographer{
-    width: 400px;
+    width: 320px;
     padding: 1rem;
     font-size:1.2rem;
     color:var(--white-color);
     border-radius: var(--radius);
-    background:var(--second-color);
-    box-shadow:0 0 2px var(--black-color);
-    
-
+    text-decoration: unset;
 }
 
-.title-photographer {
+.card-photographer:hover,
+.card-photographer:focus {
+    transform: translateY(-6px);
+    box-shadow:3px 3px 9px rgba(0,0,0,.15);
+}
+
+
+.photographer-name{
+    margin-block:.55rem;
+    color:var(--second-color);
+    font-size:2.2rem;
+}
+
+.photographer-tagline {
+    margin-block: .5rem;
+    color: var(--black-color);
+    font-size: .95rem;
+}
+
+.photographer-city {
+    font-size: 1.1rem;
     color: var(--main-color);
-    font-size: 2.25rem;
 }
 
- .thumbnail-photographer {
-    height: 200px;
-    width: 200px;
+.photographer-pricing {
+    margin-block:.95rem;
+    font-size:.95rem;
+    color:var(--pricing-color);
+}
+
+ .photographer-thumbnail {
+    width: 220px;
+    height: 220px;
     background:var(--white-color);
-    clip-path: polygon(0% 25%,33% 25%,33% 0%, 66% 0%,66% 25%,100% 25%,100% 100%,0% 100%);
+    background-size: cover;
+    /* clip-path: polygon(0% 25%,33% 25%,33% 0%, 66% 0%,66% 25%,100% 25%,100% 100%,0% 100%); */
+    clip-path: circle(50% at center);
+}
+
+
+
+/* MEDQUER */
+@media all and (max-width:960px){
+
+    body {
+        --skeleton:100%;
+        margin-inline:1rem;
+    }
+
+    
 }
