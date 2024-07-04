@@ -36,11 +36,22 @@ async function init() {
 
 function displayHeader(photographerDatas) {
 
-    const {name} = photographerDatas;
+    const {name,city,country,tagline,portrait,id} = photographerDatas;
 
     const photographerPageHeader = document.querySelector('.photograph-header');
 
-    photographerPageHeader.innerHTML = `<h3>${name}</h3><button class="contact_button" onclick="displayModal()">Contactez-moi</button>`
+    photographerPageHeader.innerHTML = `
+    <div class="header-left">
+        <h3 class="photographer-name" data-id="${id}">${name}</h3>
+        <span class="photographer-city">${city}, ${country}</span>
+        <span class="photographer-tagline">${tagline}</span>
+    </div> 
+    <div class="header-middle">
+        <button class="contact_button" data-target="${name}" onclick="displayModal()">Contactez-moi</button>
+    </div>
+    <div class="header-right" data-text="${city}">
+        <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Photographer ${name}">
+    </div>`
 
 }
 

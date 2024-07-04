@@ -5,6 +5,7 @@
 --main-color:#901C1C;
 --second-color:#D3573C;
 --pricing-color:#757575;
+--photographer-header-bg:#FAFAFA;
 --black-color:#000;
 --white-color:#FFF;
 
@@ -159,5 +160,5 @@ header {
         margin-inline:1rem;
     }
 
-    
+
 }
