@@ -21,6 +21,7 @@
       <div class="wrapper">
       <div class="photograph-header">
       </div>
+      <div class="photograph-media"></div>
 
     </div>
     </main>
@@ -28,13 +29,13 @@
     <div id="contact_modal">
 			<div class="modal">
 				<header>
-          <h2>Contactez-moi</h2>
+          <h2>Contactez-moi <span class="modal-photographer-name"></span></h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
 				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
+					<div class="form-group">
+						<label for="name">Prénom</label>
+            <input type="text" id="name" class="contact_name" placeholder="votre prénom"/>
 					</div>
           <button class="contact_button">Envoyer</button>
 				</form>
