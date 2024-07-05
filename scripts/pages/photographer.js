@@ -1,5 +1,6 @@
-//Mettre le code JavaScript lié à la page photographer.html
-let currentPhotographerMedia = [];
+import {photographerMediaTemplate} from "../templates/photographerMedia.js";
+
+// let currentPhotographerMedia = {};
 
 async function getPhotographer(currentId) {
 
@@ -18,8 +19,6 @@ async function getPhotographerMedias(currentId) {
 
     const response = await fetch('./data/photographers.json');
     const datas = await response.json();
-
-    // console.log(datas);
 
     let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
 
@@ -40,33 +39,19 @@ function getPhotographerId() {
 
 async function init() {
 
-    const currentPhotographerId = getPhotographerId();
+    // const currentPhotographerId = getPhotographerId();
 
-    const currentPhotographerData = await getPhotographer(currentPhotographerId);
+    const currentPhotographerData = await getPhotographer(getPhotographerId());
 
-    // console.log(currentPhotographerData);
-     
+    const currentPhotographerMedia = await getPhotographerMedias(getPhotographerId());
+
+    // Display All of Datas Page
     displayHeader(currentPhotographerData);
-
-    currentPhotographerMedia = getPhotographerMedias(currentPhotographerId);
     displayMedia(currentPhotographerMedia);
 
+
     //MODAL Treatment
-    document.querySelector('.modal-photographer-name').textContent = currentPhotographerData.name;
-
-}
-
-function displayMedia(photographerMedia) {
-
-
-    const photographerPageMedia = document.querySelector('.photograph-media');
-
-    photographerMedia.forEach((element,index) => {
-
-        console.log(element,index);
-        
-    });
-
+    // document.querySelector('.modal-photographer-name').textContent = currentPhotographerData.name;
 }
 
 function displayHeader(photographerDatas) {
@@ -90,4 +75,66 @@ function displayHeader(photographerDatas) {
 
 }
 
+function displayMedia(photographerMedia) {
+
+    const photographerPageMedia = document.querySelector('.photographer_media');
+
+    for (const mediaElement in photographerMedia) {
+
+        let objectData = photographerMedia[mediaElement];
+        const assetPath = `../assets/photographers/${objectData.video}` ?? `../assets/photographers/${objectData.image}`;
+
+        console.log(objectData);
+
+        const article = document.createElement( 'a' );
+            article.classList.add('card','card-media-photographer');
+            article.setAttribute('href',`./media.html?id=${objectData.id}`);
+            article.setAttribute('aria-label',`Lien vers la page du média ${objectData.title}`);
+            article.dataset.mediaId = `${objectData.id}`;
+
+            const mediaAssets = document.createElement( 'video' );
+            mediaAssets.classList.add('photographer-media-video');
+            mediaAssets.setAttribute("src", assetPath);
+
+            const mediaTitle = document.createElement( 'h2' );
+            mediaTitle.classList.add('photographer-media-title')
+            mediaTitle.textContent = `${objectData.title}`;
+            
+            const mediaLikes = document.createElement('span');
+            mediaLikes.classList.add('photographer-media-likes');
+            mediaLikes.textContent = `${objectData.likes} personnes ont ❤`;
+
+            const mediaDate = document.createElement('span');
+            mediaDate.classList.add('photographer-media-date');
+            mediaDate.textContent = `${objectData.date}`;
+
+            const mediaPricing = document.createElement('p');
+            mediaPricing.classList.add('photographer-pricing');
+            mediaPricing.textContent = `${objectData.price} euros`;
+
+            //Push data in Target Element
+            article.append(mediaAssets,mediaTitle,mediaPricing,mediaDate,mediaLikes);
+
+            // Push Target Element in DOM
+            photographerPageMedia.append(article);
+            
+    }
+
+    
+    
+
+    // photographerMedia.forEach((media) => {
+
+    //     console.log(media);
+        
+    //     const mediaModel = photographerMediaTemplate(media);
+
+    //     const mediaCardDOM = mediaModel.getMediaCardDOM()
+
+    //     photographerPageMedia.append(mediaCardDOM)
+    // });
+
+}
+
+//CALL Major function
 init();
