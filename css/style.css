@@ -108,7 +108,7 @@ header {
     font-size:1.2rem;
     color:var(--white-color);
     border-radius: var(--radius);
-    text-decoration: unset;
+    text-decoration: none;
 }
 
 .card-photographer:hover,
@@ -133,6 +133,7 @@ header {
 .photographer-city {
     font-size: 1.1rem;
     color: var(--main-color);
+    text-decoration: none;
 }
 
 .photographer-pricing {
