@@ -1,4 +1,4 @@
-import {photographerTemplate} from "../templates/photographer.js";
+import {photographerCardTemplate} from "../templates/photographerCard.js";
     
    async function getPhotographers() {
 
@@ -11,11 +11,12 @@ import {photographerTemplate} from "../templates/photographer.js";
     }
 
     async function displayData(photographers) {
+
         const photographersSection = document.querySelector(".photographer_section");
 
         photographers.forEach((photographer) => {
 
-            const photographerModel = photographerTemplate(photographer);
+            const photographerModel = photographerCardTemplate(photographer);
 
             const userCardDOM = photographerModel.getUserCardDOM();
 
