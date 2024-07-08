@@ -5,12 +5,14 @@
 --main-color:#901C1C;
 --second-color:#D3573C;
 --pricing-color:#757575;
+--grey-dark:#525252;
 --photographer-header-bg:#FAFAFA;
 --black-color:#000;
 --white-color:#FFF;
 
 --body-font-family:"DM Sans", sans-serif;
 --body-font-size:1rem;
+--body-font-weight:400;
 --title-font-family:"DM Sans", sans-serif;
 --title-font-size:1rem;
 
@@ -23,6 +25,7 @@ body {
     --layout:"Desk";
     --skeleton:1300px;
     font-family:var(--body-font-family);
+    font-weight:var(--body-font-weight);
     margin: 0;
     padding-bottom:2rem;
     box-sizing: border-box;

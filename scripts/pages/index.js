@@ -31,5 +31,6 @@ import {photographerCardTemplate} from "../templates/photographerCard.js";
         displayData(photographers);
     }
     
+    //Getting Datas and Display
     init();
     
