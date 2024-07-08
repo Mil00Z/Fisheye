@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <title>Fisheye - photographe </title>
   </head>
 
@@ -19,11 +20,10 @@
     <main id="main">
 
       <div class="wrapper">
-      <div class="photograph-header">
+        <div class="photographer_header"></div>
+        <div class="photographer_media"></div>
       </div>
-      <div class="photograph-media"></div>
-
-    </div>
+      
     </main>
 
     <div id="contact_modal">
@@ -32,17 +32,20 @@
           <h2>Contactez-moi <span class="modal-photographer-name"></span></h2>
           <img src="assets/icons/close.svg" onclick="closeModal()" />
         </header>
+
 				<form>
 					<div class="form-group">
 						<label for="name">Prénom</label>
             <input type="text" id="name" class="contact_name" placeholder="votre prénom"/>
 					</div>
-          <button class="contact_button">Envoyer</button>
+          <button class="cta-button contact_button">Envoyer</button>
 				</form>
 			</div>
 		</div>
 
-    <script src="/scripts/pages/photographer.js"></script>
+    <div class="photographer_more"></div>
+
+    <script type="module" src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
 
   </body>

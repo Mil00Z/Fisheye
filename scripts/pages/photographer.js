@@ -1,5 +1,6 @@
-//Mettre le code JavaScript lié à la page photographer.html
-let currentPhotographerMedia = [];
+import {photographerMediaTemplate} from "../templates/photographerMedia.js";
+
+// let currentPhotographerMedia = {};
 
 async function getPhotographer(currentId) {
 
@@ -18,8 +19,6 @@ async function getPhotographerMedias(currentId) {
 
     const response = await fetch('./data/photographers.json');
     const datas = await response.json();
-
-    // console.log(datas);
 
     let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
 
@@ -40,40 +39,27 @@ function getPhotographerId() {
 
 async function init() {
 
-    const currentPhotographerId = getPhotographerId();
+    // const currentPhotographerId = getPhotographerId();
 
-    const currentPhotographerData = await getPhotographer(currentPhotographerId);
+    const currentPhotographerData = await getPhotographer(getPhotographerId());
 
-    // console.log(currentPhotographerData);
-     
+    const currentPhotographerMedia = await getPhotographerMedias(getPhotographerId());
+
+    // Display All of Datas Page
     displayHeader(currentPhotographerData);
-
-    currentPhotographerMedia = getPhotographerMedias(currentPhotographerId);
     displayMedia(currentPhotographerMedia);
+    displayFooter(currentPhotographerData,currentPhotographerMedia);
+
 
     //MODAL Treatment
-    document.querySelector('.modal-photographer-name').textContent = currentPhotographerData.name;
-
-}
-
-function displayMedia(photographerMedia) {
-
-
-    const photographerPageMedia = document.querySelector('.photograph-media');
-
-    photographerMedia.forEach((element,index) => {
-
-        console.log(element,index);
-        
-    });
-
+    // document.querySelector('.modal-photographer-name').textContent = currentPhotographerData.name;
 }
 
 function displayHeader(photographerDatas) {
 
     const {name,city,country,tagline,portrait,price,id} = photographerDatas;
 
-    const photographerPageHeader = document.querySelector('.photograph-header');
+    const photographerPageHeader = document.querySelector('.photographer_header');
 
     photographerPageHeader.innerHTML = `
     <div class="header-left">
@@ -82,12 +68,129 @@ function displayHeader(photographerDatas) {
         <span class="photographer-tagline">${tagline}</span>
     </div> 
     <div class="header-middle">
-        <button class="contact_button" data-target="${name}" onclick="displayModal()">Contactez-moi</button>
+        <button class="cta-button contact_button" title="contact ${name}" onclick="displayModal()">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
-        <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Photographer ${name}">
+        <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
     </div>`
 
 }
 
+function displayMedia(photographerMedia) {
+
+    const photographerPageMedia = document.querySelector('.photographer_media');
+
+    for (let mediaElement in photographerMedia) {
+
+        let {id,title,image,video,likes,date,price} = photographerMedia[mediaElement];
+
+        console.log(photographerMedia[mediaElement]);
+
+        const assetPath = `../assets/photographers`;
+
+        const article = document.createElement( 'a' );
+            article.classList.add('card','card-media-photographer');
+            article.setAttribute('href',`./media.html?id=${id}`);
+            article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
+            article.dataset.mediaId = `${id}`;
+            article.dataset.pricing = `${price}`;
+
+
+        let mediaAssets;
+
+            if(video) {
+
+                mediaAssets = document.createElement( 'video' );
+            } else {
+                 mediaAssets = document.createElement( 'img' );
+            }
+
+            mediaAssets.classList.add('photographer-media-assets');
+            mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
+            mediaAssets.dataset.release = `${date}`;
+
+            const mediaTexts = document.createElement('div');
+            mediaTexts.classList.add('photographer-media-bottom');
+            
+            const mediaTitle = document.createElement( 'h2' );
+            mediaTitle.classList.add('photographer-media-title')
+            mediaTitle.textContent = `${title}`;
+            
+
+            const mediaLikes = document.createElement('span');
+            mediaLikes.classList.add('photographer-media-likes');
+            mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart"></i>`;
+
+            mediaTexts.append(mediaTitle,mediaLikes);
+
+
+            const mediaDate = document.createElement('span');
+            mediaDate.classList.add('photographer-media-date');
+            mediaDate.textContent = `${date}`;
+
+
+            // const mediaPricing = document.createElement('p');
+            // mediaPricing.classList.add('photographer-pricing');
+            // mediaPricing.textContent = `${price} euros`;
+
+            //Push data in Target Element
+            article.append(mediaAssets,mediaTexts);
+
+            // Push Target Element in DOM
+            photographerPageMedia.append(article);
+            
+    }
+
+    
+    
+
+    // photographerMedia.forEach((media) => {
+
+    //     console.log(media);
+        
+    //     const mediaModel = photographerMediaTemplate(media);
+
+    //     const mediaCardDOM = mediaModel.getMediaCardDOM()
+
+    //     photographerPageMedia.append(mediaCardDOM)
+    // });
+
+}
+
+function displayFooter(photographerDatas,photographerMediaDatas) {
+
+    const {price} = photographerDatas;
+    const {likes} = photographerMediaDatas;
+
+    const photographerMoreMedia = document.querySelector('.photographer_more');
+
+    // Get SUm of Likes Globally
+    let likesSum = 0;
+
+    photographerMediaDatas.forEach((element) => {
+        
+         likesSum += element.likes ;
+        
+    });
+
+    // const likesSum = Object.values(photographerMediaDatas).reduce((acc,curr) =>{
+
+    //         return acc.likes + curr.likes; 
+
+    // },0);
+
+    // Display Values
+    photographerMoreMedia.innerHTML = `
+    <div class="photographer-likes">
+    ${likesSum} <i class="fa-solid fa-heart"></i>
+    </div>
+    <div class="photographer-pricing"> 
+        ${price} $ / jour
+    </div> `;
+
+    // document.body.append(photographerMoreMedia);
+
+}
+
+//CALL Major function
 init();
