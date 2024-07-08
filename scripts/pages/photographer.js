@@ -68,7 +68,7 @@ function displayHeader(photographerDatas) {
         <span class="photographer-tagline">${tagline}</span>
     </div> 
     <div class="header-middle">
-        <button class="contact_button" title="contact ${name}" onclick="displayModal()">Contactez-moi</button>
+        <button class="cta-button contact_button" title="contact ${name}" onclick="displayModal()">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
         <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">

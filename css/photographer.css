@@ -154,23 +154,20 @@
     color:var(--black-color);
 }
 
-
-/* MODAL */
-
-#contact_modal {
-    display: none;
+.contact_button {
+    
 }
 
-.contact_button {
-    height: 70px;
-    padding: 12px;
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--white-color);
-    background-color: var(--main-color);
-    border: none;
-    border-radius: var(--radius);
-    cursor: pointer;
+.contact_button:hover,
+.contact_button:focus {
+
+}
+
+
+
+/* MODAL */
+#contact_modal {
+    display: none;
 }
 
 .modal {

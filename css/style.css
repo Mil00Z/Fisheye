@@ -37,6 +37,29 @@ body {
     margin:0 auto;
 }
 
+.links{
+
+    cursor: pointer;
+}
+
+.cta-button {
+    width: fit-content;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: 6 00;
+    color: var(--white-color);
+    border: none;
+    border-radius: var(--radius);
+    background-color: var(--main-color);
+    transition: var(--regTransi);
+    cursor: pointer;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+    color: var(--black-color);
+    background-color: var(--third-color);
+}
 
 header {
     display: flex;
