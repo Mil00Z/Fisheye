@@ -58,7 +58,7 @@ function displayHeader(photographerDatas) {
 
     const {name,city,country,tagline,portrait,price,id} = photographerDatas;
 
-    const photographerPageHeader = document.querySelector('.photograph-header');
+    const photographerPageHeader = document.querySelector('.photographer_header');
 
     photographerPageHeader.innerHTML = `
     <div class="header-left">
@@ -67,10 +67,10 @@ function displayHeader(photographerDatas) {
         <span class="photographer-tagline">${tagline}</span>
     </div> 
     <div class="header-middle">
-        <button class="contact_button" data-target="${name}" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" title="contact ${name}" onclick="displayModal()">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
-        <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Photographer ${name}">
+        <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
     </div>`
 
 }
@@ -79,45 +79,65 @@ function displayMedia(photographerMedia) {
 
     const photographerPageMedia = document.querySelector('.photographer_media');
 
-    for (const mediaElement in photographerMedia) {
+    for (let mediaElement in photographerMedia) {
 
-        let objectData = photographerMedia[mediaElement];
-        const assetPath = `../assets/photographers/${objectData.video}` ?? `../assets/photographers/${objectData.image}`;
+        let {id,title,image,video,likes,date,price} = photographerMedia[mediaElement];
 
-        console.log(objectData);
+        console.log(photographerMedia[mediaElement]);
+
+        const assetPath = `../assets/photographers`;
 
         const article = document.createElement( 'a' );
             article.classList.add('card','card-media-photographer');
-            article.setAttribute('href',`./media.html?id=${objectData.id}`);
-            article.setAttribute('aria-label',`Lien vers la page du média ${objectData.title}`);
-            article.dataset.mediaId = `${objectData.id}`;
+            article.setAttribute('href',`./media.html?id=${id}`);
+            article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
+            article.dataset.mediaId = `${id}`;
+            article.dataset.pricing = `${price}`;
 
-            const mediaAssets = document.createElement( 'video' );
-            mediaAssets.classList.add('photographer-media-video');
-            mediaAssets.setAttribute("src", assetPath);
 
+        let mediaAssets;
+
+            if(video) {
+
+                mediaAssets = document.createElement( 'video' );
+            } else {
+                 mediaAssets = document.createElement( 'img' );
+            }
+
+            mediaAssets.classList.add('photographer-media-assets');
+            mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
+            mediaAssets.dataset.release = `${date}`;
+
+            const mediaTexts = document.createElement('div');
+            mediaTexts.classList.add('photographer-media-bottom');
+            
             const mediaTitle = document.createElement( 'h2' );
             mediaTitle.classList.add('photographer-media-title')
-            mediaTitle.textContent = `${objectData.title}`;
+            mediaTitle.textContent = `${title}`;
             
+
             const mediaLikes = document.createElement('span');
             mediaLikes.classList.add('photographer-media-likes');
-            mediaLikes.textContent = `${objectData.likes} personnes ont ❤`;
+            mediaLikes.textContent = `${likes} ❤`;
+
+            mediaTexts.append(mediaTitle,mediaLikes);
+
 
             const mediaDate = document.createElement('span');
             mediaDate.classList.add('photographer-media-date');
-            mediaDate.textContent = `${objectData.date}`;
+            mediaDate.textContent = `${date}`;
+
 
             const mediaPricing = document.createElement('p');
             mediaPricing.classList.add('photographer-pricing');
-            mediaPricing.textContent = `${objectData.price} euros`;
+            mediaPricing.textContent = `${price} euros`;
+
 
             //Push data in Target Element
-            article.append(mediaAssets,mediaTitle,mediaPricing,mediaDate,mediaLikes);
+            article.append(mediaAssets,mediaTexts);
 
             // Push Target Element in DOM
             photographerPageMedia.append(article);
-            
     }
 
     

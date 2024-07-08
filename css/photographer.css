@@ -1,8 +1,7 @@
-#contact_modal {
-    display: none;
-}
 
-.photograph-header {
+.photographer{}
+
+.photographer_header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,9 +40,22 @@
     transition: var(--regTransi);
 }
 
-.photograph-header .header-right:hover::after{
+.photographer_header .header-right:hover::after{
     --op:.75;
     opacity:1;
+}
+
+.photographer .photographer-name {
+    font-size:4rem;
+}
+
+.photographer .photographer-city {
+    font-size: 1.5rem;
+}
+
+.photographer .photographer-tagline {
+    font-size:1.25rem;
+    color:var(--grey-dark);
 }
 
 .photographer_media {
@@ -57,14 +69,13 @@
 }
 
 .card-media-photographer {
-    width: 320px;
-    padding: 1rem;
+    width: 350px;
     font-size:1.2rem;
     color:var(--black-color);
-    border-radius: var(--radius);
-    border:2px solid var(--second-color);
     text-decoration: none;
     position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
 }
 
 .card-media-photographer:hover,
@@ -73,14 +84,18 @@
     box-shadow:3px 3px 9px rgba(0,0,0,.15);
 }
 
-.photographer-media-title {
-    margin-block:0;
-    text-align: center;
-}
 
 .photographer-media-date {
     margin-block:.6rem;
     font-size:.85rem;
+}
+
+.photographer-media-assets {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    background:var(--main-color);
 }
 
 .photographer-media-pricing {
@@ -89,8 +104,24 @@
     color: var(--pricing-color);
   }
 
+.photographer-media-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding:.55rem;
+}
+
+.photographer-media-title {
+    margin-block:0;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--main-color);
+}
+
+
 .photographer-media-likes {
-    display: block;
+    /* display: block;
     padding:.35rem;
     position:absolute;
     bottom: -20px;
@@ -98,12 +129,16 @@
     transform: translateX(-50%);
     background: var(--second-color);
     color:var(--white-color);
-    border-radius: var(--radius);
-    font-size:1rem;
+    border-radius: var(--radius);*/
+    font-size:1rem; 
 }
 
 
 /* MODAL */
+
+#contact_modal {
+    display: none;
+}
 
 .contact_button {
     height: 70px;
