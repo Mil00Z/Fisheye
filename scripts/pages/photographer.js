@@ -118,7 +118,7 @@ function displayMedia(photographerMedia) {
 
             const mediaLikes = document.createElement('span');
             mediaLikes.classList.add('photographer-media-likes');
-            mediaLikes.textContent = `${likes} ❤`;
+            mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart"></i>`;
 
             mediaTexts.append(mediaTitle,mediaLikes);
 

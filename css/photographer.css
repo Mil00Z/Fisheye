@@ -121,16 +121,10 @@
 
 
 .photographer-media-likes {
-    /* display: block;
-    padding:.35rem;
-    position:absolute;
-    bottom: -20px;
-    left:50%;
-    transform: translateX(-50%);
-    background: var(--second-color);
-    color:var(--white-color);
-    border-radius: var(--radius);*/
     font-size:1rem; 
+}
+.photographer-media-likes > i.fa-heart {
+    color:var(--main-color);
 }
 
 
