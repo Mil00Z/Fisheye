@@ -127,6 +127,33 @@
     color:var(--main-color);
 }
 
+.photographer_more {
+    --gap:1.2rem;
+    position: fixed;
+    bottom:0;
+    right:8dvw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: var(--gap);
+    padding:.4rem;
+    font-size:1.25rem;
+    font-weight:500;
+    background:var(--third-color);
+    border-radius: var(--radius);
+    color:var(--black-color);
+}
+
+.photographer_more .photographer-likes {
+
+}
+
+.photographer_more .photographer-pricing {
+    margin-block:0;
+    font-size:1.25rem;
+    color:var(--black-color);
+}
+
 
 /* MODAL */
 

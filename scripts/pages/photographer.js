@@ -48,6 +48,7 @@ async function init() {
     // Display All of Datas Page
     displayHeader(currentPhotographerData);
     displayMedia(currentPhotographerMedia);
+    displayFooter(currentPhotographerData,currentPhotographerMedia);
 
 
     //MODAL Treatment
@@ -128,16 +129,16 @@ function displayMedia(photographerMedia) {
             mediaDate.textContent = `${date}`;
 
 
-            const mediaPricing = document.createElement('p');
-            mediaPricing.classList.add('photographer-pricing');
-            mediaPricing.textContent = `${price} euros`;
-
+            // const mediaPricing = document.createElement('p');
+            // mediaPricing.classList.add('photographer-pricing');
+            // mediaPricing.textContent = `${price} euros`;
 
             //Push data in Target Element
             article.append(mediaAssets,mediaTexts);
 
             // Push Target Element in DOM
             photographerPageMedia.append(article);
+            
     }
 
     
@@ -153,6 +154,41 @@ function displayMedia(photographerMedia) {
 
     //     photographerPageMedia.append(mediaCardDOM)
     // });
+
+}
+
+function displayFooter(photographerDatas,photographerMediaDatas) {
+
+    const {price} = photographerDatas;
+    const {likes} = photographerMediaDatas;
+
+    const photographerMoreMedia = document.querySelector('.photographer_more');
+
+    // Get SUm of Likes Globally
+    let likesSum = 0;
+
+    photographerMediaDatas.forEach((element) => {
+        
+         likesSum += element.likes ;
+        
+    });
+
+    // const likesSum = Object.values(photographerMediaDatas).reduce((acc,curr) =>{
+
+    //         return acc.likes + curr.likes; 
+
+    // },0);
+
+    // Display Values
+    photographerMoreMedia.innerHTML = `
+    <div class="photographer-likes">
+    ${likesSum} <i class="fa-solid fa-heart"></i>
+    </div>
+    <div class="photographer-pricing"> 
+        ${price} $ / jour
+    </div> `;
+
+    // document.body.append(photographerMoreMedia);
 
 }
 
