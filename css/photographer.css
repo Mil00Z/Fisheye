@@ -1,5 +1,7 @@
 
-.photographer{}
+.photographer{
+    --modal-display-duration: .45s;
+}
 
 .photographer_header {
     display: flex;
@@ -167,59 +169,118 @@
 
 /* MODAL */
 #contact_modal {
+    position: fixed;
+    inset:0;
+    width: 100%;
+    height: 100%;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color: rgba(211, 87, 60, .4);
 }
 
 .modal {
     display: flex;
+    width: 33%;
+    min-height: 50dvh;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
-    margin: auto;
-    padding: 2rem;
+    row-gap: 1.5rem;
+    padding: 1.5rem;
     border-radius: var(--radius);
-    background-color: var(--second-color);
+    background-color: var(--third-color);
+    transition: var(--regTransi);
+    animation: modalopening var(--modal-display-duration) ease-in-out;
+    /* animation-name: modalopening;
+    animation-duration: var(--modal-display-duration); */
 }
 
 .modal header {
     width: 100%;
+    height: fit-content;
+    display: flex;
     justify-content: space-between;
+    align-items: start;
 }
 
-.modal header img {
+.modal-closer {
     cursor: pointer;
 }
 
-.modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+.modal-closer:hover {
+    transform: rotate(180deg);
 }
 
-form {
+
+.modal-title {
+    display: flex;
+    flex-direction: column;
+    margin-block:0;
+    font-size: 3rem;
+    font-weight: normal;
+    text-align: left;
+}
+
+.modal-photographer-name{
+
+}
+
+.modal-content {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+
 }
 
 form label {
     color: #312E2E;
-    font-size: 36px;
+    font-size: 2rem;
 }
 
-form div {
+form .form-group {
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
+    margin-bottom: 2rem;
 }
 
 form input {
-    width: 100%;
-    height: 68px;
+    height: 60px;
+    padding:.5rem 1rem;
+    font-size:1rem;
+    color:var(--black-color);
     border: none;
     border-radius:var(--radius);
+    font-weight:bolder;
+}
+
+form input::placeholder {
+    font-size:1rem;
+    color:var(--grey-color);
+}
+
+form textarea {
+    width: 100%;
+    height:120px;
+    font-size:1rem;
+    color:var(--black-color);
+    font-weight:bolder;
+    border: none;
+    border-radius:var(--radius);
+    resize: none;
+}
+
+@keyframes modalopening{
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    to  {
+        opacity: 1;
+    }
 }

@@ -1,4 +1,5 @@
-import {photographerMediaTemplate} from "../templates/photographerMedia.js";
+// import {photographerMediaTemplate} from "../templates/photographerMedia.js";
+import {dataInModal} from "../utils/contactForm.js";
 
 // let currentPhotographerMedia = {};
 
@@ -50,9 +51,8 @@ async function init() {
     displayMedia(currentPhotographerMedia);
     displayFooter(currentPhotographerData,currentPhotographerMedia);
 
+    dataInModal(currentPhotographerData);
 
-    //MODAL Treatment
-    // document.querySelector('.modal-photographer-name').textContent = currentPhotographerData.name;
 }
 
 function displayHeader(photographerDatas) {
@@ -68,7 +68,7 @@ function displayHeader(photographerDatas) {
         <span class="photographer-tagline">${tagline}</span>
     </div> 
     <div class="header-middle">
-        <button class="cta-button contact_button" title="contact ${name}" onclick="displayModal()">Contactez-moi</button>
+        <button class="cta-button modal-trig-button" title="contact ${name}">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
         <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
@@ -84,7 +84,8 @@ function displayMedia(photographerMedia) {
 
         let {id,title,image,video,likes,date,price} = photographerMedia[mediaElement];
 
-        console.log(photographerMedia[mediaElement]);
+        //check Any datas of media
+        // console.log(photographerMedia[mediaElement]);
 
         const assetPath = `../assets/photographers`;
 
