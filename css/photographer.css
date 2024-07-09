@@ -1,5 +1,9 @@
 
-.photographer{}
+.photographer{
+    --main-color-rgb:144, 28, 28;
+    --second-color-rgb:211, 87, 60;
+    --modal-display-duration: .55s;
+}
 
 .photographer_header {
     display: flex;
@@ -130,13 +134,13 @@
 .photographer_more {
     --gap:1.2rem;
     position: fixed;
-    bottom:0;
-    right:8dvw;
+    bottom:-5px;
+    right:4dvw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     column-gap: var(--gap);
-    padding:.4rem;
+    padding:.5rem;
     font-size:1.25rem;
     font-weight:500;
     background:var(--third-color);
@@ -167,59 +171,136 @@
 
 /* MODAL */
 #contact_modal {
+    position: fixed;
+    inset:0;
+    width: 100%;
+    height: 100%;
     display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    /* background-color: rgba(var(--main-color-rgb), .4); */
+    animation: backgroundModal .25s ease-in-out forwards;
+    transition: all .1s ease-in-out;
 }
 
 .modal {
     display: flex;
+    width: 30%;
+    min-height: 50dvh;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    width: 50%;
-    margin: auto;
-    padding: 2rem;
+    row-gap: 1.5rem;
+    padding: 1.5rem;
     border-radius: var(--radius);
-    background-color: var(--second-color);
+    background-color: var(--third-color);
+    transition: var(--regTransi);
+    animation: modalOpening var(--modal-display-duration) ease-in-out forwards;
+
 }
 
 .modal header {
     width: 100%;
+    height: fit-content;
+    display: flex;
     justify-content: space-between;
+    align-items: start;
+    line-height: 1;
 }
 
-.modal header img {
+.modal-closer {
     cursor: pointer;
 }
 
-.modal header h2 {
-    font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+.modal-closer:hover {
+    transform: rotate(180deg);
 }
 
-form {
+
+.modal-title {
+    display: flex;
+    flex-direction: column;
+    margin-block:0;
+    font-size: 3rem;
+    font-weight: normal;
+    text-align: left;
+}
+
+.modal-photographer-name{
+    color:var(--white-color);
+    font-weight: bolder;
+}
+
+.modal-content {
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+
 }
 
 form label {
     color: #312E2E;
-    font-size: 36px;
+    font-size: 1.85rem;
 }
 
-form div {
+form .form-group {
     display: flex;
     flex-direction: column;
     width: 100%;
-    align-items: self-start;
-    margin-bottom: 26px;
+    margin-bottom: .8rem;
 }
 
 form input {
-    width: 100%;
-    height: 68px;
+    height: 60px;
+    padding:.5rem 1rem;
+    font-size:1.2rem;
+    color:var(--black-color);
     border: none;
     border-radius:var(--radius);
+    font-weight:bolder;
+}
+
+form input::placeholder {
+    font-size:1.1rem;
+    color:var(--grey-color);
+}
+
+form textarea {
+    width: 100%;
+    height:120px;
+    font-size:1.2rem;
+    color:var(--black-color);
+    font-weight:bolder;
+    border: none;
+    border-radius:var(--radius);
+    resize: none;
+}
+
+
+/* Keyframes */
+@keyframes backgroundModal {
+
+    from {
+        background:none;
+    }
+
+    to {
+        background-color: rgba(0,0,0,.4);
+        backdrop-filter: blur(5px);
+    }
+
+}
+
+@keyframes modalOpening{
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    to  {
+        opacity: 1;
+    }
 }
