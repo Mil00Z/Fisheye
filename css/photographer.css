@@ -198,7 +198,6 @@
     background-color: var(--third-color);
     transition: var(--regTransi);
     animation: modalOpening var(--modal-display-duration) ease-in-out forwards;
-
 }
 
 .modal header {
