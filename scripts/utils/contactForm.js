@@ -36,13 +36,13 @@ document.querySelector(`${submitModal}`).addEventListener('click',(e) => {
 
 
 // Functions
-function displayModal(target) {
+export function displayModal(target) {
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
 }
 
 
-function closeModal(target) {
+export function closeModal(target) {
     const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
 }
