@@ -28,6 +28,7 @@ async function getPhotographerMedias(currentId) {
     return mediaFiltered;
 }
 
+
 function getPhotographerId() {
 
     let urlParams = new URLSearchParams(window.location.search);
@@ -37,6 +38,8 @@ function getPhotographerId() {
     return photographerId;
 
 }
+
+
 
 async function init() {
 
@@ -48,12 +51,16 @@ async function init() {
 
     // Display All of Datas Page
     displayHeader(currentPhotographerData);
+
     displayMedia(currentPhotographerMedia);
+
     displayFooter(currentPhotographerData,currentPhotographerMedia);
 
     dataInModal(currentPhotographerData);
 
 }
+
+
 
 function displayHeader(photographerDatas) {
 
@@ -75,6 +82,8 @@ function displayHeader(photographerDatas) {
     </div>`
 
 }
+
+
 
 function displayMedia(photographerMedia) {
 
@@ -142,8 +151,6 @@ function displayMedia(photographerMedia) {
             
     }
 
-    
-    
 
     // photographerMedia.forEach((media) => {
 
@@ -157,6 +164,7 @@ function displayMedia(photographerMedia) {
     // });
 
 }
+
 
 function displayFooter(photographerDatas,photographerMediaDatas) {
 
@@ -189,9 +197,10 @@ function displayFooter(photographerDatas,photographerMediaDatas) {
         ${price} $ / jour
     </div> `;
 
-    // document.body.append(photographerMoreMedia);
-
 }
+
+
+
 
 //CALL Major function
 init();

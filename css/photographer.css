@@ -1,6 +1,8 @@
 
 .photographer{
-    --modal-display-duration: .45s;
+    --main-color-rgb:144, 28, 28;
+    --second-color-rgb:211, 87, 60;
+    --modal-display-duration: .55s;
 }
 
 .photographer_header {
@@ -132,13 +134,13 @@
 .photographer_more {
     --gap:1.2rem;
     position: fixed;
-    bottom:0;
-    right:8dvw;
+    bottom:-5px;
+    right:4dvw;
     display: flex;
     justify-content: space-between;
     align-items: center;
     column-gap: var(--gap);
-    padding:.4rem;
+    padding:.5rem;
     font-size:1.25rem;
     font-weight:500;
     background:var(--third-color);
@@ -178,12 +180,14 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-    background-color: rgba(211, 87, 60, .4);
+    /* background-color: rgba(var(--main-color-rgb), .4); */
+    animation: backgroundModal .25s ease-in-out forwards;
+    transition: all .1s ease-in-out;
 }
 
 .modal {
     display: flex;
-    width: 33%;
+    width: 30%;
     min-height: 50dvh;
     flex-direction: column;
     align-items: center;
@@ -193,9 +197,8 @@
     border-radius: var(--radius);
     background-color: var(--third-color);
     transition: var(--regTransi);
-    animation: modalopening var(--modal-display-duration) ease-in-out;
-    /* animation-name: modalopening;
-    animation-duration: var(--modal-display-duration); */
+    animation: modalOpening var(--modal-display-duration) ease-in-out forwards;
+
 }
 
 .modal header {
@@ -204,6 +207,7 @@
     display: flex;
     justify-content: space-between;
     align-items: start;
+    line-height: 1;
 }
 
 .modal-closer {
@@ -225,7 +229,8 @@
 }
 
 .modal-photographer-name{
-
+    color:var(--white-color);
+    font-weight: bolder;
 }
 
 .modal-content {
@@ -238,20 +243,20 @@
 
 form label {
     color: #312E2E;
-    font-size: 2rem;
+    font-size: 1.85rem;
 }
 
 form .form-group {
     display: flex;
     flex-direction: column;
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: .8rem;
 }
 
 form input {
     height: 60px;
     padding:.5rem 1rem;
-    font-size:1rem;
+    font-size:1.2rem;
     color:var(--black-color);
     border: none;
     border-radius:var(--radius);
@@ -259,14 +264,14 @@ form input {
 }
 
 form input::placeholder {
-    font-size:1rem;
+    font-size:1.1rem;
     color:var(--grey-color);
 }
 
 form textarea {
     width: 100%;
     height:120px;
-    font-size:1rem;
+    font-size:1.2rem;
     color:var(--black-color);
     font-weight:bolder;
     border: none;
@@ -274,7 +279,22 @@ form textarea {
     resize: none;
 }
 
-@keyframes modalopening{
+
+/* Keyframes */
+@keyframes backgroundModal {
+
+    from {
+        background:none;
+    }
+
+    to {
+        background-color: rgba(0,0,0,.4);
+        backdrop-filter: blur(5px);
+    }
+
+}
+
+@keyframes modalOpening{
     from {
         opacity: 0;
         transform: translateY(100%);

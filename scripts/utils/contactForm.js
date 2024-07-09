@@ -4,23 +4,22 @@ if(document.querySelector('.modal-closer')) {
 
         closer.addEventListener('click',() => {
 
-            closeModal();
+            closeModal('#contact_modal');
 
-            console.log('allo Close');
+            console.log('Close Modal');
 
         });
 }
 
+if (document.querySelector('.photographer_header')) {
 
-if (document.querySelector('.modal-trig-button')) {
-
-    let opener = document.querySelector('.modal-trig-button');
+    let opener = document.querySelector('.photographer_header');
 
     opener.addEventListener('click',()=> {
 
-        displayModal();
+        displayModal('#contact_modal');
 
-        console.log('allo Display');
+        console.log('Display Modal');
 
     });
 }
@@ -36,22 +35,21 @@ document.querySelector(`${submitModal}`).addEventListener('click',(e) => {
 })
 
 
-
-
-
 // Functions
-function displayModal() {
-    const modal = document.querySelector("#contact_modal");
+function displayModal(target) {
+    const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
 }
 
 
-function closeModal() {
-    const modal = document.querySelector("#contact_modal");
+function closeModal(target) {
+    const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
 }
 
 function formModalDatas(formTarget) {
+
+    // console.log(`${formTarget}`);
 
     const formDatas = new FormData(document.querySelector(`${formTarget}`));
 
