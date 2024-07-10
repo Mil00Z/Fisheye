@@ -219,13 +219,14 @@ function displayFooter(photographerDatas,photographerMediaDatas) {
         
     });
 
-    // const likesSum2 = photographerMediaDatas.reduce((acc,curr) =>{
+    const likesSum2 = photographerMediaDatas.reduce((acc,curr) =>{
 
-    //         return acc + curr.likes ; 
+            return acc + curr.likes ; 
 
-    // },0);
+    },0);
     // console.log('reduce',likesSum2);
 
+    
     // Display Values
     photographerMoreMedia.innerHTML = `
     <div class="photographer-likes">
