@@ -103,9 +103,6 @@ function displayMedia(photographerMedia) {
 
         let {id,title,image,video,likes,date,price} = photographerMedia[mediaElement];
 
-        //check Any datas of media
-        // console.log(photographerMedia[mediaElement]);
-
         const assetPath = `../assets/photographers`;
 
         const article = document.createElement( 'a' );
@@ -116,12 +113,11 @@ function displayMedia(photographerMedia) {
             article.dataset.pricing = `${price}`;
 
 
-            // article.addEventListener("click",()=>{
+            article.addEventListener("click",()=>{
 
-            //     // console.log(article.dataset.mediaId);
-            //     openLightBox(photographerMedia,id);
+                openLightBox(photographerMedia,id);
 
-            // });
+            });
 
 
         let mediaAssets;
@@ -187,21 +183,16 @@ function displayMedia(photographerMedia) {
 }
 
 
-// function openLightBox(mediaArray,mediaId) {
+function openLightBox(mediaArray,mediaId) {
 
-//     console.log('********************');
+    // const currentMedia = mediaArray.find((m) => m.id == mediaId);
+    // console.log(currentMedia);
 
-//     const currentMedia = mediaArray.find((m) => m.id == mediaId);
+    let currentIndex = mediaArray.findIndex((m) => m.id == mediaId); 
+    const currentMedia2 = mediaArray[currentIndex];
+    console.log('données de lélèment courant clické', currentMedia2);
 
-//     let currentIndex = mediaArray.findIndex((m) => m.id == mediaId); 
-
-//     const currentMedia2 = mediaArray[currentIndex];
-
-//     console.log(currentMedia);
-
-//     console.log('****',currentMedia2);
-
-// }
+}
 
 function displayFooter(photographerDatas,photographerMediaDatas) {
 
@@ -226,7 +217,7 @@ function displayFooter(photographerDatas,photographerMediaDatas) {
     },0);
     // console.log('reduce',likesSum2);
 
-    
+
     // Display Values
     photographerMoreMedia.innerHTML = `
     <div class="photographer-likes">
