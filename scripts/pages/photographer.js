@@ -1,5 +1,5 @@
 // import {photographerMediaTemplate} from "../templates/photographerMedia.js";
-import {dataInModal} from "../utils/contactForm.js";
+import {displayModal,closeModal,dataInModal} from "../utils/contactForm.js";
 
 // let currentPhotographerMedia = {};
 
@@ -79,7 +79,17 @@ function displayHeader(photographerDatas) {
     </div>
     <div class="header-right" data-text="${price} euros / jour">
         <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
-    </div>`
+    </div>`;
+
+    const btnContactModal = document.querySelector('.modal-trig-button');
+
+    btnContactModal.addEventListener('click',()=> {
+
+        displayModal('#contact_modal');
+
+        // console.log('Display Modal');
+
+    });
 
 }
 
@@ -106,6 +116,14 @@ function displayMedia(photographerMedia) {
             article.dataset.pricing = `${price}`;
 
 
+            // article.addEventListener("click",()=>{
+
+            //     // console.log(article.dataset.mediaId);
+            //     openLightBox(photographerMedia,id);
+
+            // });
+
+
         let mediaAssets;
 
             if(video) {
@@ -118,6 +136,9 @@ function displayMedia(photographerMedia) {
             mediaAssets.classList.add('photographer-media-assets');
             mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
             mediaAssets.dataset.release = `${date}`;
+
+
+            
 
             const mediaTexts = document.createElement('div');
             mediaTexts.classList.add('photographer-media-bottom');
@@ -166,6 +187,22 @@ function displayMedia(photographerMedia) {
 }
 
 
+// function openLightBox(mediaArray,mediaId) {
+
+//     console.log('********************');
+
+//     const currentMedia = mediaArray.find((m) => m.id == mediaId);
+
+//     let currentIndex = mediaArray.findIndex((m) => m.id == mediaId); 
+
+//     const currentMedia2 = mediaArray[currentIndex];
+
+//     console.log(currentMedia);
+
+//     console.log('****',currentMedia2);
+
+// }
+
 function displayFooter(photographerDatas,photographerMediaDatas) {
 
     const {price} = photographerDatas;
@@ -182,11 +219,12 @@ function displayFooter(photographerDatas,photographerMediaDatas) {
         
     });
 
-    // const likesSum = Object.values(photographerMediaDatas).reduce((acc,curr) =>{
+    // const likesSum2 = photographerMediaDatas.reduce((acc,curr) =>{
 
-    //         return acc.likes + curr.likes; 
+    //         return acc + curr.likes ; 
 
     // },0);
+    // console.log('reduce',likesSum2);
 
     // Display Values
     photographerMoreMedia.innerHTML = `
@@ -196,7 +234,6 @@ function displayFooter(photographerDatas,photographerMediaDatas) {
     <div class="photographer-pricing"> 
         ${price} $ / jour
     </div> `;
-
 }
 
 
