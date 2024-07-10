@@ -161,7 +161,7 @@ function displayMedias(photographerMedia) {
 
                 console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
 
-                setModalMedia('.modal-content',currentMediaDatas);
+                setModalMedia('#media_modal .modal-content',currentMediaDatas);
 
                 //Finally
                 displayModal('#media_modal');
@@ -186,15 +186,24 @@ function setModalMedia(target,currentMedia) {
 
     const {title,image,likes,date,price,id,photographerId} = currentMedia;
 
+
     let modalItem = document.createElement('article');
-    modalItem.classList.add('debeug');
-    modalItem.innerHTML= `
-        <div>${title}</div>
-        <img src="../assets/photographers/${image}">
+    
+    //pas meilleur moyen efficace de récupérer le nom sans faire un traitement "lourd" sur jeux de données croisées
+    // => exemple de pk certaines querySelector sur des elements crées peuvent etre utiles
+    let name = document.querySelector('.photographer-name').textContent;
+    modalItem.classList.add('modal-item');
+    modalItem.dataset.mediaId = `${id}`;
+
+    // modalItem.style.setProperty('background-image',`url(../assets/photographers/${image})`);
+
+    modalItem.innerHTML = `
+        <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>
     `;
 
+   
+    
     elementTarget.append(modalItem);
-
 }
 
 
