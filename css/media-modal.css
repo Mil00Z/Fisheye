@@ -21,20 +21,53 @@
 
 .modal-body {
     display: flex;
-    width: 75%;
+    width: 85%;
     height: 75dvh;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
     row-gap: 1.5rem;
     padding: 3rem;
     border-radius: var(--radius);
-    background-color: var(--third-color);
+    background-color: var(--black-color);
     transition: var(--regTransi);
     overflow-x:hidden;
     overflow-y:scroll;
     /* animation: modalOpening var(--modal-display-duration) ease-in-out forwards; */
     position: relative;
+}
+
+.wip {
+    flex-flow:row wrap;
+    justify-content: space-evenly;
+    align-items: start;
+}
+
+.modal-content {
+    width:40%;
+    background:var(--white-color);
+}
+
+.modal-content img,
+.modal-content video {
+    max-width:100%;
+    height: auto;
+    object-fit: cover;
+
+}
+
+.modal-all-content {
+    display: flex;
+    flex-wrap: wrap;
+    width:40%;
+    gap:10px;
+    padding: 1rem;
+    background:var(--white-color);
+}
+
+.modal-all-content .player-item {
+   width:200px;
 }
 
 

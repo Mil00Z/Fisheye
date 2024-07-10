@@ -100,7 +100,7 @@ function displayMedia(photographerMedia) {
 
         const article = document.createElement( 'a' );
             article.classList.add('card','card-media-photographer');
-            article.setAttribute('href',`./media.html?id=${id}`);
+            article.setAttribute('href',`#media_modal`);
             article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
             article.dataset.mediaId = `${id}`;
             article.dataset.pricing = `${price}`;

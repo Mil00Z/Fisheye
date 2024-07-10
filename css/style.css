@@ -38,6 +38,10 @@ body {
     margin:0 auto;
 }
 
+.debeug {
+    outline:4px dotted #FF00FF;
+}
+
 .links{
     cursor: pointer;
 }

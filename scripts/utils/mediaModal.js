@@ -1,8 +1,11 @@
 import {displayModal,closeModal} from "../utils/contactForm.js";
 
+// this query work because element is already in HTML
 const layoutMedia = document.querySelector('.photographer_media');
 
+// this query doesn't work beacause (JS injection ?)
 const sniffedMutation = document.querySelector('.card-media-photographer');
+
 
 //Create Array Of Elements injected In DOM but not Targetable here
 let arrayMedias=[];
@@ -23,28 +26,49 @@ let observer = new MutationObserver((mutations) => {
                         console.warn('Element is No Trigger in script but exist in DOM ?!? WTF');
                     }
 
-                    displayModalDatas(addedNodeMedia);
+                    //Get Set All Datas cloned to Modal BODY
+                    pushClonedDatasModal(addedNodeMedia);
+
+                    //Update Array of Nodes added before to select them after
+                    arrayMedias.push(addedNodeMedia);
 
                 });
         }
 
-        
+        console.log('array media',arrayMedias);
         // Recreate List of Elements
-        let allCardsMedia = document.querySelectorAll('.card-media-photographer');
-        // arrayMedias.push();
+        // let allCardsMedia = document.querySelectorAll('.card-media-photographer');
+        
+        arrayMedias.forEach((item) => {
 
-        allCardsMedia.forEach((item) => {
-
-            item.addEventListener('mouseover',() => {
-
+            item.addEventListener('click',() => {
+                
                 let assetsPath = item.querySelector('.photographer-media-assets').getAttribute('src');
 
-                let imgModal = document.createElement('img');
-                imgModal.setAttribute('src',assetsPath);
+                let assetsModal;
+                if (assetsPath.includes('.mp4')){
 
-                document.querySelector('.modal-body').append(imgModal);
+                   assetsModal = document.createElement('video');
 
-        
+                } else {
+
+                    assetsModal = document.createElement('img');
+                }
+
+                assetsModal.setAttribute('src',assetsPath);
+
+
+                let itemModal = document.createElement('div');
+                itemModal.classList.add('.player-item');
+
+                // Create Single
+                itemModal.append(assetsModal);
+
+                //Push Item in DOM
+                document.querySelector('.modal-body .modal-content').append(assetsModal);
+
+                //Finally
+                displayModal('#media_modal');
             });
 
         })
@@ -68,11 +92,12 @@ observer.observe(layoutMedia,{childList: true});
 
 
 // Trigger Modal Media
-let modalMediaTrigger = document.querySelector('.photographer_media');
-modalMediaTrigger.addEventListener('click',() =>{
-    // console.log(e);
-    displayModal('#media_modal');
- });
+// let modalMediaTrigger = document.querySelector('.photographer_media');
+
+// modalMediaTrigger.addEventListener('click',() =>{
+//     // console.log(e);
+//     displayModal('#media_modal');
+//  });
 
  if(document.querySelector('#media_modal .modal-closer')) {
    
@@ -84,7 +109,7 @@ modalMediaTrigger.addEventListener('click',() =>{
 
  }
 
-function displayModalDatas(targetNode){
+function pushClonedDatasModal(targetNode){
 
     let cardId = targetNode.getAttribute('data-media-id');
 
@@ -93,7 +118,9 @@ function displayModalDatas(targetNode){
 
     let cardTitle = targetNode.querySelector('.photographer-media-title').textContent;
     
-    // console.log(cardId,cardAssets,cardTitle);
+    console.log(cardId,cardAssets,cardTitle);
+
+  
 
     let newDataModal = document.createElement('article');
     newDataModal.classList.add('player-item');
@@ -104,7 +131,7 @@ function displayModalDatas(targetNode){
     newDataModal.append(cardAssetsCopy);
 
     //Push Node on DOM
-    document.querySelector('#media_modal .modal-body').append(newDataModal);
+    document.querySelector('#media_modal .modal-all-content').append(newDataModal);
 
 }
 
