@@ -27,26 +27,26 @@ document.querySelector(`${submitModal}`).addEventListener('click',(e) => {
 export function displayModal(target) {
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
+    // console.log('modal IN');
 }
 
 
 export function closeModal(target) {
     const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
+    // console.log('modal OUT');
 }
 
-function formModalDatas(formTarget) {
 
-    // console.log(`${formTarget}`);
+function formModalDatas(formTarget) {
 
     const formDatas = new FormData(document.querySelector(`${formTarget}`));
 
     console.log('Données du Form',formDatas);
 }
 
-export function dataInModal(dataPhotographer) {
+export function dataInContactModal(dataPhotographer) {
 
-    //MODAL Treatment
     document.querySelector('.modal-photographer-name').textContent = dataPhotographer.name; 
 
 }
