@@ -1,5 +1,5 @@
 // import {photographerMediaTemplate} from "../templates/photographerMedia.js";
-import {displayModal,closeModal,dataInModal} from "../utils/contactForm.js";
+import {displayModal,closeModal,dataInContactModal} from "../utils/contactForm.js";
 
 // let currentPhotographerMedia = {};
 
@@ -40,7 +40,6 @@ function getPhotographerId() {
 }
 
 
-
 async function init() {
 
     // const currentPhotographerId = getPhotographerId();
@@ -52,14 +51,13 @@ async function init() {
     // Display All of Datas Page
     displayHeader(currentPhotographerData);
 
-    displayMedia(currentPhotographerMedia);
+    displayMedias(currentPhotographerMedia);
 
     displayFooter(currentPhotographerData,currentPhotographerMedia);
 
-    dataInModal(currentPhotographerData);
+    dataInContactModal(currentPhotographerData);
 
 }
-
 
 
 function displayHeader(photographerDatas) {
@@ -93,9 +91,7 @@ function displayHeader(photographerDatas) {
 
 }
 
-
-
-function displayMedia(photographerMedia) {
+function displayMedias(photographerMedia) {
 
     const photographerPageMedia = document.querySelector('.photographer_media');
 
@@ -113,13 +109,7 @@ function displayMedia(photographerMedia) {
             article.dataset.pricing = `${price}`;
 
 
-            article.addEventListener("click",()=>{
-
-                openLightBox(photographerMedia,id);
-
-            });
-
-
+        
         let mediaAssets;
 
             if(video) {
@@ -132,9 +122,6 @@ function displayMedia(photographerMedia) {
             mediaAssets.classList.add('photographer-media-assets');
             mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
             mediaAssets.dataset.release = `${date}`;
-
-
-            
 
             const mediaTexts = document.createElement('div');
             mediaTexts.classList.add('photographer-media-bottom');
@@ -165,32 +152,61 @@ function displayMedia(photographerMedia) {
 
             // Push Target Element in DOM
             photographerPageMedia.append(article);
+
+
+            // Create Event after Element in same context
+            article.addEventListener("click",()=>{
+
+                let currentMediaDatas = getCurrentMedia(photographerMedia,id);
+
+                console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
+
+                setModalMedia('.modal-content',currentMediaDatas);
+
+                //Finally
+                displayModal('#media_modal');
+
+            });
             
     }
 
 
     // photographerMedia.forEach((media) => {
-
     //     console.log(media);
-        
     //     const mediaModel = photographerMediaTemplate(media);
-
     //     const mediaCardDOM = mediaModel.getMediaCardDOM()
-
     //     photographerPageMedia.append(mediaCardDOM)
     // });
+}
+
+function setModalMedia(target,currentMedia) {
+
+    // Target element for Injection
+    let elementTarget = document.querySelector(`${target}`);
+
+    const {title,image,likes,date,price,id,photographerId} = currentMedia;
+
+    let modalItem = document.createElement('article');
+    modalItem.classList.add('debeug');
+    modalItem.innerHTML= `
+        <div>${title}</div>
+        <img src="../assets/photographers/${image}">
+    `;
+
+    elementTarget.append(modalItem);
 
 }
 
 
-function openLightBox(mediaArray,mediaId) {
+function getCurrentMedia(mediaArray,mediaId) {
 
     // const currentMedia = mediaArray.find((m) => m.id == mediaId);
     // console.log(currentMedia);
 
     let currentIndex = mediaArray.findIndex((m) => m.id == mediaId); 
-    const currentMedia2 = mediaArray[currentIndex];
-    console.log('données de lélèment courant clické', currentMedia2);
+    const currentMedia = mediaArray[currentIndex];
+
+    return currentMedia;
 
 }
 
