@@ -11,18 +11,6 @@ if(document.querySelector('.modal-closer')) {
         });
 }
 
-if (document.querySelector('.photographer_header')) {
-
-    let opener = document.querySelector('.photographer_header');
-
-    opener.addEventListener('click',()=> {
-
-        displayModal('#contact_modal');
-
-        console.log('Display Modal');
-
-    });
-}
 
 // Modal Testing Get Datas
 const submitModal = 'button.submit';
