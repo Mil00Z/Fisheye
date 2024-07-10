@@ -44,7 +44,7 @@
     align-items: start;
 }
 
-.modal-content {
+#media_modal .modal-content {
     width:40%;
     background:var(--white-color);
 }
