@@ -11,18 +11,6 @@ if(document.querySelector('.modal-closer')) {
         });
 }
 
-if (document.querySelector('.photographer_header')) {
-
-    let opener = document.querySelector('.photographer_header');
-
-    opener.addEventListener('click',()=> {
-
-        displayModal('#contact_modal');
-
-        console.log('Display Modal');
-
-    });
-}
 
 // Modal Testing Get Datas
 const submitModal = 'button.submit';
@@ -36,13 +24,13 @@ document.querySelector(`${submitModal}`).addEventListener('click',(e) => {
 
 
 // Functions
-function displayModal(target) {
+export function displayModal(target) {
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
 }
 
 
-function closeModal(target) {
+export function closeModal(target) {
     const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
 }

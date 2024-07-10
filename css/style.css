@@ -1,4 +1,6 @@
 @import url("photographer.css");
+@import url("media-modal.css");
+@import url("contact-modal.css");
 
 :root {
 
@@ -35,6 +37,10 @@ body {
 .wrapper {
     max-width: var(--skeleton);
     margin:0 auto;
+}
+
+.debeug {
+    outline:4px dotted #FF00FF;
 }
 
 .links{
