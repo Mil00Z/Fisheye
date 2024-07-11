@@ -95,6 +95,14 @@ function displayMedias(photographerMedia,targetAction) {
 
     const photographerPageMedia = document.querySelector(`${targetAction}`);
 
+
+        // photographerMedia.forEach((media) => {
+        //     console.log(media);
+        //     const mediaModel = photographerMediaTemplate(media);
+        //     const mediaCardDOM = mediaModel.getMediaCardDOM()
+        //     photographerPageMedia.append(mediaCardDOM)
+        // });
+
     for (let mediaElement in photographerMedia) {
 
         let {id,title,image,video,likes,date,price} = photographerMedia[mediaElement];
@@ -161,22 +169,48 @@ function displayMedias(photographerMedia,targetAction) {
 
                 setModalMedia(currentMediaDatas,'#media_modal .modal-content');
 
+                // Gets Some datas adjacents ID
+                let adjacentsMediaId = getAdjacentModalMedia(photographerMedia,id);
+
+                adjacentsMediaId.forEach((adjacentItemId) => {
+
+                    let adjacentMedia = getCurrentMedia(photographerMedia,adjacentItemId);
+
+                    console.log('adjacent media',adjacentMedia);
+
+                    setModalMedia(adjacentMedia,'#media_modal .modal-all-content');
+
+                });
+
                 //Show the Modal
                 displayModal('#media_modal');
 
             });
-            
+
     }
 
 
-    // photographerMedia.forEach((media) => {
-    //     console.log(media);
-    //     const mediaModel = photographerMediaTemplate(media);
-    //     const mediaCardDOM = mediaModel.getMediaCardDOM()
-    //     photographerPageMedia.append(mediaCardDOM)
-    // });
+    
+
 }
 
+
+function getAdjacentModalMedia(mediasArray,mediaId) {
+
+    let allMediasIndex = mediasArray.map((item) => item.id ); 
+    console.log('**AllMediasID',allMediasIndex);
+
+    let currentIndex = allMediasIndex.indexOf(mediaId); 
+    console.log('***TargetMediaID',currentIndex);
+
+    let prevMediaId = allMediasIndex[currentIndex - 1];
+    let nextMediaId = allMediasIndex[currentIndex + 1];
+    // console.log('-- PrevMediaId',prevMediaId);
+    // console.log('++ NextMediaId',nextMediaId);
+
+    return [prevMediaId,nextMediaId];
+    
+}
 
 function setModalMedia(currentMedia,target) {
 
