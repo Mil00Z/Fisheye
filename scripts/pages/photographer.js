@@ -49,22 +49,22 @@ async function init() {
     const currentPhotographerMedia = await getPhotographerMedias(getPhotographerId());
 
     // Display All of Datas Page
-    displayHeader(currentPhotographerData);
+    displayHeader(currentPhotographerData,'.photographer_header');
 
-    displayMedias(currentPhotographerMedia);
+    displayMedias(currentPhotographerMedia,'.photographer_media');
 
-    displayFooter(currentPhotographerData,currentPhotographerMedia);
+    displayFooter(currentPhotographerData,currentPhotographerMedia,'.photographer_more');
 
     dataInContactModal(currentPhotographerData);
 
 }
 
 
-function displayHeader(photographerDatas) {
+function displayHeader(photographerDatas,targetAction) {
 
     const {name,city,country,tagline,portrait,price,id} = photographerDatas;
 
-    const photographerPageHeader = document.querySelector('.photographer_header');
+    const photographerPageHeader = document.querySelector(`${targetAction}`);
 
     photographerPageHeader.innerHTML = `
     <div class="header-left">
@@ -91,9 +91,9 @@ function displayHeader(photographerDatas) {
 
 }
 
-function displayMedias(photographerMedia) {
+function displayMedias(photographerMedia,targetAction) {
 
-    const photographerPageMedia = document.querySelector('.photographer_media');
+    const photographerPageMedia = document.querySelector(`${targetAction}`);
 
     for (let mediaElement in photographerMedia) {
 
@@ -108,8 +108,6 @@ function displayMedias(photographerMedia) {
             article.dataset.mediaId = `${id}`;
             article.dataset.pricing = `${price}`;
 
-
-        
         let mediaAssets;
 
             if(video) {
@@ -161,9 +159,9 @@ function displayMedias(photographerMedia) {
 
                 console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
 
-                setModalMedia('#media_modal .modal-content',currentMediaDatas);
+                setModalMedia(currentMediaDatas,'#media_modal .modal-content');
 
-                //Finally
+                //Show the Modal
                 displayModal('#media_modal');
 
             });
@@ -179,16 +177,16 @@ function displayMedias(photographerMedia) {
     // });
 }
 
-function setModalMedia(target,currentMedia) {
+
+function setModalMedia(currentMedia,target) {
 
     // Target element for Injection
     let elementTarget = document.querySelector(`${target}`);
 
     const {title,image,likes,date,price,id,photographerId} = currentMedia;
 
-
     let modalItem = document.createElement('article');
-    
+
     //pas meilleur moyen efficace de récupérer le nom sans faire un traitement "lourd" sur jeux de données croisées
     // => exemple de pk certaines querySelector sur des elements crées peuvent etre utiles
     let name = document.querySelector('.photographer-name').textContent;
@@ -201,8 +199,6 @@ function setModalMedia(target,currentMedia) {
         <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>
     `;
 
-   
-    
     elementTarget.append(modalItem);
 }
 
@@ -219,12 +215,12 @@ function getCurrentMedia(mediaArray,mediaId) {
 
 }
 
-function displayFooter(photographerDatas,photographerMediaDatas) {
+function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
 
     const {price} = photographerDatas;
     const {likes} = photographerMediaDatas;
 
-    const photographerMoreMedia = document.querySelector('.photographer_more');
+    const photographerMoreMedia = document.querySelector(`${targetAction}`);
 
     // Get SUm of Likes Globally
     let likesSum = 0;
