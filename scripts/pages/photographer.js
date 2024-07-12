@@ -29,7 +29,7 @@ async function getPhotographerMedias(currentId) {
 }
 
 
-function getPhotographerId() {
+export function getPhotographerId() {
 
     let urlParams = new URLSearchParams(window.location.search);
 
@@ -81,11 +81,23 @@ function displayHeader(photographerDatas,targetAction) {
 
     const btnContactModal = document.querySelector('.modal-trig-button');
 
+
     btnContactModal.addEventListener('click',()=> {
 
         displayModal('#contact_modal');
 
         // console.log('Display Modal');
+
+    });
+
+    btnContactModal.addEventListener('keydown',(e) => {
+
+            if(e.key === "Enter"){
+
+                displayModal('#contact_modal');
+                // console.log('Display Modal');
+
+            };
 
     });
 
