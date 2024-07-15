@@ -4,10 +4,28 @@ import {displayModal,closeModal} from "../utils/contactForm.js";
     if(document.querySelector('#media_modal .modal-closer')) {
    
     let modalMediaCloser = document.querySelector('#media_modal .modal-closer');
-    modalMediaCloser.addEventListener('click',() =>{
+    modalMediaCloser.addEventListener('click',(e) =>{
 
-       closeModal('#media_modal');
-       
+      e.preventDefault();
+
+      closeModal('#media_modal');
+    
+    });
+
+
+    modalMediaCloser.addEventListener('keydown',(e) => {
+
+    console.log(e.keycode, e.key)
+
+      if (e.key === "ArrowRight") {
+
+         e.preventDefault();
+         
+         // closeModal('#media_modal');
+         console.log('*** Close modal');
+
+      }
+
     });
 
  }

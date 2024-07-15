@@ -31,7 +31,7 @@ document.querySelector('body').addEventListener('keydown',(e) => {
 
         if (e.key === "Escape") {
 
-            console.log(`modal condition is '${displayModal('#contact_modal')}' and '${e.key}' is pressing now MF`);
+            console.log(`modal condition is '${displayModal('#contact_modal')}' and '${e.key}' is pressing now`);
 
             closeModal('#contact_modal');
         }
@@ -78,8 +78,6 @@ export function displayModal(target) {
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
     
-    // console.log('modal IN');
-
     return true;
 }
 
@@ -89,10 +87,17 @@ export function closeModal(target) {
     const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
 
-    // window.location.reload();
-    // console.log('modal OUT');
+    //clear HTML Datas Media
+    if (`${target}` === '#media_modal') {
 
-    
+        document.querySelectorAll(`${target} .modal-item`).forEach((item) =>{
+
+            item.remove();
+        });
+        
+        console.log('**** clean media modal');
+    }
+
 }
 
  // Getter Fonction for FormData

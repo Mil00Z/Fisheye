@@ -133,6 +133,7 @@ function displayMedias(photographerMedia,targetAction) {
             if(video) {
 
                 mediaAssets = document.createElement( 'video' );
+                mediaAssets.setAttribute('controls','');
             } else {
                  mediaAssets = document.createElement( 'img' );
             }
@@ -175,6 +176,8 @@ function displayMedias(photographerMedia,targetAction) {
             // Create Event after Element in same context
             article.addEventListener("click",()=>{
 
+             
+
                 let currentMediaDatas = getCurrentMedia(photographerMedia,id);
 
                 console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
@@ -213,12 +216,15 @@ function getAdjacentModalMedia(mediasArray,mediaId) {
     console.log('**AllMediasID',allMediasIndex);
 
     let currentIndex = allMediasIndex.indexOf(mediaId); 
-    console.log('***TargetMediaID',currentIndex);
+    // console.log('***TargetMediaID',currentIndex);
 
-    let prevMediaId = allMediasIndex[currentIndex - 1];
-    let nextMediaId = allMediasIndex[currentIndex + 1];
-    // console.log('-- PrevMediaId',prevMediaId);
-    // console.log('++ NextMediaId',nextMediaId);
+    //get previous media : if is it the first, index is the last
+    let prevMediaId = (currentIndex) === 0 ? allMediasIndex[allMediasIndex.length -1] : allMediasIndex[currentIndex - 1] ;
+
+    //get next media : if is it the last, index is the first
+    let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
+    console.log('-- PrevMediaId',prevMediaId);
+    console.log('++ NextMediaId',nextMediaId);
 
     return [prevMediaId,nextMediaId];
     
@@ -229,7 +235,7 @@ function setModalMedia(currentMedia,target) {
     // Target element for Injection
     let elementTarget = document.querySelector(`${target}`);
 
-    const {title,image,likes,date,price,id,photographerId} = currentMedia;
+    const {title,image,video,likes,date,price,id,photographerId} = currentMedia;
 
     let modalItem = document.createElement('article');
 
@@ -240,10 +246,13 @@ function setModalMedia(currentMedia,target) {
     modalItem.dataset.mediaId = `${id}`;
 
     // modalItem.style.setProperty('background-image',`url(../assets/photographers/${image})`);
-
+    if (video) {
     modalItem.innerHTML = `
-        <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>
-    `;
+        <video src="../assets/photographers/${video}" alt="Video ${title} de ${name}" controls/>
+    ` } else {
+        modalItem.innerHTML = `
+        <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>`
+    }
 
     elementTarget.append(modalItem);
 }

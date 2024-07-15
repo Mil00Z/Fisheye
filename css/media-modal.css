@@ -80,7 +80,7 @@
 }
 
 .modal-all-content .modal-item {
-   width:fit-content;
+   width:40%;
 }
 
 .modal-all-content .modal-item img,
@@ -126,15 +126,20 @@
     height: 100%;
     position:relative;
 }
+
+
 .modal-body .modal-closer{
+   
+    
+}
+
+.modal-body > a {
     --offset:2px;
     position: absolute;
     top: var(--offset);
     right: var(--offset);
     z-index: 2;
 }
-
-
 
 
 
