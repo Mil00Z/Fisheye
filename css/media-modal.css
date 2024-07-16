@@ -28,7 +28,7 @@
     align-items: center;
     flex-wrap: wrap;
     row-gap: 1.5rem;
-    padding: 3rem;
+    padding: 1rem .75rem;
     border-radius: var(--radius);
     background-color: var(--black-color);
     transition: var(--regTransi);
@@ -61,12 +61,13 @@
     height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
+    text-align: center;
 }
 
 .modal-content img,
 .modal-content video {
     max-width:100%;
-    height: auto;
+    height: 800px;
     object-fit: cover;
 }
 
@@ -128,9 +129,8 @@
 }
 
 
-.modal-body .modal-closer{
-   
-    
+.modal-closer{
+    background: var(--main-color);
 }
 
 .modal-body > a {

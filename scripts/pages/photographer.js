@@ -16,14 +16,14 @@ async function getPhotographer(currentId) {
 }
 
 
-async function getPhotographerMedias(currentId) {
+export async function getPhotographerMedias(currentId) {
 
     const response = await fetch('./data/photographers.json');
     const datas = await response.json();
 
     let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
 
-    console.log(`données des médias du photographe d'ID:${currentId}`, mediaFiltered);
+    // console.log(`données des médias du photographe d'ID:${currentId}`, mediaFiltered);
 
     return mediaFiltered;
 }
@@ -59,6 +59,27 @@ async function init() {
 
 }
 
+
+
+export function getAdjacentModalMedia(mediasArray,mediaId) {
+
+    let allMediasIndex = mediasArray.map((item) => item.id ); 
+    console.log('**AllMediasID',allMediasIndex);
+
+    let currentIndex = allMediasIndex.indexOf(mediaId); 
+    // console.log('***TargetMediaID',currentIndex);
+
+    //get previous media : if is it the first, index is the last
+    let prevMediaId = (currentIndex) === 0 ? allMediasIndex[allMediasIndex.length -1] : allMediasIndex[currentIndex - 1] ;
+
+    //get next media : if is it the last, index is the first
+    let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
+    // console.log('-- PrevMediaId',prevMediaId);
+    // console.log('++ NextMediaId',nextMediaId);
+
+    return [prevMediaId,nextMediaId];
+    
+}
 
 function displayHeader(photographerDatas,targetAction) {
 
@@ -106,14 +127,6 @@ function displayHeader(photographerDatas,targetAction) {
 function displayMedias(photographerMedia,targetAction) {
 
     const photographerPageMedia = document.querySelector(`${targetAction}`);
-
-
-        // photographerMedia.forEach((media) => {
-        //     console.log(media);
-        //     const mediaModel = photographerMediaTemplate(media);
-        //     const mediaCardDOM = mediaModel.getMediaCardDOM()
-        //     photographerPageMedia.append(mediaCardDOM)
-        // });
 
     for (let mediaElement in photographerMedia) {
 
@@ -176,7 +189,6 @@ function displayMedias(photographerMedia,targetAction) {
             // Create Event after Element in same context
             article.addEventListener("click",()=>{
 
-             
 
                 let currentMediaDatas = getCurrentMedia(photographerMedia,id);
 
@@ -187,48 +199,63 @@ function displayMedias(photographerMedia,targetAction) {
                 // Gets Some datas adjacents ID
                 let adjacentsMediaId = getAdjacentModalMedia(photographerMedia,id);
 
-                adjacentsMediaId.forEach((adjacentItemId) => {
+                
+                adjacentsMediaId.forEach((adjacentItemId,index) => {
 
                     let adjacentMedia = getCurrentMedia(photographerMedia,adjacentItemId);
 
-                    console.log('adjacent media',adjacentMedia);
+                    // console.log(`adjacent media numéro ${index}`,adjacentMedia);
 
-                    setModalMedia(adjacentMedia,'#media_modal .modal-all-content');
+                    // Inject Visuals Assets to Check if the Script is correct
+                    // setModalMedia(adjacentMedia,'#media_modal .modal-all-content');
 
                 });
 
                 //Show the Modal
                 displayModal('#media_modal');
 
+
+            //Buttons Actions
+            let prevButtons = document.querySelector('.player-buttons.prev-media');
+            let nextButtons = document.querySelector('.player-buttons.next-media');
+
+            prevButtons.addEventListener('click', () =>{
+
+                let prevMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[0]);
+
+                console.log('**Previous Media Datas**', prevMedia);
+
+                document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${prevMedia.image}`);
+
+                // setModalMedia(prevMedia,'#media_modal .modal-content');
+
             });
+
+
+            nextButtons.addEventListener('click', () =>{
+
+    
+                let nextMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[1]);
+
+                console.log('**Next Media Datas**', nextMedia);
+
+                document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${nextMedia.image}`);
+
+                // setModalMedia(nextMedia,'#media_modal .modal-content');
+
+            });
+
+        });
 
     }
 
-
-    
-
 }
 
 
-function getAdjacentModalMedia(mediasArray,mediaId) {
-
-    let allMediasIndex = mediasArray.map((item) => item.id ); 
-    console.log('**AllMediasID',allMediasIndex);
-
-    let currentIndex = allMediasIndex.indexOf(mediaId); 
-    // console.log('***TargetMediaID',currentIndex);
-
-    //get previous media : if is it the first, index is the last
-    let prevMediaId = (currentIndex) === 0 ? allMediasIndex[allMediasIndex.length -1] : allMediasIndex[currentIndex - 1] ;
-
-    //get next media : if is it the last, index is the first
-    let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
-    console.log('-- PrevMediaId',prevMediaId);
-    console.log('++ NextMediaId',nextMediaId);
-
-    return [prevMediaId,nextMediaId];
-    
+function modalNavigation() {
+ 
 }
+ 
 
 function setModalMedia(currentMedia,target) {
 
@@ -254,11 +281,18 @@ function setModalMedia(currentMedia,target) {
         <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>`
     }
 
+//    if (document.querySelector('.modal-item')){
+
+//         document.querySelector('.modal-item')
+
+//    }
+
+
     elementTarget.append(modalItem);
 }
 
 
-function getCurrentMedia(mediaArray,mediaId) {
+export function getCurrentMedia(mediaArray,mediaId) {
 
     // const currentMedia = mediaArray.find((m) => m.id == mediaId);
     // console.log(currentMedia);
