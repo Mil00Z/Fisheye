@@ -16,6 +16,7 @@ export function photographerCardTemplate(data) {
         const img = document.createElement( 'img' );
         img.classList.add('photographer-thumbnail');
         img.setAttribute("src", picturePath);
+        img.setAttribute("alt", `Photographie de ${name}`);
 
         const proName = document.createElement( 'h2' );
         proName.classList.add('photographer-name')

@@ -136,8 +136,8 @@ function displayMedias(photographerMedia,targetAction) {
 
         const article = document.createElement( 'a' );
             article.classList.add('card','card-media-photographer');
-            article.setAttribute('href',`#media_modal`);
-            article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
+            article.setAttribute('href',`#`);
+            article.setAttribute('aria-label',`Lien vers la modale du média ${title}`);
             article.dataset.mediaId = `${id}`;
             article.dataset.pricing = `${price}`;
 
@@ -147,13 +147,16 @@ function displayMedias(photographerMedia,targetAction) {
 
                 mediaAssets = document.createElement( 'video' );
                 mediaAssets.setAttribute('controls','');
+                mediaAssets.setAttribute('aria-label',`video de ${title}`)
             } else {
                  mediaAssets = document.createElement( 'img' );
+                 mediaAssets.setAttribute('aria-label',`image de ${title}`)
             }
 
             mediaAssets.classList.add('photographer-media-assets');
             mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
             mediaAssets.dataset.release = `${date}`;
+            mediaAssets.setAttribute("alt",`visuel de ${title}`);
 
             const mediaTexts = document.createElement('div');
             mediaTexts.classList.add('photographer-media-bottom');
