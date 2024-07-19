@@ -89,12 +89,12 @@ function displayHeader(photographerDatas,targetAction) {
 
     photographerPageHeader.innerHTML = `
     <div class="header-left">
-        <h3 class="photographer-name" data-id="${id}">${name}</h3>
+        <h1 class="photographer-name" data-id="${id}">${name}</h1>
         <a class="photographer-city" href="https://www.google.com/maps/search/${city}" title="OpenCity on google Maps">${city}, ${country}</a>
         <span class="photographer-tagline">${tagline}</span>
     </div> 
     <div class="header-middle">
-        <button class="cta-button modal-trig-button" title="contact ${name}">Contactez-moi</button>
+        <button class="cta-button modal-trig-button" aria-label="modal de contact ${name}" aria-controls="contact_modal">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
         <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
@@ -147,7 +147,26 @@ function displayMedias(photographerMedia,targetAction) {
 
                 mediaAssets = document.createElement( 'video' );
                 mediaAssets.setAttribute('controls','');
-                mediaAssets.setAttribute('aria-label',`video de ${title}`)
+                mediaAssets.setAttribute('aria-label',`video de ${title}`);
+                let sourceVideo = document.createElement('source');
+                sourceVideo.setAttribute('src',`${assetPath}/${video}`);
+
+
+                let subtitles = document.createElement('track');
+
+                const titlesAttributs = {
+                    "src":`${assetPath}/template-subs.vtt`,
+                    "kind":"subtitles",
+                    "srclang":`${document.documentElement.lang}`,
+                    "label":`Sous titres en ${document.documentElement.lang}`
+                }
+
+                for (const attribut in titlesAttributs) {
+                    subtitles.setAttribute(attribut, titlesAttributs[attribut]);
+                  }
+
+                // ADD media Video Specials 
+                mediaAssets.append(sourceVideo,subtitles);
             } else {
                  mediaAssets = document.createElement( 'img' );
                  mediaAssets.setAttribute('aria-label',`image de ${title}`)
@@ -168,7 +187,7 @@ function displayMedias(photographerMedia,targetAction) {
 
             const mediaLikes = document.createElement('span');
             mediaLikes.classList.add('photographer-media-likes');
-            mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart"></i>`;
+            mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart aria-hidden="true" title="nombre de likes du projet"></i>`;
 
             mediaTexts.append(mediaTitle,mediaLikes);
 
@@ -178,9 +197,6 @@ function displayMedias(photographerMedia,targetAction) {
             mediaDate.textContent = `${date}`;
 
 
-            // const mediaPricing = document.createElement('p');
-            // mediaPricing.classList.add('photographer-pricing');
-            // mediaPricing.textContent = `${price} euros`;
 
             //Push data in Target Element
             article.append(mediaAssets,mediaTexts);
