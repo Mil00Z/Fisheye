@@ -1,7 +1,7 @@
 
 /* MODAL */
 #media_modal {
-    --op:.33;
+    --op:.9;
     position: fixed;
     inset:0;
     width: 100%;
@@ -12,17 +12,16 @@
     justify-content: center;
     align-items: center;
     z-index: 1;
-
     background:linear-gradient(to right, rgba(255,255,255,var(--op)) 0%, rgba(255,255,255,var(--op)) 100%);
-    backdrop-filter: blur(3px);
-    animation: backgroundModal .25s ease-in-out forwards;
+    backdrop-filter: blur(2px);
+    animation: backgroundModal .15s ease-in-out forwards;
     transition: all .1s ease-in-out;
 }
 
 .modal-body {
     display: flex;
-    width: 85%;
-    height: 75dvh;
+    width: 90dvw;
+    height: 90dvh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -30,10 +29,9 @@
     row-gap: 1.5rem;
     padding: 1rem .75rem;
     border-radius: var(--radius);
-    background-color: var(--black-color);
+    background-color: var(--white-color);
     transition: var(--regTransi);
     overflow-x:hidden;
-    overflow-y:scroll;
     /* animation: modalOpening var(--modal-display-duration) ease-in-out forwards; */
     position: relative;
 }
@@ -67,34 +65,22 @@
 .modal-content img,
 .modal-content video {
     max-width:100%;
-    height: 800px;
+    max-height: 800px;
     object-fit: cover;
+    position: relative;
 }
 
-.modal-all-content {
-    display: flex;
-    flex-wrap: wrap;
-    width:100%;
-    gap:10px;
-    padding: 1rem;
-    background:var(--white-color);
+.modal-item-title {
+    color:var(--main-color);
 }
 
-.modal-all-content .modal-item {
-   width:40%;
-}
 
-.modal-all-content .modal-item img,
-.modal-all-content .modal-item video {
-    max-width:30%;
- }
- 
  
 .player-buttons {
-    --offsetPosY:0%;
-    --sizes:40px;
+    --offsetPosY:8%;
+    --sizes:38px;
     position: absolute;
-    top:15%;
+    top:50%;
     width: var(--sizes);
     height:var(--sizes);
     display: flex;
@@ -105,6 +91,7 @@
     border:3px solid var(--black-color);
     color:var(--white-color);
     font-size:.95rem;
+    z-index: 666;
     transition: var(--regTransi);
 }
 .prev-media{
@@ -129,16 +116,20 @@
 }
 
 
-.modal-closer{
-    background: var(--main-color);
-}
-
 .modal-body > a {
-    --offset:2px;
+    --sizesPicto:42px;
     position: absolute;
-    top: var(--offset);
-    right: var(--offset);
+    top: 20px;
+    right: 11%;
+    width: var(--sizesPicto);
+    height: var(--sizesPicto);
     z-index: 2;
+    mask: url('../assets/icons/close.svg') no-repeat center;
+    -webkit-mask: url('../assets/icons/close.svg') no-repeat center;
+    mask-size: var(--sizesPicto);
+    -webkit-mask-size: var(--sizesPicto);
+    background:var(--main-color);
+    
 }
 
 
@@ -152,7 +143,7 @@
 
     to {
         background-color: rgba(0,0,0,.4);
-        backdrop-filter: blur(5px);
+        backdrop-filter: blur(2px);
     }
 
 }
