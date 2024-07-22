@@ -211,7 +211,7 @@ function openLightBox(mediaIndex) {
             mediaAsset.setAttribute('alt',`Photographie appelée - ${currentMedia.title}`);
         }
 
-        mediaAsset.setAttribute('src',`../assets/photographers/${currentMedia.video ?? currentMedia.image}`);
+        mediaAsset.setAttribute('src',`./assets/photographers/${currentMedia.video ?? currentMedia.image}`);
 
         document.querySelector('.modal-item').setAttribute('data-index',`${currentIndex}`)
         
