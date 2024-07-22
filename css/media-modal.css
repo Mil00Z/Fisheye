@@ -1,7 +1,7 @@
 
 /* MODAL */
 #media_modal {
-    --op:.33;
+    --op:.9;
     position: fixed;
     inset:0;
     width: 100%;
@@ -20,8 +20,8 @@
 
 .modal-body {
     display: flex;
-    width: 70dvw;
-    height: 70dvh;
+    width: 90dvw;
+    height: 90dvh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -70,24 +70,17 @@
     position: relative;
 }
 
-.modal-content .img-datas {
-    position: absolute;
-    left: 12px;
-    top: 16px;
-    width: 100px;
-    padding:5px;
-    background: var(--main-color);
-    color:var(--white-color);
-    font-size:1rem;
-    z-index: 2;;    
+.modal-item-title {
+    color:var(--main-color);
 }
+
 
  
 .player-buttons {
-    --offsetPosY:0%;
-    --sizes:40px;
+    --offsetPosY:8%;
+    --sizes:38px;
     position: absolute;
-    top:15%;
+    top:50%;
     width: var(--sizes);
     height:var(--sizes);
     display: flex;
@@ -123,16 +116,20 @@
 }
 
 
-.modal-closer{
-    background: var(--main-color);
-}
-
 .modal-body > a {
-    --offset:2px;
+    --sizesPicto:42px;
     position: absolute;
-    top: var(--offset);
-    right: var(--offset);
+    top: 20px;
+    right: 11%;
+    width: var(--sizesPicto);
+    height: var(--sizesPicto);
     z-index: 2;
+    mask: url('../assets/icons/close.svg') no-repeat center;
+    -webkit-mask: url('../assets/icons/close.svg') no-repeat center;
+    mask-size: var(--sizesPicto);
+    -webkit-mask-size: var(--sizesPicto);
+    background:var(--main-color);
+    
 }
 
 
