@@ -1,7 +1,7 @@
 // import {photographerMediaTemplate} from "../templates/photographerMedia.js";
 import {displayModal,closeModal,dataInContactModal} from "../utils/contactForm.js";
 
-// let currentPhotographerMedia = {};
+let currentPhotographerMedia = [];
 
 async function getPhotographer(currentId) {
 
@@ -39,14 +39,11 @@ export function getPhotographerId() {
 
 }
 
-
 async function init() {
-
-    // const currentPhotographerId = getPhotographerId();
 
     const currentPhotographerData = await getPhotographer(getPhotographerId());
 
-    const currentPhotographerMedia = await getPhotographerMedias(getPhotographerId());
+    currentPhotographerMedia = await getPhotographerMedias(getPhotographerId());
 
     // Display All of Datas Page
     displayHeader(currentPhotographerData,'.photographer_header');
@@ -74,8 +71,7 @@ export function getAdjacentModalMedia(mediasArray,mediaId) {
 
     //get next media : if is it the last, index is the first
     let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
-    // console.log('-- PrevMediaId',prevMediaId);
-    // console.log('++ NextMediaId',nextMediaId);
+    
 
     return [prevMediaId,nextMediaId];
     
@@ -128,132 +124,207 @@ function displayMedias(photographerMedia,targetAction) {
 
     const photographerPageMedia = document.querySelector(`${targetAction}`);
 
-    for (let mediaElement in photographerMedia) {
+    photographerMedia.forEach((mediaElement,index) =>{
 
-        let {id,title,image,video,likes,date,price} = photographerMedia[mediaElement];
-
-        const assetPath = `../assets/photographers`;
-
-        const article = document.createElement( 'a' );
-            article.classList.add('card','card-media-photographer');
-            article.setAttribute('href',`#media_modal`);
-            article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
-            article.dataset.mediaId = `${id}`;
-            article.dataset.pricing = `${price}`;
-
-        let mediaAssets;
-
-            if(video) {
-
-                mediaAssets = document.createElement( 'video' );
-                mediaAssets.setAttribute('controls','');
-            } else {
-                 mediaAssets = document.createElement( 'img' );
-            }
-
-            mediaAssets.classList.add('photographer-media-assets');
-            mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
-            mediaAssets.dataset.release = `${date}`;
-
-            const mediaTexts = document.createElement('div');
-            mediaTexts.classList.add('photographer-media-bottom');
-            
-            const mediaTitle = document.createElement( 'h2' );
-            mediaTitle.classList.add('photographer-media-title')
-            mediaTitle.textContent = `${title}`;
-            
-
-            const mediaLikes = document.createElement('span');
-            mediaLikes.classList.add('photographer-media-likes');
-            mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart"></i>`;
-
-            mediaTexts.append(mediaTitle,mediaLikes);
-
-
-            const mediaDate = document.createElement('span');
-            mediaDate.classList.add('photographer-media-date');
-            mediaDate.textContent = `${date}`;
-
-
-            // const mediaPricing = document.createElement('p');
-            // mediaPricing.classList.add('photographer-pricing');
-            // mediaPricing.textContent = `${price} euros`;
-
-            //Push data in Target Element
-            article.append(mediaAssets,mediaTexts);
-
-            // Push Target Element in DOM
-            photographerPageMedia.append(article);
-
-
-            // Create Event after Element in same context
-            article.addEventListener("click",()=>{
-
-
-                let currentMediaDatas = getCurrentMedia(photographerMedia,id);
-
-                console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
-
-                setModalMedia(currentMediaDatas,'#media_modal .modal-content');
-
-                // Gets Some datas adjacents ID
-                let adjacentsMediaId = getAdjacentModalMedia(photographerMedia,id);
-
-                
-                adjacentsMediaId.forEach((adjacentItemId,index) => {
-
-                    let adjacentMedia = getCurrentMedia(photographerMedia,adjacentItemId);
-
-                    // console.log(`adjacent media numéro ${index}`,adjacentMedia);
-
-                    // Inject Visuals Assets to Check if the Script is correct
-                    // setModalMedia(adjacentMedia,'#media_modal .modal-all-content');
-
-                });
-
-                //Show the Modal
-                displayModal('#media_modal');
-
-
-            //Buttons Actions
-            let prevButtons = document.querySelector('.player-buttons.prev-media');
-            let nextButtons = document.querySelector('.player-buttons.next-media');
-
-            prevButtons.addEventListener('click', () =>{
-
-                let prevMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[0]);
-
-                console.log('**Previous Media Datas**', prevMedia);
-
-                document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${prevMedia.image}`);
-
-                // setModalMedia(prevMedia,'#media_modal .modal-content');
-
-            });
-
-
-            nextButtons.addEventListener('click', () =>{
-
+            let {id,title,image,video,likes,date,price} = mediaElement;
     
-                let nextMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[1]);
+            const assetPath = `../assets/photographers`;
+    
+            const article = document.createElement( 'a' );
+                article.classList.add('card','card-media-photographer');
+                article.setAttribute('href',`#media_modal`);
+                article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
+                article.dataset.mediaId = `${id}`;
+                article.dataset.mediaIndex = `${index}`;
+                article.dataset.pricing = `${price}`;
+    
+            let mediaAssets;
+    
+                if(video) {
+    
+                    mediaAssets = document.createElement( 'video' );
+                    mediaAssets.setAttribute('controls','');
+                } else {
+                     mediaAssets = document.createElement( 'img' );
+                }
+    
+                mediaAssets.classList.add('photographer-media-assets');
+                mediaAssets.setAttribute("src", `${assetPath}/${video ?? image}`);
+                mediaAssets.dataset.release = `${date}`;
+    
+                const mediaTexts = document.createElement('div');
+                mediaTexts.classList.add('photographer-media-bottom');
+                
+                const mediaTitle = document.createElement( 'h2' );
+                mediaTitle.classList.add('photographer-media-title')
+                mediaTitle.textContent = `${title}`;
+                
+    
+                const mediaLikes = document.createElement('span');
+                mediaLikes.classList.add('photographer-media-likes');
+                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart"></i>`;
+    
+                mediaTexts.append(mediaTitle,mediaLikes);
+    
+    
+                const mediaDate = document.createElement('span');
+                mediaDate.classList.add('photographer-media-date');
+                mediaDate.textContent = `${date}`;
+    
+    
+                // const mediaPricing = document.createElement('p');
+                // mediaPricing.classList.add('photographer-pricing');
+                // mediaPricing.textContent = `${price} euros`;
+    
+                //Push data in Target Element
+                article.append(mediaAssets,mediaTexts);
+    
+                // Push Target Element in DOM
+                photographerPageMedia.append(article);
+    
+    
+                // Create Event after Element in same context
+                article.addEventListener("click",()=> {
 
-                console.log('**Next Media Datas**', nextMedia);
+                    openLightBox(index);
+    
+    
+                    // let currentMediaDatas = getCurrentMedia(photographerMedia,id);
+    
+                    // console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
+    
+                    // setModalMedia(currentMediaDatas,'#media_modal .modal-content');
+    
+                    // Gets Some datas adjacents ID
+                    // let adjacentsMediaId = getAdjacentModalMedia(photographerMedia,id);
+    
+                    
+                    // adjacentsMediaId.forEach((adjacentItemId,index) => {
+    
+                    //     let adjacentMedia = getCurrentMedia(photographerMedia,adjacentItemId);
+    
+                    //     // console.log(`adjacent media numéro ${index}`,adjacentMedia);
+    
+                    //     // Inject Visuals Assets to Check if the Script is correct
+                    //     // setModalMedia(adjacentMedia,'#media_modal .modal-all-content');
+    
+                    // });
+    
+                    //Show the Modal
+                    // displayModal('#media_modal');
+    
+    
+                //Buttons Actions
+                // let prevButtons = document.querySelector('.player-buttons.prev-media');
+                // let nextButtons = document.querySelector('.player-buttons.next-media');
+    
+                // prevButtons.addEventListener('click', () =>{
+    
+                //     let prevMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[0]);
+    
+                //     console.log('**Previous Media Datas**', prevMedia);
+    
+                //     document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${prevMedia.image}`);
+    
+                //     // setModalMedia(prevMedia,'#media_modal .modal-content');
+    
+                // });
+    
+    
+                // nextButtons.addEventListener('click', () =>{
 
-                document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${nextMedia.image}`);
-
-                // setModalMedia(nextMedia,'#media_modal .modal-content');
-
+                    
+    
+        
+                //     // let nextMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[1]);
+    
+                //     // console.log('**Next Media Datas**', nextMedia);
+    
+                //     // document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${nextMedia.image}`);
+    
+                //     // setModalMedia(nextMedia,'#media_modal .modal-content');
+    
+                // });
+    
             });
+    
+       
 
-        });
+    });
 
-    }
 
 }
 
 
-function modalNavigation() {
+function openLightBox(mediaIndex) {
  
+    let currentIndex = mediaIndex;
+
+    function displayCurrentMedia() {
+
+        const currentMedia = currentPhotographerMedia[currentIndex];
+
+        console.log('**Media CLicked',currentPhotographerMedia[currentIndex]);
+
+        document.querySelector('.modal-item').innerHTML = `
+            <img src="../assets/photographers/${currentMedia.image}" alt="Photographie appelée - ${currentMedia.title}">
+            <span class="img-datas">${currentIndex}</span>
+        `
+
+        displayModal('#media_modal');
+
+    }
+
+
+    displayCurrentMedia();
+
+    function nextMedia () {
+
+        currentIndex++;
+
+        if (currentIndex === currentPhotographerMedia.length) {
+
+            currentIndex = 0;
+
+        }
+
+        displayCurrentMedia();
+
+    }
+    function prevMedia() {
+
+        currentIndex--;
+
+         if (currentIndex === -1) {
+
+            currentIndex = currentPhotographerMedia.length - 1;
+         }
+
+         console.log(currentIndex);
+         displayCurrentMedia();
+    }
+
+    let nextButtons = document.querySelector('.player-buttons.next-media');
+    let prevButtons = document.querySelector('.player-buttons.prev-media');
+
+    nextButtons.addEventListener('click',nextMedia);
+    prevButtons.addEventListener('click',prevMedia);
+
+    document.querySelector('#media_modal').addEventListener('keydown',(e)=>{
+
+        if (e.key === "ArrowRight"){
+
+            nextMedia();
+            console.log('next Media');
+
+        } else if (e.key === "ArrowLeft") {
+
+            prevMedia();
+            console.log('prev Media');
+
+        }
+    })
+
 }
  
 
