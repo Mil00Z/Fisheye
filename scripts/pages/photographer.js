@@ -95,7 +95,7 @@ function displayHeader(photographerDatas,targetAction) {
         <button class="cta-button modal-trig-button" title="contact ${name}">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
-        <img src="/assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
+        <img src="./assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
     </div>`;
 
     const btnContactModal = document.querySelector('.modal-trig-button');
@@ -130,7 +130,7 @@ function displayMedias(photographerMedia,targetAction) {
 
             let {id,title,image,video,likes,date,price} = mediaElement;
     
-            const assetPath = `../assets/photographers`;
+            const assetPath = `./assets/photographers`;
     
             const article = document.createElement( 'a' );
                 article.classList.add('card','card-media-photographer');

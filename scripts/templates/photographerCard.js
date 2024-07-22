@@ -4,7 +4,7 @@ export function photographerCardTemplate(data) {
 
     // console.log(data);
 
-    const picturePath = `../assets/photographers/${portrait}`;
+    const picturePath = `./assets/photographers/${portrait}`;
 
     function getUserCardDOM() {
 
