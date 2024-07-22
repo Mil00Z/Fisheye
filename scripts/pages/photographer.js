@@ -1,7 +1,9 @@
 // import {photographerMediaTemplate} from "../templates/photographerMedia.js";
-import {displayModal,closeModal,dataInContactModal} from "../utils/contactForm.js";
+import {displayModal,dataInContactModal} from "../utils/contactForm.js";
 
+//Call the dataArray before the function
 let currentPhotographerMedia = [];
+
 
 async function getPhotographer(currentId) {
 
@@ -166,93 +168,24 @@ function displayMedias(photographerMedia,targetAction) {
     
                 mediaTexts.append(mediaTitle,mediaLikes);
     
-    
-                const mediaDate = document.createElement('span');
-                mediaDate.classList.add('photographer-media-date');
-                mediaDate.textContent = `${date}`;
-    
-    
-                // const mediaPricing = document.createElement('p');
-                // mediaPricing.classList.add('photographer-pricing');
-                // mediaPricing.textContent = `${price} euros`;
-    
                 //Push data in Target Element
                 article.append(mediaAssets,mediaTexts);
     
                 // Push Target Element in DOM
                 photographerPageMedia.append(article);
     
-    
+
+
                 // Create Event after Element in same context
                 article.addEventListener("click",()=> {
 
                     openLightBox(index);
-    
-    
-                    // let currentMediaDatas = getCurrentMedia(photographerMedia,id);
-    
-                    // console.log(`Données de l'élèment courant clické'`, currentMediaDatas);
-    
-                    // setModalMedia(currentMediaDatas,'#media_modal .modal-content');
-    
-                    // Gets Some datas adjacents ID
-                    // let adjacentsMediaId = getAdjacentModalMedia(photographerMedia,id);
-    
-                    
-                    // adjacentsMediaId.forEach((adjacentItemId,index) => {
-    
-                    //     let adjacentMedia = getCurrentMedia(photographerMedia,adjacentItemId);
-    
-                    //     // console.log(`adjacent media numéro ${index}`,adjacentMedia);
-    
-                    //     // Inject Visuals Assets to Check if the Script is correct
-                    //     // setModalMedia(adjacentMedia,'#media_modal .modal-all-content');
-    
-                    // });
-    
-                    //Show the Modal
-                    // displayModal('#media_modal');
-    
-    
-                //Buttons Actions
-                // let prevButtons = document.querySelector('.player-buttons.prev-media');
-                // let nextButtons = document.querySelector('.player-buttons.next-media');
-    
-                // prevButtons.addEventListener('click', () =>{
-    
-                //     let prevMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[0]);
-    
-                //     console.log('**Previous Media Datas**', prevMedia);
-    
-                //     document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${prevMedia.image}`);
-    
-                //     // setModalMedia(prevMedia,'#media_modal .modal-content');
-    
-                // });
-    
-    
-                // nextButtons.addEventListener('click', () =>{
 
-                    
+                });
     
-        
-                //     // let nextMedia = getCurrentMedia(photographerMedia,adjacentsMediaId[1]);
-    
-                //     // console.log('**Next Media Datas**', nextMedia);
-    
-                //     // document.querySelector('#media_modal .modal-content .modal-item > img').setAttribute('src',`../assets/photographers/${nextMedia.image}`);
-    
-                //     // setModalMedia(nextMedia,'#media_modal .modal-content');
-    
-                // });
-    
+                
             });
     
-       
-
-    });
-
-
 }
 
 
@@ -363,7 +296,7 @@ function setModalMedia(currentMedia,target) {
 }
 
 
-export function getCurrentMedia(mediaArray,mediaId) {
+function getCurrentMedia(mediaArray,mediaId) {
 
     // const currentMedia = mediaArray.find((m) => m.id == mediaId);
     // console.log(currentMedia);
@@ -408,7 +341,6 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
         ${price} $ / jour
     </div> `;
 }
-
 
 
 
