@@ -199,13 +199,31 @@ function openLightBox(mediaIndex) {
 
         console.log('**Media CLicked',currentPhotographerMedia[currentIndex]);
 
-        document.querySelector('.modal-item').innerHTML = `
-            <img src="../assets/photographers/${currentMedia.image}" alt="Photographie appelée - ${currentMedia.title}">
-            <span class="img-datas">${currentIndex}</span>
-        `
+        let mediaAsset;
 
+        if (currentMedia.video) {
+            mediaAsset = document.createElement('video');
+            mediaAsset.setAttribute('controls','');
+            mediaAsset.setAttribute('alt',`Video appelée - ${currentMedia.title}`);
+            
+        } else {
+            mediaAsset = document.createElement('img');
+            mediaAsset.setAttribute('alt',`Photographie appelée - ${currentMedia.title}`);
+        }
+
+        mediaAsset.setAttribute('src',`../assets/photographers/${currentMedia.video ?? currentMedia.image}`);
+
+        document.querySelector('.modal-item').setAttribute('data-index',`${currentIndex}`)
+        
+        let mediaTitle = document.createElement('h3');
+        mediaTitle.classList.add('modal-item-title');
+        mediaTitle.textContent = `${currentMedia.title}`;
+
+        //Push Elements on DOM
+        document.querySelector('.modal-item').append(mediaAsset,mediaTitle);
+
+        //Show me Your Assets
         displayModal('#media_modal');
-
     }
 
 
@@ -221,9 +239,14 @@ function openLightBox(mediaIndex) {
 
         }
 
-        displayCurrentMedia();
+        
+        document.querySelector('.modal-item img, .modal-item video').remove();
+        document.querySelector('.modal-item-title').remove();
 
+        displayCurrentMedia();
     }
+
+
     function prevMedia() {
 
         currentIndex--;
@@ -233,9 +256,11 @@ function openLightBox(mediaIndex) {
             currentIndex = currentPhotographerMedia.length - 1;
          }
 
-         console.log(currentIndex);
+         document.querySelector('.modal-item img, .modal-item video, .modal-item-title').remove();
+
          displayCurrentMedia();
     }
+
 
     let nextButtons = document.querySelector('.player-buttons.next-media');
     let prevButtons = document.querySelector('.player-buttons.prev-media');
@@ -243,7 +268,9 @@ function openLightBox(mediaIndex) {
     nextButtons.addEventListener('click',nextMedia);
     prevButtons.addEventListener('click',prevMedia);
 
-    document.querySelector('#media_modal').addEventListener('keydown',(e)=>{
+    document.querySelector('.photographer').addEventListener('keydown',(e)=>{
+
+        console.log(e);
 
         if (e.key === "ArrowRight"){
 
@@ -256,7 +283,7 @@ function openLightBox(mediaIndex) {
             console.log('prev Media');
 
         }
-    })
+    });
 
 }
  
