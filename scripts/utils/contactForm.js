@@ -34,6 +34,7 @@ document.querySelector('body').addEventListener('keydown',(e) => {
             console.log(`modal condition is '${displayModal('#contact_modal')}' and '${e.key}' is pressing now`);
 
             closeModal('#contact_modal');
+            closeModal('#media_modal');
         }
 
       
@@ -93,6 +94,10 @@ export function displayModal(target) {
 
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
+    modal.setAttribute('aria-hidden',false);
+    modal.focus();
+
+    document.querySelector('#main').setAttribute('aria-hidden', true);
     
     return true;
 }
@@ -102,6 +107,10 @@ export function closeModal(target) {
 
     const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
+    modal.setAttribute('aria-hidden',true);
+    
+
+    document.querySelector('#main').setAttribute('aria-hidden', false);
 
     //clear HTML Datas Media
     if (`${target}` === '#media_modal') {
