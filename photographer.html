@@ -27,7 +27,7 @@
     </main>
 
     <div id="contact_modal" role="dialog" aria-labelledby="modal-contact-title" aria-hidden="true">
-			<div class="modal" >
+			<div class="modal" tabindex="0" >
 				<header role="banner">
           <h2 class="modal-title" id="modal-contact-title">Contactez-moi<span class="modal-photographer-name"></span></h2>
           <a href="" class="modal-closer">
@@ -56,10 +56,10 @@
 			</div>
 		</div>
 
-    <div id="media_modal" role="dialog" aria-hidden="true">
-      <div class="modal-body wip" aria-labelledby="media_modal">
-        <span class="player-buttons prev-media">prev</span>
-        <span class="player-buttons next-media">next</span>
+    <div id="media_modal" role="dialog" aria-hidden="true" aria-label="Carrousel de medias">
+      <div class="modal-body wip" tabindex="0" >
+        <span class="player-buttons prev-media" role="button">prev</span>
+        <span class="player-buttons next-media" role="button">next</span>
         <a href="" class="modal-closer" >
         </a>
         <div class="modal-content">
