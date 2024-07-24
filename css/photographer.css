@@ -44,7 +44,8 @@
     transition: var(--regTransi);
 }
 
-.photographer_header .header-right:hover::after{
+.photographer_header .header-right:hover::after,
+.photographer_header .header-right:focus::after{
     --op:.7;
     opacity:1;
 }
