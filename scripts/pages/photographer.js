@@ -25,8 +25,6 @@ export async function getPhotographerMedias(currentId) {
 
     let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
 
-    // console.log(`données des médias du photographe d'ID:${currentId}`, mediaFiltered);
-
     return mediaFiltered;
 }
 
@@ -60,24 +58,24 @@ async function init() {
 
 
 
-export function getAdjacentModalMedia(mediasArray,mediaId) {
+//  function getAdjacentModalMedia(mediasArray,mediaId) {
 
-    let allMediasIndex = mediasArray.map((item) => item.id ); 
-    console.log('**AllMediasID',allMediasIndex);
+//     let allMediasIndex = mediasArray.map((item) => item.id ); 
+//     console.log('**AllMediasID',allMediasIndex);
 
-    let currentIndex = allMediasIndex.indexOf(mediaId); 
-    // console.log('***TargetMediaID',currentIndex);
+//     let currentIndex = allMediasIndex.indexOf(mediaId); 
+//     // console.log('***TargetMediaID',currentIndex);
 
-    //get previous media : if is it the first, index is the last
-    let prevMediaId = (currentIndex) === 0 ? allMediasIndex[allMediasIndex.length -1] : allMediasIndex[currentIndex - 1] ;
+//     //get previous media : if is it the first, index is the last
+//     let prevMediaId = (currentIndex) === 0 ? allMediasIndex[allMediasIndex.length -1] : allMediasIndex[currentIndex - 1] ;
 
-    //get next media : if is it the last, index is the first
-    let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
+//     //get next media : if is it the last, index is the first
+//     let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
     
 
-    return [prevMediaId,nextMediaId];
+//     return [prevMediaId,nextMediaId];
     
-}
+// }
 
 function displayHeader(photographerDatas,targetAction) {
 
@@ -87,12 +85,12 @@ function displayHeader(photographerDatas,targetAction) {
 
     photographerPageHeader.innerHTML = `
     <div class="header-left">
-        <h3 class="photographer-name" data-id="${id}">${name}</h3>
+        <h1 class="photographer-name" data-id="${id}">${name}</h1>
         <a class="photographer-city" href="https://www.google.com/maps/search/${city}" title="OpenCity on google Maps">${city}, ${country}</a>
         <span class="photographer-tagline">${tagline}</span>
     </div> 
     <div class="header-middle">
-        <button class="cta-button modal-trig-button" title="contact ${name}">Contactez-moi</button>
+        <button class="cta-button modal-trig-button" aria-label="modal de contact ${name}" aria-controls="contact_modal">Contactez-moi</button>
     </div>
     <div class="header-right" data-text="${price} euros / jour">
         <img src="./assets/photographers/${portrait}" class="photographer-thumbnail" alt="Picture of Photographer ${name}" title="Photographer ${name}">
@@ -105,8 +103,6 @@ function displayHeader(photographerDatas,targetAction) {
 
         displayModal('#contact_modal');
 
-        // console.log('Display Modal');
-
     });
 
     btnContactModal.addEventListener('keydown',(e) => {
@@ -114,8 +110,7 @@ function displayHeader(photographerDatas,targetAction) {
             if(e.key === "Enter"){
 
                 displayModal('#contact_modal');
-                // console.log('Display Modal');
-
+             
             };
 
     });
@@ -161,10 +156,9 @@ function displayMedias(photographerMedia,targetAction) {
                 mediaTitle.classList.add('photographer-media-title')
                 mediaTitle.textContent = `${title}`;
                 
-    
                 const mediaLikes = document.createElement('span');
-                mediaLikes.classList.add('photographer-media-likes');
-                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart"></i>`;
+            mediaLikes.classList.add('photographer-media-likes');
+            mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart aria-hidden="true" title="nombre de likes du projet"></i>`;
     
                 mediaTexts.append(mediaTitle,mediaLikes);
     
@@ -174,7 +168,6 @@ function displayMedias(photographerMedia,targetAction) {
                 // Push Target Element in DOM
                 photographerPageMedia.append(article);
     
-
 
                 // Create Event after Element in same context
                 article.addEventListener("click",()=> {
@@ -288,39 +281,39 @@ function openLightBox(mediaIndex) {
 }
  
 
-function setModalMedia(currentMedia,target) {
+// function setModalMedia(currentMedia,target) {
 
-    // Target element for Injection
-    let elementTarget = document.querySelector(`${target}`);
+//     // Target element for Injection
+//     let elementTarget = document.querySelector(`${target}`);
 
-    const {title,image,video,likes,date,price,id,photographerId} = currentMedia;
+//     const {title,image,video,likes,date,price,id,photographerId} = currentMedia;
 
-    let modalItem = document.createElement('article');
+//     let modalItem = document.createElement('article');
 
-    //pas meilleur moyen efficace de récupérer le nom sans faire un traitement "lourd" sur jeux de données croisées
-    // => exemple de pk certaines querySelector sur des elements crées peuvent etre utiles
-    let name = document.querySelector('.photographer-name').textContent;
-    modalItem.classList.add('modal-item');
-    modalItem.dataset.mediaId = `${id}`;
+//     //pas meilleur moyen efficace de récupérer le nom sans faire un traitement "lourd" sur jeux de données croisées
+//     // => exemple de pk certaines querySelector sur des elements crées peuvent etre utiles
+//     let name = document.querySelector('.photographer-name').textContent;
+//     modalItem.classList.add('modal-item');
+//     modalItem.dataset.mediaId = `${id}`;
 
-    // modalItem.style.setProperty('background-image',`url(../assets/photographers/${image})`);
-    if (video) {
-    modalItem.innerHTML = `
-        <video src="../assets/photographers/${video}" alt="Video ${title} de ${name}" controls/>
-    ` } else {
-        modalItem.innerHTML = `
-        <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>`
-    }
+//     // modalItem.style.setProperty('background-image',`url(../assets/photographers/${image})`);
+//     if (video) {
+//     modalItem.innerHTML = `
+//         <video src="../assets/photographers/${video}" alt="Video ${title} de ${name}" controls/>
+//     ` } else {
+//         modalItem.innerHTML = `
+//         <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>`
+//     }
 
-//    if (document.querySelector('.modal-item')){
+// //    if (document.querySelector('.modal-item')){
 
-//         document.querySelector('.modal-item')
+// //         document.querySelector('.modal-item')
 
-//    }
+// //    }
 
 
-    elementTarget.append(modalItem);
-}
+//     elementTarget.append(modalItem);
+// }
 
 
 function getCurrentMedia(mediaArray,mediaId) {
@@ -338,8 +331,7 @@ function getCurrentMedia(mediaArray,mediaId) {
 function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
 
     const {price} = photographerDatas;
-    const {likes} = photographerMediaDatas;
-
+    
     const photographerMoreMedia = document.querySelector(`${targetAction}`);
 
     // Get SUm of Likes Globally
@@ -351,24 +343,23 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
         
     });
 
-    const likesSum2 = photographerMediaDatas.reduce((acc,curr) =>{
+    // const likesSum2 = photographerMediaDatas.reduce((acc,curr) =>{
 
-            return acc + curr.likes ; 
+    //         return acc + curr.likes ; 
 
-    },0);
+    // },0);
     // console.log('reduce',likesSum2);
 
 
     // Display Values
     photographerMoreMedia.innerHTML = `
     <div class="photographer-likes">
-    ${likesSum} <i class="fa-solid fa-heart"></i>
+    ${likesSum} <i class="fa-solid fa-heart aria-hiden="true" title="nombre total de likes du photographe"></i>
     </div>
     <div class="photographer-pricing"> 
         ${price} $ / jour
     </div> `;
 }
-
 
 
 //CALL Major function

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
@@ -12,8 +12,8 @@
   <body class="photographer">
 
     <header class="wrapper" role="banner">
-      <a href="./" alt="Fisheye Home Page" class="link-home">
-        <img src="assets/images/logo.png" class="logo" alt="Logo Fisheye" >
+      <a href="./" class="link-home" aria-label="Lien HomePage Fisheye">
+        <img src="assets/images/logo.png" class="logo" alt="Logo de Fisheye">
       </a>
     </header>
 
@@ -26,19 +26,18 @@
       
     </main>
 
-    <div id="contact_modal" role="dialog">
-			<div class="modal" aria-labelledby="contact_modal">
+    <div id="contact_modal" role="dialog" aria-labelledby="modal-contact-title" aria-hidden="true">
+			<div class="modal" tabindex="0" >
 				<header role="banner">
-          <h2 class="modal-title">Contactez-moi <span class="modal-photographer-name"></span></h2>
-          <a href="">
-            <img src="assets/icons/close.svg"  class="modal-closer" alt="icone de fermeture"/>
+          <h2 class="modal-title" id="modal-contact-title">Contactez-moi<span class="modal-photographer-name"></span></h2>
+          <a href="" class="modal-closer">
           </a>
         </header>
 
-				<form class="modal-content" id="the-form" role="form">
+				<form class="modal-content" id="the-form">
 					<div class="form-group">
 						<label for="name">Prénom</label>
-            <input type="text" id="name" name="name" class="contact_name" placeholder="votre prénom"/>
+            <input type="text" id="name" name="name" class="contact_name" placeholder="votre prénom" required/>
 					</div>
           <div class="form-group">
 						<label for="nickname">Nom</label>
@@ -46,22 +45,21 @@
 					</div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" class="contact_email" placeholder="votre e-mail"/>
-						
+            <input type="email" id="email" name="email" class="contact_email" placeholder="votre e-mail" required/>
 					</div>
           <div class="form-group">
 						<label for="message">Votre Message</label>
-            <textarea id="message" name="message" class="contact_name" autoresize></textarea>
+            <textarea id="message" name="message" class="contact_name" autoresize required></textarea>
 					</div>
-          <button class="cta-button contact_button submit">Envoyer</button>
+          <button class="cta-button contact_button submit" aria-label="envoyer formulaire">Envoyer</button>
 				</form>
 			</div>
 		</div>
 
-    <div id="media_modal" role="dialog">
-      <div class="modal-body wip" aria-labelledby="media_modal">
-        <span class="player-buttons prev-media">prev</span>
-        <span class="player-buttons next-media">next</span>
+    <div id="media_modal" role="dialog" aria-hidden="true" aria-label="Carrousel de medias">
+      <div class="modal-body wip" tabindex="0" >
+        <span class="player-buttons prev-media" role="button">prev</span>
+        <span class="player-buttons next-media" role="button">next</span>
         <a href="" class="modal-closer" >
         </a>
         <div class="modal-content">

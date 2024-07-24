@@ -37,15 +37,15 @@
     width: 100%;
     height:100%;
     opacity:0;
-    font-size:1.25rem;
-    color:var(--white-color);
+    font-size:1.45rem;
+    color:var(--black-color);
     background: rgba( 211, 87, 60,var(--op));
     clip-path: circle(50% at center);
     transition: var(--regTransi);
 }
 
 .photographer_header .header-right:hover::after{
-    --op:.75;
+    --op:.7;
     opacity:1;
 }
 
@@ -100,6 +100,7 @@
     object-fit: cover;
     border-radius: var(--radius);
     background:var(--main-color);
+    color:var(--white-color);
 }
 
 .photographer-media-pricing {
@@ -168,4 +169,48 @@
 }
 
 
+@media all and (max-width:1050px){
 
+    body {
+    --layout:"Reg-Desk";
+    }
+
+    .photographer_section,
+    .photographer_media {
+        --gap:5dvw;
+        --nbCol:2;
+    }
+
+
+}
+
+@media all and (max-width:960px) {
+    
+    .photographer_header {
+        flex-flow: column wrap;
+        gap: 3dvh;
+    }
+
+    .header-left {
+        order:2;
+    }
+
+    .header-middle{
+        order:3;
+    }
+
+    .header-right {
+        order:1;
+    }
+
+    .photographer_more {
+        padding:.25rem;
+        font-size:1.1rem;
+    }
+
+    .photographer_pricing {
+        font-size: 1rem;
+    }
+
+   
+}

@@ -34,6 +34,7 @@ document.querySelector('body').addEventListener('keydown',(e) => {
             console.log(`modal condition is '${displayModal('#contact_modal')}' and '${e.key}' is pressing now`);
 
             closeModal('#contact_modal');
+            closeModal('#media_modal');
         }
 
       
@@ -41,34 +42,50 @@ document.querySelector('body').addEventListener('keydown',(e) => {
 
 
 
-// Modal Testing Get Datas
-const submitModal = 'button.submit';
-document.querySelector(`${submitModal}`).addEventListener('click',(e) => {
+// Modal Submit, Get Datas & interact with event Output
+
+const submitForm = '#the-form';
+
+document.querySelector(`${submitForm}`).addEventListener('submit',(e) => {
 
     e.preventDefault();
-
-    console.log('***** Click Cross Button');
 
     formModalDatas('#the-form');
 
     closeModal('#contact_modal');
+
 });
 
-document.querySelector(`${submitModal}`).addEventListener('keydown',(e) => {
+const submitBtn = 'button.submit';
+document.querySelector(`${submitBtn}`).addEventListener('click',() => {
+
+    // e.preventDefault();
+
+    console.log('***** Click Submit Button');
+
+    // formModalDatas('#the-form');
+
+    // closeModal('#contact_modal');
+});
+
+
+document.querySelector(`${submitBtn}`).addEventListener('keydown',(e) => {
 
     if(e.key === 'Enter') {
 
-        e.preventDefault();
+        // e.preventDefault();
 
         console.log('***Keydown Submit Button');
 
-        formModalDatas('.modal-content');
+        // formModalDatas('.modal-content');
 
-        closeModal('#contact_modal');
+        // closeModal('#contact_modal');
 
     }
 
 });
+
+
 
 
 
@@ -77,6 +94,10 @@ export function displayModal(target) {
 
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
+    modal.setAttribute('aria-hidden',false);
+    modal.focus();
+
+    document.querySelector('#main').setAttribute('aria-hidden', true);
     
     return true;
 }
@@ -86,6 +107,10 @@ export function closeModal(target) {
 
     const modal = document.querySelector(`${target}`);
     modal.style.setProperty('display','none');
+    modal.setAttribute('aria-hidden',true);
+    
+
+    document.querySelector('#main').setAttribute('aria-hidden', false);
 
     //clear HTML Datas Media
     if (`${target}` === '#media_modal') {
@@ -93,9 +118,10 @@ export function closeModal(target) {
         document.querySelectorAll(`${target} .modal-item`).forEach((item) =>{
 
             item.remove();
+
         });
         
-        console.log('**** clean media modal');
+        console.log('XXX clean media modal');
     }
 
 }

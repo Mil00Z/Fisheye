@@ -99,13 +99,14 @@ header {
     
 }
 
-.main-title:hover {
+.main-title:hover,
+.main-title:focus {
     color:var(--white-color);
 }
 
-.main-title:hover::after{
+.main-title:hover::after,
+.main-title:focus::after {
     width:100%;
-
 }
 
 .logo {
@@ -117,8 +118,8 @@ header {
     --nbCol:3;
     display: grid;
     grid-template-columns: repeat(var(--nbCol),1fr);
-    grid-template-areas:
-    "a b c" "d e f";
+    /* grid-template-areas:
+    "a b c" "d e f"; */
     gap: var(--gap);
     align-items: start;
     margin-top: 8vh;
@@ -190,8 +191,24 @@ header {
 
     body {
         --skeleton:100%;
-        margin-inline:1rem;
+        margin-inline:.85rem;
     }
 
+}
+
+@media all and (max-width:1050px){
+
+    body {
+    --layout:"Reg-Desk";
+    }
+
+    .main-title {
+        font-size: 1.85rem;
+    }
+
+    .photographer_section {
+        --gap:5dvw;
+        --nbCol:2;
+    }
 
 }
