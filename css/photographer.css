@@ -10,7 +10,7 @@
     justify-content: space-between;
     align-items: center;
     /* height: 300px; */
-    padding: 2rem;
+    padding: 2rem 0;
     background-color: var(--photographer-header-bg);
 }
 
@@ -150,9 +150,6 @@
     color:var(--black-color);
 }
 
-.photographer_more .photographer-likes {
-
-}
 
 .photographer_more .photographer-pricing {
     margin-block:0;
@@ -160,14 +157,37 @@
     color:var(--black-color);
 }
 
-.contact_button {
-    
+
+
+#type-media-choice {
+    width: 150px;
+    padding: .45rem;
+    font-size:1rem;
+    color: var(--white-color);
+    border-radius: var(--radius);
+    background: var(--main-color);
+    border: none;
 }
 
-.contact_button:hover,
-.contact_button:focus {
-
+#type-media-choice > option {
+    color: var(--white-color);
+    padding: .6rem;
 }
+
+#type-media-choice > option[selected] {
+
+    background:blue;
+}
+
+
+.filter-title {
+    margin-right:1.3rem;
+    font-size:1.1rem;
+    font-weight:600;
+    color:var(--black-color);
+}
+
+
 
 
 @media all and (max-width:1050px){

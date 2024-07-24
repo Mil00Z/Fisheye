@@ -414,6 +414,50 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
     </div> `;
 }
 
+//Filter Feature
+let mediaFilter = document.querySelector('#type-media-choice');
+
+mediaFilter.addEventListener('change',(e) =>{
+
+    let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
+
+    console.log(selectedOptionValue,currentPhotographerMedia);
+
+    //Get Datas from Media Datas
+    
+    //Filter by Scenarii ?? : if option value = X then function Y go here
+    // or make conditions in super function 
+
+
+    getCurrentMediaByFilter(currentPhotographerMedia,selectedOptionValue);
+    
+
+
+    
+
+
+});
+
+
+function getCurrentMediaByFilter(arrayMedia,argument){
+
+    let mediaFiltered;
+
+    if(argument === 'popularity') {
+
+        mediaFiltered = arrayMedia.sort((a,b) =>{
+            return b.likes - a.likes
+        }
+    );
+
+    } else {
+
+        console.log('beug');
+    }
+
+    return mediaFiltered;
+}
+
 
 //CALL Major function
 init();
