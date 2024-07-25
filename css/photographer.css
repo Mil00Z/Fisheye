@@ -157,11 +157,9 @@
     color:var(--black-color);
 }
 
-
-
 #type-media-choice {
     width: 150px;
-    padding: .45rem;
+    padding: .9rem .4rem;
     font-size:1rem;
     color: var(--white-color);
     border-radius: var(--radius);
@@ -171,14 +169,8 @@
 
 #type-media-choice > option {
     color: var(--white-color);
-    padding: .6rem;
+    padding: 1rem; 
 }
-
-#type-media-choice > option[selected] {
-
-    background:blue;
-}
-
 
 .filter-title {
     margin-right:1.3rem;

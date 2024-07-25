@@ -1,7 +1,8 @@
 // import {photographerMediaTemplate} from "../templates/photographerMedia.js";
+
 import {displayModal,dataInContactModal} from "../utils/contactForm.js";
 
-//Call the dataArray before the function
+//Call the dataArray before the functions Call Datas
 let currentPhotographerMedia = [];
 
 
@@ -184,7 +185,7 @@ function displayMedias(photographerMedia,targetAction) {
                 
                 const mediaLikes = document.createElement('span');
                 mediaLikes.classList.add('photographer-media-likes');
-                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart aria-hidden="true" title="nombre de likes du projet"></i>`;
+                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `;
     
                 mediaTexts.append(mediaTitle,mediaLikes);
     
@@ -284,7 +285,6 @@ function openLightBox(mediaIndex) {
 
         }
 
-        
         document.querySelector('.modal-item img,.modal-item video').remove();
         document.querySelector('.modal-item-title').remove();
         
@@ -415,21 +415,14 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
     </div> `;
 }
 
+
 //Filter Feature
 let mediaFilter = document.querySelector('#type-media-choice');
 
 mediaFilter.addEventListener('change',(e) =>{
 
-    // console.log(e.target.value);
-    let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
-
-    // console.log(selectedOptionValue,currentPhotographerMedia);
-
-    //Get Datas from Media Datas
     
-    //Filter by Scenarii ?? : if option value = X then function Y go here
-    // or make conditions in super function 
-
+    let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
 
     getCurrentMediaByTri(currentPhotographerMedia,selectedOptionValue);
     
@@ -438,7 +431,6 @@ mediaFilter.addEventListener('change',(e) =>{
 
 function getCurrentMediaByTri(arrayMedia,criteria){
 
-    
     if(criteria === 'popularity') {
 
         arrayMedia.sort((a,b) =>{
@@ -446,11 +438,7 @@ function getCurrentMediaByTri(arrayMedia,criteria){
             return b.likes - a.likes;
 
         });
-
-        console.log('**** debeug tri',criteria,arrayMedia);
-
-        displayMedias(arrayMedia,'.photographer_media');
-
+    
     } else if(criteria === 'title') {
 
         arrayMedia.sort((a,b)=>{
@@ -458,11 +446,7 @@ function getCurrentMediaByTri(arrayMedia,criteria){
             return  a.title.localeCompare(b.title);
      
         });
-        
-        console.log('**** debeug tri',criteria,currentPhotographerMedia);
-
-        displayMedias(arrayMedia,'.photographer_media');
-
+      
     } else if(criteria === 'date') {
 
        arrayMedia.sort((a,b) =>{
@@ -471,50 +455,35 @@ function getCurrentMediaByTri(arrayMedia,criteria){
 
        });
 
-       console.log(arrayMedia);
-
-       displayMedias(arrayMedia,'.photographer_media');
-
     } else if(criteria === 'type-image') {
 
-        const typeFiltered = arrayMedia.filter((typeMedia) => {
+        arrayMedia= arrayMedia.filter((typeMedia) => {
 
             return typeMedia.image;
 
         });
-
-        console.log('**** debeug tri',criteria,typeFiltered);
-
-        displayMedias(typeFiltered,'.photographer_media');
         
     } else if(criteria === 'type-video') {
 
-        const typeFiltered = arrayMedia.filter((typeMedia) => {
+        arrayMedia = arrayMedia.filter((typeMedia) => {
 
             return typeMedia.video;
 
         });
 
-        console.log('**** debeug tri',criteria,typeFiltered);
-
-        displayMedias(typeFiltered,'.photographer_media');
-        
+       
     } else if(criteria === 'all') {
         
-        console.log('**** debeug tri',criteria,currentPhotographerMedia);
-
         displayMedias(currentPhotographerMedia,'.photographer_media');
+
 
     } else {
 
-        console.log('beug tri selection');
+        console.log(`beug de tri in ${criteria} Option`);
     }
 
-
+    displayMedias(arrayMedia,'.photographer_media');
 }
-
-
-
 
 
 //CALL Major function
