@@ -233,5 +233,20 @@
         font-size: 1rem;
     }
 
-   
+
+    .photographer_filter {
+        --gap:.45rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap:var(--gap);
+        margin-block: 3dvh;
+    }
+
+
+    #type-media-choice {
+        width:50%;
+        text-align: center;
+    }
+
 }

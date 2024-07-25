@@ -121,6 +121,7 @@ function displayMedias(photographerMedia,targetAction) {
 
     const photographerPageMedia = document.querySelector(`${targetAction}`);
 
+    photographerPageMedia.innerHTML = '';
     photographerMedia.forEach((mediaElement,index) =>{
 
             let {id,title,image,video,likes,date,price} = mediaElement;
@@ -231,7 +232,6 @@ function openLightBox(mediaIndex) {
 
             let subtitles = document.createElement('track');
 
-
             const titlesAttributs = {
                 "src":`${assetPath}/template-subs.vtt`,
                 "kind":"subtitles",
@@ -246,7 +246,7 @@ function openLightBox(mediaIndex) {
               }
 
 
-               // ADD media Video Specials 
+               // ADD media Video Specials
                singleMediaAsset.append(sourceVideo,subtitles);
 
         } else {
@@ -264,6 +264,7 @@ function openLightBox(mediaIndex) {
 
 
         //Push Elements on DOM
+        document.querySelector('.modal-item').innerHTML = '';
         document.querySelector('.modal-item').append(singleMediaAsset,mediaTitle);
 
         //Show me Your Assets
@@ -419,9 +420,10 @@ let mediaFilter = document.querySelector('#type-media-choice');
 
 mediaFilter.addEventListener('change',(e) =>{
 
+    // console.log(e.target.value);
     let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
 
-    console.log(selectedOptionValue,currentPhotographerMedia);
+    // console.log(selectedOptionValue,currentPhotographerMedia);
 
     //Get Datas from Media Datas
     
@@ -429,33 +431,75 @@ mediaFilter.addEventListener('change',(e) =>{
     // or make conditions in super function 
 
 
-    getCurrentMediaByFilter(currentPhotographerMedia,selectedOptionValue);
+    getCurrentMediaByTri(currentPhotographerMedia,selectedOptionValue);
     
-
-
-    
-
-
 });
 
 
-function getCurrentMediaByFilter(arrayMedia,argument){
+function getCurrentMediaByTri(arrayMedia,criteria){
 
-    let mediaFiltered;
+    
+    if(criteria === 'popularity') {
 
-    if(argument === 'popularity') {
+        arrayMedia.sort((a,b) =>{
 
-        mediaFiltered = arrayMedia.sort((a,b) =>{
-            return b.likes - a.likes
-        }
-    );
+            return b.likes - a.likes;
+
+        });
+
+        console.log('**** debeug tri',criteria,arrayMedia);
+
+        displayMedias(arrayMedia,'.photographer_media');
+
+    } else if(criteria === 'title') {
+
+        arrayMedia.sort((a,b)=>{
+
+            return  a.title.localeCompare(b.title);
+     
+        });
+        
+        console.log('**** debeug tri',criteria,currentPhotographerMedia);
+
+        displayMedias(arrayMedia,'.photographer_media');
+
+    } else if(criteria === 'type-image') {
+
+        const typeFiltered = arrayMedia.filter((typeMedia) => {
+
+            return typeMedia.image;
+
+        });
+
+        console.log('**** debeug tri',criteria,typeFiltered);
+
+        displayMedias(typeFiltered,'.photographer_media');
+        
+    } else if(criteria === 'type-video') {
+
+        const typeFiltered = arrayMedia.filter((typeMedia) => {
+
+            return typeMedia.video;
+
+        });
+
+        console.log('**** debeug tri',criteria,typeFiltered);
+
+        displayMedias(typeFiltered,'.photographer_media');
+        
+    } else if(criteria === 'all') {
+        
+        console.log('**** debeug tri',criteria,currentPhotographerMedia);
+
+        displayMedias(currentPhotographerMedia,'.photographer_media');
 
     } else {
 
-        console.log('beug');
+        console.log('beug tri selection');
     }
 
-    return mediaFiltered;
+    
+
 }
 
 
