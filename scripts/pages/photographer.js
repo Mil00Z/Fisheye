@@ -125,18 +125,17 @@ function displayMedias(photographerMedia,targetAction) {
     photographerPageMedia.innerHTML = '';
     photographerMedia.forEach((mediaElement,index) =>{
 
-            let {id,title,image,video,likes,date,price} = mediaElement;
+            let {id,title,image,video,likes,date} = mediaElement;
     
             const assetPath = `./assets/photographers`;
     
-            const article = document.createElement( 'a' );
+            const article = document.createElement( 'article' );
                 article.classList.add('card','card-media-photographer');
-                article.setAttribute('href',`#media_modal`);
-                article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
-                article.dataset.mediaId = `${id}`;
                 article.dataset.mediaIndex = `${index}`;
-                article.dataset.pricing = `${price}`;
-    
+                article.dataset.mediaRelease = `${date}`;
+                article.dataset.mediaId = `${id}`;
+                
+                
             let mediaAssets;
             
                 if(video) {
@@ -164,9 +163,7 @@ function displayMedias(photographerMedia,targetAction) {
                       }
 
                       // ADD media Video Specials 
-                    mediaAssets.append(sourceVideo,subtitles);
-
-
+                        mediaAssets.append(sourceVideo,subtitles);
                 } else {
                      mediaAssets = document.createElement( 'img' );
                      mediaAssets.setAttribute('src',`${assetPath}/${image}`);
@@ -174,19 +171,30 @@ function displayMedias(photographerMedia,targetAction) {
                 }
     
                 mediaAssets.classList.add('photographer-media-assets');
-                mediaAssets.dataset.release = `${date}`;
+                
     
                 const mediaTexts = document.createElement('div');
                 mediaTexts.classList.add('photographer-media-bottom');
                 
-                const mediaTitle = document.createElement( 'h2' );
-                mediaTitle.classList.add('photographer-media-title')
+                const mediaTitle = document.createElement( 'a' );
+                mediaTitle.classList.add('photographer-media-title');
+                mediaTitle.setAttribute('aria-label',`Lien vers la page du média ${title}`);
+                mediaTitle.setAttribute('href','#');
                 mediaTitle.textContent = `${title}`;
                 
                 const mediaLikes = document.createElement('span');
                 mediaLikes.classList.add('photographer-media-likes');
-                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `;
-    
+				mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `;
+
+				
+                mediaLikes.addEventListener('click',() =>{
+
+					likes ++;
+                    mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `
+ 
+                },{once:true});
+
+				
                 mediaTexts.append(mediaTitle,mediaLikes);
     
                 //Push data in Target Element
@@ -197,13 +205,13 @@ function displayMedias(photographerMedia,targetAction) {
     
 
                 // Create Event after Element in same context
-                article.addEventListener("click",()=> {
+                article.querySelector('.photographer-media-title').addEventListener("click",()=> {
 
                     openLightBox(index);
 
                 });
-    
-                
+
+
             });
     
 }
@@ -483,6 +491,11 @@ function getCurrentMediaByTri(arrayMedia,criteria){
     }
 
     displayMedias(arrayMedia,'.photographer_media');
+}
+
+function counterLikes() {
+
+
 }
 
 
