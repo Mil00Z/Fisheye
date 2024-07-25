@@ -188,7 +188,7 @@
 }
 
 
-
+/* MEDQUER */
 
 @media all and (max-width:1050px){
 
@@ -196,16 +196,18 @@
     --layout:"Reg-Desk";
     }
 
-    .photographer_section,
     .photographer_media {
         --gap:5dvw;
         --nbCol:2;
     }
 
-
 }
 
 @media all and (max-width:960px) {
+
+    body{
+        --layout:"Tab";
+    }
     
     .photographer_header {
         flex-flow: column wrap;
@@ -223,6 +225,7 @@
     .header-right {
         order:1;
     }
+
 
     .photographer_more {
         padding:.25rem;
@@ -243,10 +246,20 @@
         margin-block: 3dvh;
     }
 
-
     #type-media-choice {
         width:50%;
         text-align: center;
     }
 
+}
+
+@media all and (max-width:730px) {
+
+    body{
+        --layout:"Mobile";
+    }
+
+    .photographer_media {
+        --nbCol:1;
+    }
 }
