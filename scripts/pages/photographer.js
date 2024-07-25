@@ -1,7 +1,8 @@
 // import {photographerMediaTemplate} from "../templates/photographerMedia.js";
+
 import {displayModal,dataInContactModal} from "../utils/contactForm.js";
 
-//Call the dataArray before the function
+//Call the dataArray before the functions Call Datas
 let currentPhotographerMedia = [];
 
 
@@ -121,6 +122,7 @@ function displayMedias(photographerMedia,targetAction) {
 
     const photographerPageMedia = document.querySelector(`${targetAction}`);
 
+    photographerPageMedia.innerHTML = '';
     photographerMedia.forEach((mediaElement,index) =>{
 
             let {id,title,image,video,likes,date,price} = mediaElement;
@@ -183,7 +185,7 @@ function displayMedias(photographerMedia,targetAction) {
                 
                 const mediaLikes = document.createElement('span');
                 mediaLikes.classList.add('photographer-media-likes');
-                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart aria-hidden="true" title="nombre de likes du projet"></i>`;
+                mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `;
     
                 mediaTexts.append(mediaTitle,mediaLikes);
     
@@ -231,7 +233,6 @@ function openLightBox(mediaIndex) {
 
             let subtitles = document.createElement('track');
 
-
             const titlesAttributs = {
                 "src":`${assetPath}/template-subs.vtt`,
                 "kind":"subtitles",
@@ -246,7 +247,7 @@ function openLightBox(mediaIndex) {
               }
 
 
-               // ADD media Video Specials 
+               // ADD media Video Specials
                singleMediaAsset.append(sourceVideo,subtitles);
 
         } else {
@@ -264,6 +265,7 @@ function openLightBox(mediaIndex) {
 
 
         //Push Elements on DOM
+        document.querySelector('.modal-item').innerHTML = '';
         document.querySelector('.modal-item').append(singleMediaAsset,mediaTitle);
 
         //Show me Your Assets
@@ -283,7 +285,6 @@ function openLightBox(mediaIndex) {
 
         }
 
-        
         document.querySelector('.modal-item img,.modal-item video').remove();
         document.querySelector('.modal-item-title').remove();
         
@@ -412,6 +413,76 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
     <div class="photographer-pricing"> 
         ${price} $ / jour
     </div> `;
+}
+
+
+//Filter Feature
+let mediaFilter = document.querySelector('#type-media-choice');
+
+mediaFilter.addEventListener('change',(e) =>{
+
+    
+    let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
+
+    getCurrentMediaByTri(currentPhotographerMedia,selectedOptionValue);
+    
+});
+
+
+function getCurrentMediaByTri(arrayMedia,criteria){
+
+    if(criteria === 'popularity') {
+
+        arrayMedia.sort((a,b) =>{
+
+            return b.likes - a.likes;
+
+        });
+    
+    } else if(criteria === 'title') {
+
+        arrayMedia.sort((a,b)=>{
+
+            return  a.title.localeCompare(b.title);
+     
+        });
+      
+    } else if(criteria === 'date') {
+
+       arrayMedia.sort((a,b) =>{
+
+            return b.date.localeCompare(a.date);
+
+       });
+
+    } else if(criteria === 'type-image') {
+
+        arrayMedia= arrayMedia.filter((typeMedia) => {
+
+            return typeMedia.image;
+
+        });
+        
+    } else if(criteria === 'type-video') {
+
+        arrayMedia = arrayMedia.filter((typeMedia) => {
+
+            return typeMedia.video;
+
+        });
+
+       
+    } else if(criteria === 'all') {
+        
+        displayMedias(currentPhotographerMedia,'.photographer_media');
+
+
+    } else {
+
+        console.log(`beug de tri in ${criteria} Option`);
+    }
+
+    displayMedias(arrayMedia,'.photographer_media');
 }
 
 

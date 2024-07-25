@@ -136,7 +136,8 @@ header {
 }
 
 .card-photographer{
-    width: 320px;
+    /* width: 320px; */
+    width:fit-content;
     padding: 1rem;
     font-size:1.2rem;
     color:var(--white-color);
@@ -153,6 +154,7 @@ header {
 
 .photographer-name{
     margin-block:.55rem;
+    text-align: center;
     color:var(--second-color);
     font-size:2.2rem;
 }
@@ -187,15 +189,6 @@ header {
 
 
 /* MEDQUER */
-@media all and (max-width:960px){
-
-    body {
-        --skeleton:100%;
-        margin-inline:.85rem;
-    }
-
-}
-
 @media all and (max-width:1050px){
 
     body {
@@ -209,6 +202,34 @@ header {
     .photographer_section {
         --gap:5dvw;
         --nbCol:2;
+    }
+
+}
+
+@media all and (max-width:960px) {
+
+    body {
+        --layout:"Tab";
+        --skeleton:100%;
+        margin-inline:.85rem;
+    }
+
+
+}
+
+@media all and (max-width:600px) {
+    
+    body {
+        --layout:"Mobile";
+    }
+
+    header {
+        flex-direction: column;
+        margin-block: 1rem;
+      }
+
+      .photographer_section {
+        --nbCol:1;
     }
 
 }

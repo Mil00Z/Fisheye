@@ -56,6 +56,7 @@ document.querySelector(`${submitForm}`).addEventListener('submit',(e) => {
 
 });
 
+
 const submitBtn = 'button.submit';
 document.querySelector(`${submitBtn}`).addEventListener('click',() => {
 
@@ -115,11 +116,15 @@ export function closeModal(target) {
     //clear HTML Datas Media
     if (`${target}` === '#media_modal') {
 
-        document.querySelectorAll(`${target} .modal-item`).forEach((item) =>{
+        
 
-            item.remove();
+        // document.querySelector(`${target} .modal-item`).children.forEach((item) =>{
 
-        });
+        //     console.log(item);
+
+        //     item.remove();
+
+        // });
         
         console.log('XXX clean media modal');
     }
