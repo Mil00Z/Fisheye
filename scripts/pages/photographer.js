@@ -463,6 +463,18 @@ function getCurrentMediaByTri(arrayMedia,criteria){
 
         displayMedias(arrayMedia,'.photographer_media');
 
+    } else if(criteria === 'date') {
+
+       arrayMedia.sort((a,b) =>{
+
+            return b.date.localeCompare(a.date);
+
+       });
+
+       console.log(arrayMedia);
+
+       displayMedias(arrayMedia,'.photographer_media');
+
     } else if(criteria === 'type-image') {
 
         const typeFiltered = arrayMedia.filter((typeMedia) => {
@@ -498,9 +510,11 @@ function getCurrentMediaByTri(arrayMedia,criteria){
         console.log('beug tri selection');
     }
 
-    
 
 }
+
+
+
 
 
 //CALL Major function
