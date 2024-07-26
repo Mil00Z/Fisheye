@@ -74,7 +74,7 @@
 }
 
 .card-media-photographer {
-    width: 350px;
+    /* width: 350px; */
     font-size:1.2rem;
     color:var(--black-color);
     text-decoration: none;
@@ -101,7 +101,7 @@
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-radius: var(--radius);
+    border-radius: var(--radius) 0 0;
     background:var(--main-color);
     color:var(--white-color);
 }
@@ -117,7 +117,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:.55rem;
+    padding:.3rem;
 }
 
 .photographer-media-title {
@@ -137,9 +137,18 @@
 .photographer-media-likes {
     font-size:1rem; 
 }
+
+
 .photographer-media-likes > i.fa-heart {
+    margin-left: 4px;
     color:var(--main-color);
+    transition: var(--regTransi);
 }
+
+.photographer-media-likes > i.fa-heart:hover,
+.photographer-media-likes > i.fa-heart:focus {
+    transform:scale(1.25);
+} 
 
 .photographer_more {
     --gap:1.2rem;

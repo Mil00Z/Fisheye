@@ -24,6 +24,10 @@
 }
 
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     --layout:"Desk";
     --skeleton:1300px;
@@ -131,7 +135,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    justify-self: center;
+    /* justify-self: center; */
     transition: var(--regTransi);
 }
 
