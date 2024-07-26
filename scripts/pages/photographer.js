@@ -182,21 +182,22 @@ function displayMedias(photographerMedia,targetAction) {
                 mediaTitle.setAttribute('href','#');
                 mediaTitle.textContent = `${title}`;
                 
-                const mediaLikes = document.createElement('span');
+                const mediaLikes = document.createElement('div');
                 mediaLikes.classList.add('photographer-media-likes');
-				mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `;
+				mediaLikes.innerHTML = `<span class="likes-count">${likes}</span><i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i>`;
 
 				
                 mediaLikes.addEventListener('click',() =>{
 
 					likes ++;
-                    mediaLikes.innerHTML = `${likes} <i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i> `
- 
+                    mediaLikes.firstChild.textContent = `${likes}`;
+
                 },{once:true});
 
-				
+
                 mediaTexts.append(mediaTitle,mediaLikes);
     
+
                 //Push data in Target Element
                 article.append(mediaAssets,mediaTexts);
     
@@ -215,6 +216,7 @@ function displayMedias(photographerMedia,targetAction) {
             });
     
 }
+
 
 
 function openLightBox(mediaIndex) {
@@ -416,11 +418,27 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
     // Display Values
     photographerMoreMedia.innerHTML = `
     <div class="photographer-likes">
-    ${likesSum} <i class="fa-solid fa-heart aria-hiden="true" title="nombre total de likes du photographe"></i>
+    <span class="likes-total-count">${likesSum}</span>
+    <i class="fa-solid fa-heart aria-hiden="true" title="nombre total de likes du photographe"></i>
     </div>
     <div class="photographer-pricing"> 
-        ${price} $ / jour
+        ${price} euros / jour
     </div> `;
+}
+
+// Plan B si jamais la solution est jugée "trop difficile"
+function countSumLikes(){
+
+    // Get SUm of Likes Globally
+    let likesSum = 0;
+
+    photographerMediaDatas.forEach((element) => {
+        
+         likesSum += element.likes ;
+        
+    });
+
+
 }
 
 
@@ -493,11 +511,51 @@ function getCurrentMediaByTri(arrayMedia,criteria){
     displayMedias(arrayMedia,'.photographer_media');
 }
 
-function counterLikes() {
 
+function watchingTheCore() {
 
+    let parentArea = document.querySelector('.photographer_media');
+    
+    const config = {childList: true, subtree: true };
+    
+        let observer = new MutationObserver((mutationList) => {
+        
+            let totalNewSum = 0;
+            let targetInitialSum = document.querySelector('.likes-total-count');
+           
+            let initialTotalSum = Number(targetInitialSum.textContent);
+            console.log('*** initial Sum Likes',initialTotalSum);
+        
+    
+            for (let mutation of mutationList) {
+        
+                if (mutation.type === 'childList'){
+        
+                    const newLikeValues = document.querySelectorAll('.likes-count');
+        
+                    newLikeValues.forEach((newLikeValue) =>{
+        
+                        newLikeValue = Number(newLikeValue.textContent);
+    
+                        totalNewSum += newLikeValue;
+                    
+                    });
+        
+                    targetInitialSum.textContent = totalNewSum ;
+        
+                }
+        
+            }
+        
+            console.log('/// final SUM Likes',totalNewSum);
+
+    });
+
+    observer.observe(parentArea,config);       
 }
-
+    
+//Prevent Issues with UpdateDOM In JS with HTML Articles Media
+setTimeout(watchingTheCore,850);
 
 //CALL Major function
 init();
