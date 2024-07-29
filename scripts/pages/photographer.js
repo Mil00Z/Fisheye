@@ -194,11 +194,10 @@ function displayMedias(photographerMedia,targetAction) {
 
                 },{once:true});
 
-
+                //Push data Medium
                 mediaTexts.append(mediaTitle,mediaLikes);
-    
 
-                //Push data in Target Element
+                //Push All datas in Target Element
                 article.append(mediaAssets,mediaTexts);
     
                 // Push Target Element in DOM
@@ -512,50 +511,96 @@ function getCurrentMediaByTri(arrayMedia,criteria){
 }
 
 
-function watchingTheCore() {
+function watchingTheCoreMedia() {
 
-    let parentArea = document.querySelector('.photographer_media');
-    
-    const config = {childList: true, subtree: true };
-    
-        let observer = new MutationObserver((mutationList) => {
-        
-            let totalNewSum = 0;
-            let targetInitialSum = document.querySelector('.likes-total-count');
+    let targetObserve = document.querySelectorAll('.card-media-photographer');
+
+    let targetInitialSum = document.querySelector('.likes-total-count');
            
-            let initialTotalSum = Number(targetInitialSum.textContent);
-            console.log('*** initial Sum Likes',initialTotalSum);
-        
+    let initialTotalSum = Number(targetInitialSum.textContent);
+
+    console.log('*** initial Sum Likes',initialTotalSum);
+
+    targetObserve.forEach((item) => {
+
+        const config = {childList:true,attributes:true,subtree: true};
+
+        let observer = new MutationObserver((mutationList) => {
+
+                for (let mutation of mutationList) {
+
+                    if (mutation.target === item.querySelector('.likes-count')){
     
-            for (let mutation of mutationList) {
-        
-                if (mutation.type === 'childList'){
-        
-                    const newLikeValues = document.querySelectorAll('.likes-count');
-        
-                    newLikeValues.forEach((newLikeValue) =>{
-        
-                        newLikeValue = Number(newLikeValue.textContent);
-    
-                        totalNewSum += newLikeValue;
-                    
-                    });
-        
-                    targetInitialSum.textContent = totalNewSum ;
-        
+                        console.log('**mutation',mutation);
+                        
+                        initialTotalSum++;
+
+                        targetInitialSum.textContent = `${initialTotalSum}`;
+                
+                    } 
                 }
         
-            }
-        
-            console.log('/// final SUM Likes',totalNewSum);
+        });
 
+        observer.observe(item,config); 
     });
 
-    observer.observe(parentArea,config);       
-}
+    // let parentArea = document.querySelector('.photographer_media');
     
+    //     let observer = new MutationObserver((mutationList) => {
+        
+    //         let totalNewSum = 0;
+    //         let targetInitialSum = document.querySelector('.likes-total-count');
+           
+    //         let initialTotalSum = Number(targetInitialSum.textContent);
+    //         console.log('*** initial Sum Likes',initialTotalSum);
+
+    //         // console.log(mutationList);
+        
+    //         for (let mutation of mutationList) {
+
+    //             // console.log(mutation.addedNodes);
+
+    //             mutation.addedNodes.forEach((card) => {
+
+    //                 //Get Something just on this Mutations targets Event
+    //                 if (mutation.target){
+    
+    //                         console.log('**mutation',mutation);
+                            
+        
+    //                         const newLikeValues = document.querySelectorAll('.likes-count');
+        
+                
+    //                         newLikeValues.forEach((newLikeValue) =>{
+                
+    //                             newLikeValue = Number(newLikeValue.textContent);
+        
+    //                             totalNewSum += newLikeValue;
+                            
+    //                         });
+                
+    //                         targetInitialSum.textContent = totalNewSum ;
+                
+    //                     } else {
+        
+    //                         console.warn('big issue with mutation Target condition');
+    //                     }
+
+    //             });
+   
+    //         }
+        
+    //         console.log('/// final SUM Likes',totalNewSum);
+
+    // });
+
+    // observer.observe(countersLike,config);   
+}
+
+
 //Prevent Issues with UpdateDOM In JS with HTML Articles Media
-setTimeout(watchingTheCore,850);
+setTimeout(watchingTheCoreMedia,700);
 
 //CALL Major function
 init();
