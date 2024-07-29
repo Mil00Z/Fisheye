@@ -20,7 +20,7 @@
 
 .modal-body {
     display: flex;
-    width: 90dvw;
+    width: 75dvw;
     height: 90dvh;
     flex-direction: column;
     justify-content: space-between;
@@ -77,7 +77,7 @@
 
  
 .player-buttons {
-    --offsetPosY:8%;
+    --offsetPosY:2%;
     --sizes:38px;
     position: absolute;
     top:50%;
@@ -123,7 +123,7 @@
     --sizesPicto:42px;
     position: absolute;
     top: 20px;
-    right: 11%;
+    right: 2%;
     width: var(--sizesPicto);
     height: var(--sizesPicto);
     z-index: 2;
@@ -134,8 +134,6 @@
     background:var(--main-color);
     
 }
-
-
 
 /* Keyframes */
 @keyframes backgroundModal {
@@ -161,3 +159,29 @@
         opacity: 1;
     }
 }
+
+
+@media all and (max-width:960px) {
+
+    body{
+        --layout:"Tab";
+    }
+
+    .modal-body {
+        width:90dvw;
+    }
+
+    
+}
+
+@media all and (max-width:600px) {
+
+    body{
+        --layout:"Mobile";
+    }
+
+
+}
+
+
+

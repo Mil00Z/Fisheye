@@ -19,6 +19,11 @@
 --title-font-family:"DM Sans", sans-serif;
 --title-font-size:1rem;
 
+--cta-button-font-size:1.2rem;
+--cta-button-color:var(--white-color);
+--cta-button-weight:600;
+--cta-button-background:var(--main-color);
+
 --radius:5px;
 --regTransi:all .26s ease-in-out;
 }
@@ -34,6 +39,7 @@ body {
     font-family:var(--body-font-family);
     font-weight:var(--body-font-weight);
     margin: 0;
+    padding:1rem;
     padding-bottom:2rem;
     box-sizing: border-box;
 }
@@ -54,20 +60,20 @@ body {
 .cta-button {
     width: fit-content;
     padding: 1rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--white-color);
+    font-size: var(--cta-button-font-size);
+    font-weight: var(--cta-button-weight);
+    color: var(--cta-button-color);
     border: none;
     border-radius: var(--radius);
-    background-color: var(--main-color);
+    background-color: var(--cta-button-background);
     transition: var(--regTransi);
     cursor: pointer;
 }
 
 .cta-button:hover,
 .cta-button:focus {
-    color: var(--black-color);
-    background-color: var(--third-color);
+    --cta-button-background:var(--third-color);
+    --cta-button-color:var(--black-color);
 }
 
 header {
@@ -141,7 +147,7 @@ header {
 
 .card-photographer{
     /* width: 320px; */
-    width:fit-content;
+    /* width:fit-content; */
     padding: 1rem;
     font-size:1.2rem;
     color:var(--white-color);
@@ -236,4 +242,11 @@ header {
         --nbCol:1;
     }
 
+}
+
+@media all and (max-width:340px) {
+
+    .main-title {
+        font-size:1.55rem;
+    }
 }

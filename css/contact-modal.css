@@ -149,3 +149,40 @@ form textarea {
         opacity: 1;
     }
 }
+
+
+
+@media all and (max-width:600px) {
+
+    body{
+        --layout:"Mobile";
+    }
+
+    .modal {
+        width:90%;
+    }
+
+    .modal-title {
+        font-size: 2rem;
+    }
+    
+    .modal-closer{
+        --sizesPicto:32px;
+        top:5px;
+        right:5px;
+    }
+
+    form label {
+        font-size:1.55rem;
+    }
+
+    form input,
+    form input::placeholder {
+        font-size:1rem;
+    }
+
+    form .cta-button {
+        font-size:var(--cta-button-font-size);
+    }
+
+}
