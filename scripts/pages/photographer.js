@@ -55,6 +55,9 @@ async function init() {
 
     dataInContactModal(currentPhotographerData);
 
+
+    watchingTheCoreMedia();
+
 }
 
 
@@ -428,14 +431,6 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
 // Plan B si jamais la solution est jugée "trop difficile"
 function countSumLikes(){
 
-    // Get SUm of Likes Globally
-    let likesSum = 0;
-
-    photographerMediaDatas.forEach((element) => {
-        
-         likesSum += element.likes ;
-        
-    });
 
 
 }
@@ -446,7 +441,6 @@ let mediaFilter = document.querySelector('#type-media-choice');
 
 mediaFilter.addEventListener('change',(e) =>{
 
-    
     let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
 
     getCurrentMediaByTri(currentPhotographerMedia,selectedOptionValue);
@@ -513,94 +507,34 @@ function getCurrentMediaByTri(arrayMedia,criteria){
 
 function watchingTheCoreMedia() {
 
-    let targetObserve = document.querySelectorAll('.card-media-photographer');
+    let targetObserve = document.querySelector('.photographer_media');
 
     let targetInitialSum = document.querySelector('.likes-total-count');
            
     let initialTotalSum = Number(targetInitialSum.textContent);
 
-    console.log('*** initial Sum Likes',initialTotalSum);
+    // console.log('*** initial Sum Likes',initialTotalSum);
 
-    targetObserve.forEach((item) => {
-
-        const config = {childList:true,attributes:true,subtree: true};
+    const config = {childList:true,subtree: true};
 
         let observer = new MutationObserver((mutationList) => {
 
                 for (let mutation of mutationList) {
 
-                    if (mutation.target === item.querySelector('.likes-count')){
+                    //Target Only Change on Count Likes
+                    if (mutation.target.className === 'likes-count'){
     
                         console.log('**mutation',mutation);
                         
-                        initialTotalSum++;
-
-                        targetInitialSum.textContent = `${initialTotalSum}`;
+                        targetInitialSum.textContent = `${++initialTotalSum}`;
                 
                     } 
                 }
         
         });
 
-        observer.observe(item,config); 
-    });
-
-    // let parentArea = document.querySelector('.photographer_media');
-    
-    //     let observer = new MutationObserver((mutationList) => {
-        
-    //         let totalNewSum = 0;
-    //         let targetInitialSum = document.querySelector('.likes-total-count');
-           
-    //         let initialTotalSum = Number(targetInitialSum.textContent);
-    //         console.log('*** initial Sum Likes',initialTotalSum);
-
-    //         // console.log(mutationList);
-        
-    //         for (let mutation of mutationList) {
-
-    //             // console.log(mutation.addedNodes);
-
-    //             mutation.addedNodes.forEach((card) => {
-
-    //                 //Get Something just on this Mutations targets Event
-    //                 if (mutation.target){
-    
-    //                         console.log('**mutation',mutation);
-                            
-        
-    //                         const newLikeValues = document.querySelectorAll('.likes-count');
-        
-                
-    //                         newLikeValues.forEach((newLikeValue) =>{
-                
-    //                             newLikeValue = Number(newLikeValue.textContent);
-        
-    //                             totalNewSum += newLikeValue;
-                            
-    //                         });
-                
-    //                         targetInitialSum.textContent = totalNewSum ;
-                
-    //                     } else {
-        
-    //                         console.warn('big issue with mutation Target condition');
-    //                     }
-
-    //             });
-   
-    //         }
-        
-    //         console.log('/// final SUM Likes',totalNewSum);
-
-    // });
-
-    // observer.observe(countersLike,config);   
+    observer.observe(targetObserve,config);   
 }
-
-
-//Prevent Issues with UpdateDOM In JS with HTML Articles Media
-setTimeout(watchingTheCoreMedia,700);
 
 //CALL Major function
 init();
