@@ -55,6 +55,9 @@ async function init() {
 
     dataInContactModal(currentPhotographerData);
 
+
+    watchingTheCoreMedia();
+
 }
 
 
@@ -194,11 +197,10 @@ function displayMedias(photographerMedia,targetAction) {
 
                 },{once:true});
 
-
+                //Push data Medium
                 mediaTexts.append(mediaTitle,mediaLikes);
-    
 
-                //Push data in Target Element
+                //Push All datas in Target Element
                 article.append(mediaAssets,mediaTexts);
     
                 // Push Target Element in DOM
@@ -429,14 +431,6 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
 // Plan B si jamais la solution est jugée "trop difficile"
 function countSumLikes(){
 
-    // Get SUm of Likes Globally
-    let likesSum = 0;
-
-    photographerMediaDatas.forEach((element) => {
-        
-         likesSum += element.likes ;
-        
-    });
 
 
 }
@@ -447,7 +441,6 @@ let mediaFilter = document.querySelector('#type-media-choice');
 
 mediaFilter.addEventListener('change',(e) =>{
 
-    
     let selectedOptionValue = e.target.options[e.target.selectedIndex].value;
 
     getCurrentMediaByTri(currentPhotographerMedia,selectedOptionValue);
@@ -512,50 +505,36 @@ function getCurrentMediaByTri(arrayMedia,criteria){
 }
 
 
-function watchingTheCore() {
+function watchingTheCoreMedia() {
 
-    let parentArea = document.querySelector('.photographer_media');
-    
-    const config = {childList: true, subtree: true };
-    
-        let observer = new MutationObserver((mutationList) => {
-        
-            let totalNewSum = 0;
-            let targetInitialSum = document.querySelector('.likes-total-count');
+    let targetObserve = document.querySelector('.photographer_media');
+
+    let targetInitialSum = document.querySelector('.likes-total-count');
            
-            let initialTotalSum = Number(targetInitialSum.textContent);
-            console.log('*** initial Sum Likes',initialTotalSum);
-        
+    let initialTotalSum = Number(targetInitialSum.textContent);
+
+    // console.log('*** initial Sum Likes',initialTotalSum);
+
+    const config = {childList:true,subtree: true};
+
+        let observer = new MutationObserver((mutationList) => {
+
+                for (let mutation of mutationList) {
+
+                    //Target Only Change on Count Likes
+                    if (mutation.target.className === 'likes-count'){
     
-            for (let mutation of mutationList) {
-        
-                if (mutation.type === 'childList'){
-        
-                    const newLikeValues = document.querySelectorAll('.likes-count');
-        
-                    newLikeValues.forEach((newLikeValue) =>{
-        
-                        newLikeValue = Number(newLikeValue.textContent);
-    
-                        totalNewSum += newLikeValue;
-                    
-                    });
-        
-                    targetInitialSum.textContent = totalNewSum ;
-        
+                        console.log('**mutation',mutation);
+                        
+                        targetInitialSum.textContent = `${++initialTotalSum}`;
+                
+                    } 
                 }
         
-            }
-        
-            console.log('/// final SUM Likes',totalNewSum);
+        });
 
-    });
-
-    observer.observe(parentArea,config);       
+    observer.observe(targetObserve,config);   
 }
-    
-//Prevent Issues with UpdateDOM In JS with HTML Articles Media
-setTimeout(watchingTheCore,850);
 
 //CALL Major function
 init();
