@@ -1,41 +1,61 @@
-export function photographerMediaTemplate(data) {
+export class MediaFactory {
 
-    const { id, title, price, video, date, likes } = data;
+    constructor(type,src,title) {
 
-    const videoPath = `../assets/photographers/${video}`;
+        this.type = type
+        this.src = src
+        this.title = title
 
-    function getMediaCardDOM() {
-
-        const article = document.createElement( 'a' );
-        article.classList.add('card','card-media-photographer');
-        // article.setAttribute('href',`./photographer.html?id=${id}`);
-        article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
-        article.dataset.mediaId = `${id}`;
-
-        const mediaVideo = document.createElement( 'video' );
-        mediaVideo.classList.add('photographer-media-video');
-        mediaVideo.setAttribute("src", videoPath);
-
-        const mediaTitle = document.createElement( 'h2' );
-        mediaTitle.classList.add('photographer-media-title')
-        mediaTitle.textContent = `${title}`;
-        
-        const mediaLikes = document.createElement('span');
-        mediaLikes.classList.add('photographer-media-likes');
-        mediaLikes.textContent = `${likes} personnes ont ❤`;
-
-        const mediaDate = document.createElement('span');
-        mediaDate.classList.add('photographer-media-date');
-        mediaDate.textContent = `${date}`;
-
-        const mediaPricing = document.createElement('p');
-        mediaPricing.classList.add('photographer-pricing');
-        mediaPricing.textContent = `${price} euros`;
-
-        article.append(mediaVideo,mediaTitle,mediaDate,mediaPricing,mediaLikes,);
-
-        return (article);
     }
 
-    return { data, getMediaCardDOM }
+    createCard() {
+
+        
+
+
+    }
+
+    createMedia() {
+
+        let mediaAsset;
+        const assetPath = `./assets/photographers`;
+
+        if (this.type === 'video') {
+            mediaAsset = document.createElement('video');
+            mediaAsset.setAttribute('controls','');
+            mediaAsset.setAttribute('aria-label',`video appelée - ${this.title}`);
+
+            let sourceVideo = document.createElement('source');
+            sourceVideo.setAttribute('src',`${assetPath}/${this.src}`);
+
+            //Create Subs context
+            let subtitles = document.createElement('track');
+
+            const titlesAttributs = {
+                "src":`${assetPath}/template-subs.vtt`,
+                "kind":"subtitles",
+                "srclang":`${document.documentElement.lang}`,
+                "label":`Sous titres en ${document.documentElement.lang}`,
+                "data-subtitles":"One Fake Subtitles for all the video"
+            }
+
+             //Push Attributs Object on Element
+             for (const attribut in titlesAttributs) {
+                subtitles.setAttribute(attribut, titlesAttributs[attribut]);
+              }
+
+               // ADD media Video Specials
+               mediaAsset.append(sourceVideo,subtitles);
+
+        } else {
+
+            mediaAsset = document.createElement('img');
+            mediaAsset.setAttribute('src',`${assetPath}/${this.src}`);
+            mediaAsset.setAttribute('alt',`Photographie appelée - ${this.title}`);
+
+        }
+        
+        return mediaAsset
+    }
+
 }

@@ -2,6 +2,8 @@
 
 import {displayModal,dataInContactModal} from "../utils/contactForm.js";
 
+import {MediaFactory} from "../templates/photographerMedia.js";
+
 //Call the dataArray before the functions Call Datas
 let currentPhotographerMedia = [];
 
@@ -231,44 +233,26 @@ function openLightBox(mediaIndex) {
 
         console.log('**Media Clicked',currentPhotographerMedia[currentIndex]);
 
-        let singleMediaAsset;
-        const assetPath = `./assets/photographers`;
+        let source;
+        let type;
 
-        if (currentMedia.video) {
-            singleMediaAsset = document.createElement('video');
-            singleMediaAsset.setAttribute('controls','');
-            singleMediaAsset.setAttribute('aria-label',`video appelée - ${currentMedia.title}`);
+        if(currentMedia.video){
 
-            let sourceVideo = document.createElement('source');
-            sourceVideo.setAttribute('src',`${assetPath}/${currentMedia.video}`);
-
-
-            let subtitles = document.createElement('track');
-
-            const titlesAttributs = {
-                "src":`${assetPath}/template-subs.vtt`,
-                "kind":"subtitles",
-                "srclang":`${document.documentElement.lang}`,
-                "label":`Sous titres en ${document.documentElement.lang}`,
-                "data-subtitles":"One Fake Subtitles for all the video"
-            }
-
-             //Push Attributs Object on Element
-             for (const attribut in titlesAttributs) {
-                subtitles.setAttribute(attribut, titlesAttributs[attribut]);
-              }
-
-
-               // ADD media Video Specials
-               singleMediaAsset.append(sourceVideo,subtitles);
+            type = 'video';
+            source = currentMedia.video;
 
         } else {
-            singleMediaAsset = document.createElement('img');
-            singleMediaAsset.setAttribute('src',`${assetPath}/${currentMedia.image}`);
-            singleMediaAsset.setAttribute('alt',`Photographie appelée - ${currentMedia.title}`);
-        }
-        
 
+            type = 'image';
+            source = currentMedia.image;
+        }
+
+        // New Media Element
+        const mediaItem = new MediaFactory(type,source,currentMedia.title);
+        let singleMediaAsset = mediaItem.createMedia()
+
+
+    
         document.querySelector('.modal-item').setAttribute('data-index',`${currentIndex}`)
         
         let mediaTitle = document.createElement('h3');
