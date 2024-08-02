@@ -2,7 +2,7 @@
 
 import {displayModal,dataInContactModal} from "../utils/contactForm.js";
 
-import {MediaFactory} from "../templates/photographerMedia.js";
+import {CardMedia,ModalItem} from "../templates/photographerMedia.js";
 
 //Call the dataArray before the functions Call Datas
 let currentPhotographerMedia = [];
@@ -133,6 +133,26 @@ function displayMedias(photographerMedia,targetAction) {
             let {id,title,image,video,likes,date} = mediaElement;
     
             const assetPath = `./assets/photographers`;
+
+            let source;
+            let type;
+    
+            if(video){
+    
+                type = 'video';
+                source = video;
+    
+            } else {
+    
+                type = 'image';
+                source = image;
+            }
+
+            const cardMedia = new CardMedia(index,type,source,title,likes,date);
+            cardMedia.createMedia();
+            cardMedia.createCard();
+
+            console.log(cardMedia);
     
             const article = document.createElement( 'article' );
                 article.classList.add('card','card-media-photographer');
@@ -247,23 +267,11 @@ function openLightBox(mediaIndex) {
             source = currentMedia.image;
         }
 
-        // New Media Element
-        const mediaItem = new MediaFactory(type,source,currentMedia.title);
-        let singleMediaAsset = mediaItem.createMedia()
-
-
-    
-        document.querySelector('.modal-item').setAttribute('data-index',`${currentIndex}`)
+        // New Card Element : get Object, datas from Parent and New Item Media
+        let currentItem = new ModalItem(currentIndex,type,source,currentMedia.title);
+        let currentMediaItem = currentItem.createMedia();
+        currentItem.createItem(currentMediaItem);
         
-        let mediaTitle = document.createElement('h3');
-        mediaTitle.classList.add('modal-item-title');
-        mediaTitle.textContent = `${currentMedia.title}`;
-
-
-        //Push Elements on DOM
-        document.querySelector('.modal-item').innerHTML = '';
-        document.querySelector('.modal-item').append(singleMediaAsset,mediaTitle);
-
         //Show me Your Assets
         displayModal('#media_modal');
     }

@@ -1,21 +1,23 @@
-export class MediaFactory {
+export class CardMedia {
 
-    constructor(type,src,title) {
+     constructor(id,type,src,title,likes,date) {
 
-        this.type = type
-        this.src = src
-        this.title = title
+        this.id = id
+        this.type = type 
+        this.src = src 
+        this.title = title 
+        this.likes = likes 
+        this.date = date 
+        this.layout = 'page';
+     }
 
-    }
+     createCard() {
+       
+        console.log('*** Creation de la structure HTML par method POO à suivre ***');
 
-    createCard() {
+     }
 
-        
-
-
-    }
-
-    createMedia() {
+     createMedia() {
 
         let mediaAsset;
         const assetPath = `./assets/photographers`;
@@ -55,7 +57,36 @@ export class MediaFactory {
 
         }
         
-        return mediaAsset
+        return mediaAsset;
+     }
+
+
+}
+
+export class ModalItem extends CardMedia {
+
+    constructor(id,type,src,title) {
+
+        super(id,type,src,title);
+        this.layout = 'modal';
+
     }
+
+    createItem(mediaItem) {
+
+        const targetItem =  document.querySelector('.modal-item');
+        targetItem .setAttribute('data-index',`${this.id}`);
+        targetItem .setAttribute('data-layout',`${this.layout}`);
+
+        let mediaTitle = document.createElement('h3');
+        mediaTitle.classList.add('modal-item-title');
+        mediaTitle.textContent = `${this.title}`;
+
+        //Push Elements on DOM
+        targetItem.innerHTML = '';
+        targetItem.append(mediaItem,mediaTitle);
+
+    }
+
 
 }
