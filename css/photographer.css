@@ -17,6 +17,7 @@
 .header-left{
     display: flex;
     flex-direction: column;
+    max-width:55%;
 }
 
 .header-right{
@@ -216,6 +217,11 @@
         --nbCol:2;
     }
 
+    .photographer-name {
+        width:100%;
+    }
+
+
 }
 
 @media all and (max-width:960px) {
@@ -240,11 +246,13 @@
     .header-right {
         order:1;
     }
-
-
     .photographer_more {
         padding:.25rem;
         font-size:1.1rem;
+    }
+
+    .photographer-name {
+        text-align: center;
     }
 
     .photographer_pricing {
