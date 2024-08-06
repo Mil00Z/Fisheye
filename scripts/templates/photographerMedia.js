@@ -1,41 +1,130 @@
-export function photographerMediaTemplate(data) {
+export class CardMedia {
 
-    const { id, title, price, video, date, likes } = data;
+     constructor(index,type,src,title,likes,date) {
 
-    const videoPath = `../assets/photographers/${video}`;
+        this.index = index
+        this.type = type 
+        this.src = src 
+        this.title = title 
+        this.likes = likes 
+        this.date = date 
+        this.layout = 'photographer';
+     }
 
-    function getMediaCardDOM() {
+     createCard(mediaItem) {
+   
+        let article = document.createElement( 'article' );
+            article.classList.add('card',`card-media-${this.layout}`);
+            article.dataset.mediaIndex = `${this.index}`;
+            article.dataset.mediaRelease = `${this.date}`;
 
-        const article = document.createElement( 'a' );
-        article.classList.add('card','card-media-photographer');
-        // article.setAttribute('href',`./photographer.html?id=${id}`);
-        article.setAttribute('aria-label',`Lien vers la page du média ${title}`);
-        article.dataset.mediaId = `${id}`;
+                //Create Texts and url Datas for Media
+                const mediaTexts = document.createElement('div');
+                mediaTexts.classList.add(`${
+                    this.layout}-media-bottom`);
+                
+                const mediaTitle = document.createElement( 'a' );
+                mediaTitle.classList.add(`${this.layout}-media-title`);
+                mediaTitle.setAttribute('aria-label',`Lien vers la page du média ${this.title}`);
+                mediaTitle.setAttribute('href','#');
+                mediaTitle.textContent = `${this.title}`;
+                
+                const mediaLikes = document.createElement('div');
+                mediaLikes.classList.add(`${this.layout}-media-likes`);
+				mediaLikes.innerHTML = `<span class="likes-count">${this.likes}</span><i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i>`;
 
-        const mediaVideo = document.createElement( 'video' );
-        mediaVideo.classList.add('photographer-media-video');
-        mediaVideo.setAttribute("src", videoPath);
+                mediaLikes.addEventListener('click',() =>{
 
-        const mediaTitle = document.createElement( 'h2' );
-        mediaTitle.classList.add('photographer-media-title')
-        mediaTitle.textContent = `${title}`;
+					this.likes ++;
+                    mediaLikes.firstChild.textContent = `${this.likes}`;
+                    
+
+                },{once:true}); 
+
+            //Push Datas
+             mediaTexts.append(mediaTitle,mediaLikes);
+
+            //Push All datas in Target Element
+            article.append(mediaItem,mediaTexts);
+
         
-        const mediaLikes = document.createElement('span');
-        mediaLikes.classList.add('photographer-media-likes');
-        mediaLikes.textContent = `${likes} personnes ont ❤`;
+            return article;
+     }
 
-        const mediaDate = document.createElement('span');
-        mediaDate.classList.add('photographer-media-date');
-        mediaDate.textContent = `${date}`;
 
-        const mediaPricing = document.createElement('p');
-        mediaPricing.classList.add('photographer-pricing');
-        mediaPricing.textContent = `${price} euros`;
+     createMedia() {
 
-        article.append(mediaVideo,mediaTitle,mediaDate,mediaPricing,mediaLikes,);
+        let mediaAsset;
+        const assetPath = `./assets/photographers`;
 
-        return (article);
+        if (this.type === 'video') {
+            mediaAsset = document.createElement('video');
+            mediaAsset.setAttribute('controls','');
+            mediaAsset.setAttribute('aria-label',`video appelée - ${this.title}`);
+
+            let sourceVideo = document.createElement('source');
+            sourceVideo.setAttribute('src',`${assetPath}/${this.src}`);
+
+            //Create Subtitles Context
+            let subtitles = document.createElement('track');
+
+            const titlesAttributs = {
+                "src":`${assetPath}/template-subs.vtt`,
+                "kind":"subtitles",
+                "srclang":`${document.documentElement.lang}`,
+                "label":`Sous titres en ${document.documentElement.lang}`,
+                "data-subtitles":"One Fake Subtitles for all the video"
+            }
+
+             //Push Attributs Object on Element
+             for (const attribut in titlesAttributs) {
+                subtitles.setAttribute(attribut, titlesAttributs[attribut]);
+              }
+
+            // Add Media Video Specials Attributs
+            mediaAsset.append(sourceVideo,subtitles);
+
+        } else {
+
+            mediaAsset = document.createElement('img');
+            mediaAsset.setAttribute('src',`${assetPath}/${this.src}`);
+            mediaAsset.setAttribute('alt',`Photographie appelée - ${this.title}`);
+
+        }
+
+        mediaAsset.classList.add(`${this.layout}-media-assets`);
+
+        
+        return mediaAsset;
+     }
+
+}
+
+
+export class ModalItem extends CardMedia {
+
+    constructor(index,type,src,title) {
+
+        super(index,type,src,title);
+        this.layout = 'modal';
+
     }
 
-    return { data, getMediaCardDOM }
+
+    createItem(mediaItem) {
+
+        const targetItem =  document.querySelector(`.${this.layout}-item`);
+        targetItem .setAttribute('data-index',`${this.index}`);
+        targetItem .setAttribute('data-layout',`${this.layout}`);
+
+        let mediaTitle = document.createElement('h3');
+        mediaTitle.classList.add(`${this.layout}-item-title`);
+        mediaTitle.textContent = `${this.title}`;
+
+        //Push Elements on DOM
+        targetItem.innerHTML = '';
+        targetItem.append(mediaItem,mediaTitle);
+
+    }
+
 }
