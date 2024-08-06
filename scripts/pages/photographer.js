@@ -48,7 +48,7 @@ export async function getPhotographerMedias(currentId) {
         let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
     
         return mediaFiltered;
-        
+
     } catch {
 
         const errorMessage = 'Pas de datas disponibles';
@@ -372,7 +372,7 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
     photographerMoreMedia.innerHTML = `
     <div class="photographer-likes">
     <span class="likes-total-count">${likesSum}</span>
-    <i class="fa-solid fa-heart aria-hiden="true" title="nombre total de likes du photographe"></i>
+    <i class="fa-solid fa-heart" aria-hiden="true" title="nombre total de likes du photographe"></i>
     </div>
     <div class="photographer-pricing"> 
         ${price} euros / jour

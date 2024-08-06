@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
@@ -11,13 +11,13 @@
 
   <body class="photographer">
 
-    <header class="wrapper" role="banner">
+    <header class="wrapper">
       <a href="./" class="link-home" aria-label="Lien HomePage Fisheye">
         <img src="assets/images/logo.png" class="logo" alt="Logo de l'entreprise Fisheye">
       </a>
     </header>
 
-    <main id="main" role="main">
+    <main id="main">
 
       <div class="wrapper">
         <div class="photographer_header"></div>
@@ -43,26 +43,26 @@
 			<div class="modal" tabindex="0" >
 				<header role="banner">
           <h2 class="modal-title" id="modal-contact-title">Contactez-moi<span class="modal-photographer-name"></span></h2>
-          <a href="" class="modal-closer" alt="Icone de fermeture">
+          <a href="" class="modal-closer" aria-label="Icone de fermeture">
           </a>
         </header>
 
 				<form class="modal-content" id="the-form">
 					<div class="form-group">
 						<label for="name">Prénom</label>
-            <input type="text" id="name" name="name" class="contact_name" placeholder="votre prénom" required/>
+            <input type="text" id="name" name="name" class="contact_name" placeholder="votre prénom" required>
 					</div>
           <div class="form-group">
 						<label for="nickname">Nom</label>
-            <input type="text" id="nickname" name="nickname" class="contact_nickname" placeholder="votre nom"/>
+            <input type="text" id="nickname" name="nickname" class="contact_nickname" placeholder="votre nom">
 					</div>
           <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" class="contact_email" placeholder="votre e-mail" required/>
+            <input type="email" id="email" name="email" class="contact_email" placeholder="votre e-mail" required>
 					</div>
           <div class="form-group">
 						<label for="message">Votre Message</label>
-            <textarea id="message" name="message" class="contact_name" autoresize required></textarea>
+            <textarea id="message" name="message" class="contact_name" required></textarea>
 					</div>
           <button class="cta-button contact_button submit" aria-label="envoyer formulaire">Envoyer</button>
 				</form>
@@ -73,10 +73,10 @@
       <div class="modal-body wip" tabindex="0" >
         <span class="player-buttons prev-media" role="button">prev</span>
         <span class="player-buttons next-media" role="button">next</span>
-        <a href="" class="modal-closer" alt="Icone de fermeture">
+        <a href="" class="modal-closer" aria-label="Icone de fermeture">
         </a>
         <div class="modal-content">
-          <article class="modal-item"></article>
+          <div class="modal-item"></div>
         </div>
       </div>
     </div>
@@ -85,11 +85,8 @@
   </body>
 
 
-
-
     <script type="module" src="./scripts/utils/mediaModal.js"></script>
     <script type="module" src="./scripts/utils/contactForm.js"></script>
-    <!-- <script type="module" src="/scripts/utils/observerMethodSelector.js"></script> -->
     <script type="module" src="./scripts/pages/photographer.js"></script>
     
 </html>
