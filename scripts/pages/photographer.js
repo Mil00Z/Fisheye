@@ -130,12 +130,11 @@ function displayMedias(photographerMedia,targetAction) {
     photographerPageMedia.innerHTML = '';
     photographerMedia.forEach((mediaElement,index) =>{
 
-            let {id,title,image,video,likes,date} = mediaElement;
+        let {title,image,video,likes,date} = mediaElement;
     
-            const assetPath = `./assets/photographers`;
-
-            let type;
-            let source;
+        //Testing Datas to Create Element
+        let type;
+        let source;
             
             if(video){
     
@@ -149,92 +148,20 @@ function displayMedias(photographerMedia,targetAction) {
             }
 
             const cardMedia = new CardMedia(index,type,source,title,likes,date);
-            cardMedia.createMedia();
-            cardMedia.createCard();
+            let theMedia = cardMedia.createMedia();
+            let article = cardMedia.createCard(theMedia);
 
+            // setTimeout(photographerPageMedia.append(article),5000);
 
-            const article = document.createElement( 'article' );
-                article.classList.add('card','card-media-photographer');
-                article.dataset.mediaIndex = `${index}`;
-                article.dataset.mediaRelease = `${date}`;
-                article.dataset.mediaId = `${id}`;
-                
-                
-            let mediaAssets;
-            
-                if(video) {
+            // Push Target Element in DOM
+            photographerPageMedia.append(article);
     
-                    mediaAssets = document.createElement( 'video' );
-                    mediaAssets.setAttribute('controls','');
-                    mediaAssets.setAttribute('aria-label',`video appelée - ${title}`);
-
-                    let sourceVideo = document.createElement('source');
-                    sourceVideo.setAttribute('src',`${assetPath}/${video}`);
-
-                    let subtitles = document.createElement('track');
-
-                    const titlesAttributs = {
-                        "src":`${assetPath}/template-subs.vtt`,
-                        "kind":"subtitles",
-                        "srclang":`${document.documentElement.lang}`,
-                        "label":`Sous titres en ${document.documentElement.lang}`,
-                        "data-subtitles":"One Fake Subtitles for all the video"
-                    }
-
-                    //Push Attributs Object on Element
-                    for (const attribut in titlesAttributs) {
-                        subtitles.setAttribute(attribut, titlesAttributs[attribut]);
-                      }
-
-                      // ADD media Video Specials 
-                        mediaAssets.append(sourceVideo,subtitles);
-                } else {
-                     mediaAssets = document.createElement( 'img' );
-                     mediaAssets.setAttribute('src',`${assetPath}/${image}`);
-                     mediaAssets.setAttribute('alt',`image de ${title}`)
-                }
-    
-                mediaAssets.classList.add('photographer-media-assets');
-                
-    
-                const mediaTexts = document.createElement('div');
-                mediaTexts.classList.add('photographer-media-bottom');
-                
-                const mediaTitle = document.createElement( 'a' );
-                mediaTitle.classList.add('photographer-media-title');
-                mediaTitle.setAttribute('aria-label',`Lien vers la page du média ${title}`);
-                mediaTitle.setAttribute('href','#');
-                mediaTitle.textContent = `${title}`;
-                
-                const mediaLikes = document.createElement('div');
-                mediaLikes.classList.add('photographer-media-likes');
-				mediaLikes.innerHTML = `<span class="likes-count">${likes}</span><i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i>`;
-
-				
-                mediaLikes.addEventListener('click',() =>{
-
-					likes ++;
-                    mediaLikes.firstChild.textContent = `${likes}`;
-
-                },{once:true});
-
-                //Push data Medium
-                mediaTexts.append(mediaTitle,mediaLikes);
-
-                //Push All datas in Target Element
-                article.append(mediaAssets,mediaTexts);
-    
-                // Push Target Element in DOM
-                photographerPageMedia.append(article);
-    
-
-                // Create Event after Element in same context
-                article.querySelector('.photographer-media-title').addEventListener("click",()=> {
+            // Create Event after Element in same context
+            article.querySelector('.photographer-media-title').addEventListener("click",()=> {
 
                     openLightBox(index);
 
                 });
-
 
             });
     

@@ -1,21 +1,56 @@
 export class CardMedia {
 
-     constructor(id,type,src,title,likes,date) {
+     constructor(index,type,src,title,likes,date) {
 
-        this.id = id
+        this.index = index
         this.type = type 
         this.src = src 
         this.title = title 
         this.likes = likes 
         this.date = date 
-        this.layout = 'page';
+        this.layout = 'photographer';
      }
 
-     createCard() {
-       
-        console.log('*** Creation de la structure HTML par method POO à suivre ***');
+     createCard(mediaItem) {
+   
+        let article = document.createElement( 'article' );
+            article.classList.add('card',`card-media-${this.layout}`);
+            article.dataset.mediaIndex = `${this.index}`;
+            article.dataset.mediaRelease = `${this.date}`;
 
+                //Create Texts and url Datas for Media
+                const mediaTexts = document.createElement('div');
+                mediaTexts.classList.add(`${
+                    this.layout}-media-bottom`);
+                
+                const mediaTitle = document.createElement( 'a' );
+                mediaTitle.classList.add(`${this.layout}-media-title`);
+                mediaTitle.setAttribute('aria-label',`Lien vers la page du média ${this.title}`);
+                mediaTitle.setAttribute('href','#');
+                mediaTitle.textContent = `${this.title}`;
+                
+                const mediaLikes = document.createElement('div');
+                mediaLikes.classList.add(`${this.layout}-media-likes`);
+				mediaLikes.innerHTML = `<span class="likes-count">${this.likes}</span><i class="fa-solid fa-heart" aria-hidden="true" title="nombre de likes du projet"></i>`;
+
+                mediaLikes.addEventListener('click',() =>{
+
+					this.likes ++;
+                    mediaLikes.firstChild.textContent = `${this.likes}`;
+                    
+
+                },{once:true}); 
+
+            //Push Datas
+             mediaTexts.append(mediaTitle,mediaLikes);
+
+            //Push All datas in Target Element
+            article.append(mediaItem,mediaTexts);
+
+        
+            return article;
      }
+
 
      createMedia() {
 
@@ -30,7 +65,7 @@ export class CardMedia {
             let sourceVideo = document.createElement('source');
             sourceVideo.setAttribute('src',`${assetPath}/${this.src}`);
 
-            //Create Subs context
+            //Create Subtitles Context
             let subtitles = document.createElement('track');
 
             const titlesAttributs = {
@@ -46,7 +81,7 @@ export class CardMedia {
                 subtitles.setAttribute(attribut, titlesAttributs[attribut]);
               }
 
-            // ADD media Video Specials
+            // Add Media Video Specials Attributs
             mediaAsset.append(sourceVideo,subtitles);
 
         } else {
@@ -56,26 +91,30 @@ export class CardMedia {
             mediaAsset.setAttribute('alt',`Photographie appelée - ${this.title}`);
 
         }
+
+        mediaAsset.classList.add(`${this.layout}-media-assets`);
+
         
         return mediaAsset;
      }
 
-
 }
+
 
 export class ModalItem extends CardMedia {
 
-    constructor(id,type,src,title) {
+    constructor(index,type,src,title) {
 
-        super(id,type,src,title);
+        super(index,type,src,title);
         this.layout = 'modal';
 
     }
 
+
     createItem(mediaItem) {
 
         const targetItem =  document.querySelector(`.${this.layout}-item`);
-        targetItem .setAttribute('data-index',`${this.id}`);
+        targetItem .setAttribute('data-index',`${this.index}`);
         targetItem .setAttribute('data-layout',`${this.layout}`);
 
         let mediaTitle = document.createElement('h3');
@@ -87,6 +126,5 @@ export class ModalItem extends CardMedia {
         targetItem.append(mediaItem,mediaTitle);
 
     }
-
 
 }
