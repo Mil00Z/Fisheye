@@ -10,25 +10,58 @@ let currentPhotographerMedia = [];
 
 async function getPhotographer(currentId) {
 
-    const response = await fetch('./data/photographers.json');
-    const datas = await response.json();
+    try {
 
-    let photographerFinded = datas.photographers.find((photographer) => photographer.id === Number(currentId));
+        const response = await fetch('./data/photographers.json');
+        const datas = await response.json();
+    
+        let photographerFinded = datas.photographers.find((photographer) => photographer.id === Number(currentId));
+    
+        console.log(`données du photographe d'ID:${currentId}`, photographerFinded);
+    
+        return photographerFinded;
 
-    console.log(`données du photographe d'ID:${currentId}`, photographerFinded);
+    } catch {
 
-    return photographerFinded;
+        const errorMessage = 'Pas de datas disponibles';
+
+        let errorArea = document.createElement('div');;
+        errorArea.classList.add('debeug');
+        errorArea.textContent = `${errorMessage}`;
+        document.body.append(errorArea);
+
+        //Display Log error
+        throw new Error (errorMessage);
+
+    }
+
 }
 
 
 export async function getPhotographerMedias(currentId) {
 
-    const response = await fetch('./data/photographers.json');
-    const datas = await response.json();
+    try {
+        
+        const response = await fetch('./data/photographers.json');
+        const datas = await response.json();
+    
+        let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
+    
+        return mediaFiltered;
+        
+    } catch {
 
-    let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
+        const errorMessage = 'Pas de datas disponibles';
 
-    return mediaFiltered;
+        let errorArea = document.createElement('div');;
+        errorArea.classList.add('debeug');
+        errorArea.textContent = `${errorMessage}`;
+        document.body.append(errorArea);
+
+        //Display Log error
+        throw new Error (errorMessage);
+    }
+
 }
 
 
