@@ -46,8 +46,8 @@ export class CardMedia {
                 subtitles.setAttribute(attribut, titlesAttributs[attribut]);
               }
 
-               // ADD media Video Specials
-               mediaAsset.append(sourceVideo,subtitles);
+            // ADD media Video Specials
+            mediaAsset.append(sourceVideo,subtitles);
 
         } else {
 
@@ -74,12 +74,12 @@ export class ModalItem extends CardMedia {
 
     createItem(mediaItem) {
 
-        const targetItem =  document.querySelector('.modal-item');
+        const targetItem =  document.querySelector(`.${this.layout}-item`);
         targetItem .setAttribute('data-index',`${this.id}`);
         targetItem .setAttribute('data-layout',`${this.layout}`);
 
         let mediaTitle = document.createElement('h3');
-        mediaTitle.classList.add('modal-item-title');
+        mediaTitle.classList.add(`${this.layout}-item-title`);
         mediaTitle.textContent = `${this.title}`;
 
         //Push Elements on DOM

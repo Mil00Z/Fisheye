@@ -134,9 +134,9 @@ function displayMedias(photographerMedia,targetAction) {
     
             const assetPath = `./assets/photographers`;
 
-            let source;
             let type;
-    
+            let source;
+            
             if(video){
     
                 type = 'video';
@@ -152,8 +152,7 @@ function displayMedias(photographerMedia,targetAction) {
             cardMedia.createMedia();
             cardMedia.createCard();
 
-            console.log(cardMedia);
-    
+
             const article = document.createElement( 'article' );
                 article.classList.add('card','card-media-photographer');
                 article.dataset.mediaIndex = `${index}`;
@@ -253,9 +252,9 @@ function openLightBox(mediaIndex) {
 
         console.log('**Media Clicked',currentPhotographerMedia[currentIndex]);
 
-        let source;
         let type;
-
+        let source;
+        
         if(currentMedia.video){
 
             type = 'video';
