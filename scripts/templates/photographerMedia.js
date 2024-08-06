@@ -13,8 +13,9 @@ export class CardMedia {
 
      createCard(mediaItem) {
    
-        let article = document.createElement( 'article' );
+        let article = document.createElement( 'media-element' );
             article.classList.add('card',`card-media-${this.layout}`);
+            article.setAttribute('aria-label','Element média du photographe')
             article.dataset.mediaIndex = `${this.index}`;
             article.dataset.mediaRelease = `${this.date}`;
 

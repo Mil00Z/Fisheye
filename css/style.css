@@ -164,7 +164,6 @@ header {
 
 .photographer-name{
     margin-block:.55rem;
-    text-align: center;
     color:var(--second-color);
     font-size:2.2rem;
 }
@@ -196,6 +195,11 @@ header {
     clip-path: circle(50% at center);
 }
 
+/* PAGE SPECS */
+
+.photographers .photographer-name {
+    text-align: center;;
+}
 
 
 /* MEDQUER */
@@ -224,7 +228,7 @@ header {
         margin-inline:.85rem;
     }
 
-
+   
 }
 
 @media all and (max-width:600px) {

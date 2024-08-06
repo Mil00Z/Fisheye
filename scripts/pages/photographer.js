@@ -1,7 +1,4 @@
-// import {photographerMediaTemplate} from "../templates/photographerMedia.js";
-
 import {displayModal,dataInContactModal} from "../utils/contactForm.js";
-
 import {CardMedia,ModalItem} from "../templates/photographerMedia.js";
 
 //Call the dataArray before the functions Call Datas
@@ -10,25 +7,58 @@ let currentPhotographerMedia = [];
 
 async function getPhotographer(currentId) {
 
-    const response = await fetch('./data/photographers.json');
-    const datas = await response.json();
+    try {
 
-    let photographerFinded = datas.photographers.find((photographer) => photographer.id === Number(currentId));
+        const response = await fetch('./data/photographers.json');
+        const datas = await response.json();
+    
+        let photographerFinded = datas.photographers.find((photographer) => photographer.id === Number(currentId));
+    
+        console.log(`données du photographe d'ID:${currentId}`, photographerFinded);
+    
+        return photographerFinded;
 
-    console.log(`données du photographe d'ID:${currentId}`, photographerFinded);
+    } catch {
 
-    return photographerFinded;
+        const errorMessage = 'Pas de datas disponibles';
+
+        let errorArea = document.createElement('div');;
+        errorArea.classList.add('debeug');
+        errorArea.textContent = `${errorMessage}`;
+        document.body.append(errorArea);
+
+        //Display Log error
+        throw new Error (errorMessage);
+
+    }
+
 }
 
 
 export async function getPhotographerMedias(currentId) {
 
-    const response = await fetch('./data/photographers.json');
-    const datas = await response.json();
+    try {
+        
+        const response = await fetch('./data/photographers.json');
+        const datas = await response.json();
+    
+        let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
+    
+        return mediaFiltered;
 
-    let mediaFiltered = datas.media.filter((media) => media.photographerId === Number(currentId));
+    } catch {
 
-    return mediaFiltered;
+        const errorMessage = 'Pas de datas disponibles';
+
+        let errorArea = document.createElement('div');;
+        errorArea.classList.add('debeug');
+        errorArea.textContent = `${errorMessage}`;
+        document.body.append(errorArea);
+
+        //Display Log error
+        throw new Error (errorMessage);
+    }
+
 }
 
 
@@ -62,26 +92,6 @@ async function init() {
 
 }
 
-
-
-//  function getAdjacentModalMedia(mediasArray,mediaId) {
-
-//     let allMediasIndex = mediasArray.map((item) => item.id ); 
-//     console.log('**AllMediasID',allMediasIndex);
-
-//     let currentIndex = allMediasIndex.indexOf(mediaId); 
-//     // console.log('***TargetMediaID',currentIndex);
-
-//     //get previous media : if is it the first, index is the last
-//     let prevMediaId = (currentIndex) === 0 ? allMediasIndex[allMediasIndex.length -1] : allMediasIndex[currentIndex - 1] ;
-
-//     //get next media : if is it the last, index is the first
-//     let nextMediaId = allMediasIndex[currentIndex + 1] ?? allMediasIndex[0];
-    
-
-//     return [prevMediaId,nextMediaId];
-    
-// }
 
 function displayHeader(photographerDatas,targetAction) {
 
@@ -168,7 +178,6 @@ function displayMedias(photographerMedia,targetAction) {
 }
 
 
-
 function openLightBox(mediaIndex) {
  
     let currentIndex = mediaIndex;
@@ -221,7 +230,6 @@ function openLightBox(mediaIndex) {
         displayCurrentMedia();
     }
 
-
     function prevMedia() {
 
         currentIndex--;
@@ -265,53 +273,6 @@ function openLightBox(mediaIndex) {
 }
  
 
-// function setModalMedia(currentMedia,target) {
-
-//     // Target element for Injection
-//     let elementTarget = document.querySelector(`${target}`);
-
-//     const {title,image,video,likes,date,price,id,photographerId} = currentMedia;
-
-//     let modalItem = document.createElement('article');
-
-//     //pas meilleur moyen efficace de récupérer le nom sans faire un traitement "lourd" sur jeux de données croisées
-//     // => exemple de pk certaines querySelector sur des elements crées peuvent etre utiles
-//     let name = document.querySelector('.photographer-name').textContent;
-//     modalItem.classList.add('modal-item');
-//     modalItem.dataset.mediaId = `${id}`;
-
-//     // modalItem.style.setProperty('background-image',`url(../assets/photographers/${image})`);
-//     if (video) {
-//     modalItem.innerHTML = `
-//         <video src="../assets/photographers/${video}" alt="Video ${title} de ${name}" controls/>
-//     ` } else {
-//         modalItem.innerHTML = `
-//         <img src="../assets/photographers/${image}" alt="Photographie ${title} de ${name}"/>`
-//     }
-
-// //    if (document.querySelector('.modal-item')){
-
-// //         document.querySelector('.modal-item')
-
-// //    }
-
-
-//     elementTarget.append(modalItem);
-// }
-
-
-function getCurrentMedia(mediaArray,mediaId) {
-
-    // const currentMedia = mediaArray.find((m) => m.id == mediaId);
-    // console.log(currentMedia);
-
-    let currentIndex = mediaArray.findIndex((m) => m.id == mediaId); 
-    const currentMedia = mediaArray[currentIndex];
-
-    return currentMedia;
-
-}
-
 function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
 
     const {price} = photographerDatas;
@@ -327,30 +288,15 @@ function displayFooter(photographerDatas,photographerMediaDatas,targetAction) {
         
     });
 
-    // const likesSum2 = photographerMediaDatas.reduce((acc,curr) =>{
-
-    //         return acc + curr.likes ; 
-
-    // },0);
-    // console.log('reduce',likesSum2);
-
-
     // Display Values
     photographerMoreMedia.innerHTML = `
     <div class="photographer-likes">
     <span class="likes-total-count">${likesSum}</span>
-    <i class="fa-solid fa-heart aria-hiden="true" title="nombre total de likes du photographe"></i>
+    <i class="fa-solid fa-heart" aria-hiden="true" title="nombre total de likes du photographe"></i>
     </div>
     <div class="photographer-pricing"> 
         ${price} euros / jour
     </div> `;
-}
-
-// Plan B si jamais la solution est jugée "trop difficile"
-function countSumLikes(){
-
-
-
 }
 
 

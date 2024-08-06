@@ -7,8 +7,7 @@ if(document.querySelector('.modal-closer')) {
         closer.addEventListener('click',() => {
 
             closeModal('#contact_modal');
-            // console.log('Close Modal');
-
+          
         });
 
         closer.addEventListener('keydown',(e) => {
@@ -16,8 +15,6 @@ if(document.querySelector('.modal-closer')) {
             if(e.key === 'Enter') {
 
             closeModal('#contact_modal');
-
-            // console.log('Close Modal');
 
             }
 
@@ -37,13 +34,10 @@ document.querySelector('body').addEventListener('keydown',(e) => {
             closeModal('#media_modal');
         }
 
-      
 });
 
 
-
 // Modal Submit, Get Datas & interact with event Output
-
 const submitForm = '#the-form';
 
 document.querySelector(`${submitForm}`).addEventListener('submit',(e) => {
@@ -60,13 +54,8 @@ document.querySelector(`${submitForm}`).addEventListener('submit',(e) => {
 const submitBtn = 'button.submit';
 document.querySelector(`${submitBtn}`).addEventListener('click',() => {
 
-    // e.preventDefault();
-
     console.log('***** Click Submit Button');
 
-    // formModalDatas('#the-form');
-
-    // closeModal('#contact_modal');
 });
 
 
@@ -74,20 +63,11 @@ document.querySelector(`${submitBtn}`).addEventListener('keydown',(e) => {
 
     if(e.key === 'Enter') {
 
-        // e.preventDefault();
-
         console.log('***Keydown Submit Button');
-
-        // formModalDatas('.modal-content');
-
-        // closeModal('#contact_modal');
-
+       
     }
 
 });
-
-
-
 
 
 // Functions
@@ -113,30 +93,19 @@ export function closeModal(target) {
 
     document.querySelector('#main').setAttribute('aria-hidden', false);
 
-    //clear HTML Datas Media
     if (`${target}` === '#media_modal') {
 
-        
-
-        // document.querySelector(`${target} .modal-item`).children.forEach((item) =>{
-
-        //     console.log(item);
-
-        //     item.remove();
-
-        // });
-        
         console.log('XXX clean media modal');
     }
 
 }
+
 
  // Getter Fonction for FormData
 function formModalDatas(formTarget) {
 
     const formDatas = new FormData(document.querySelector(`${formTarget}`));
 
-    // console.log('Données du Form', formDatas);
 
     let cloneDatas = Object.fromEntries(formDatas);
     let formDataId = getPhotographerId();
@@ -146,6 +115,7 @@ function formModalDatas(formTarget) {
     console.log('Clones Datas from Form',cloneDatas);
 
 }
+
 
 export function dataInContactModal(dataPhotographer) {
 
