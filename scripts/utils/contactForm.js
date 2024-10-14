@@ -28,7 +28,7 @@ document.querySelector('body').addEventListener('keydown',(e) => {
 
         if (e.key === "Escape") {
 
-            console.log(`modal condition is '${displayModal('#contact_modal')}' and '${e.key}' is pressing now`);
+            // console.log(`modal condition is '${displayModal('#contact_modal')}' and '${e.key}' is pressing now`);
 
             closeModal('#contact_modal');
             closeModal('#media_modal');
@@ -54,7 +54,7 @@ document.querySelector(`${submitForm}`).addEventListener('submit',(e) => {
 const submitBtn = 'button.submit';
 document.querySelector(`${submitBtn}`).addEventListener('click',() => {
 
-    console.log('***** Click Submit Button');
+    // console.log('***** Click Submit Button');
 
 });
 
@@ -63,7 +63,7 @@ document.querySelector(`${submitBtn}`).addEventListener('keydown',(e) => {
 
     if(e.key === 'Enter') {
 
-        console.log('***Keydown Submit Button');
+        // console.log('***Keydown Submit Button');
        
     }
 

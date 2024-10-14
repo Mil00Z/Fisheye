@@ -1,4 +1,4 @@
-import {displayModal,closeModal} from "../utils/contactForm.js";
+import {closeModal} from "../utils/contactForm.js";
 
 //Checking if closer is defined before Event  
 if(document.querySelector('#media_modal .modal-closer')) {
@@ -12,14 +12,13 @@ if(document.querySelector('#media_modal .modal-closer')) {
     
     });
 
-
     modalMediaCloser.addEventListener('keydown',(e) => {
 
       if (e.key === "Enter") {
 
          e.preventDefault();
          
-         console.log('*** Close modal by keyboard',e.keycode);
+        //  console.log('*** Close modal by keyboard',e.keycode);
 
       }
 

@@ -7,7 +7,7 @@ import {photographerCardTemplate} from "../templates/photographerCard.js";
         const response = await fetch('./data/photographers.json');
         const datas = await response.json();
 
-        console.log(datas);
+        // console.log(datas);
 
         return datas.photographers ;
 

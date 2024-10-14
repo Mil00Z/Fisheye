@@ -14,7 +14,7 @@ async function getPhotographer(currentId) {
     
         let photographerFinded = datas.photographers.find((photographer) => photographer.id === Number(currentId));
     
-        console.log(`données du photographe d'ID:${currentId}`, photographerFinded);
+        // console.log(`données du photographe d'ID:${currentId}`, photographerFinded);
     
         return photographerFinded;
 
@@ -24,6 +24,7 @@ async function getPhotographer(currentId) {
 
         let errorArea = document.createElement('div');;
         errorArea.classList.add('debeug');
+        errorArea.setAttribute('aria-label',`Message d'erreur d'affichage de données`);
         errorArea.textContent = `${errorMessage}`;
         document.body.append(errorArea);
 
@@ -261,12 +262,12 @@ function openLightBox(mediaIndex) {
         if (e.key === "ArrowRight"){
 
             nextMedia();
-            console.log('next Media');
+            // console.log('next Media');
 
         } else if (e.key === "ArrowLeft") {
 
             prevMedia();
-            console.log('prev Media');
+            // console.log('prev Media');
         }
     });
 
