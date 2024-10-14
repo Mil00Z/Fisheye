@@ -76,10 +76,18 @@ export function displayModal(target) {
     const modal = document.querySelector(`${target}`);
 	modal.style.setProperty('display','flex');
     modal.setAttribute('aria-hidden',false);
+    modal.setAttribute('tabindex',0);
     modal.focus();
 
     document.querySelector('#main').setAttribute('aria-hidden', true);
+
+        
+    // document.querySelectorAll('.card-media-photographer').forEach((media) => {
+
+    //     media.setAttribute('tabindex',-1);
+    // })
     
+
     return true;
 }
 
@@ -92,6 +100,14 @@ export function closeModal(target) {
     
 
     document.querySelector('#main').setAttribute('aria-hidden', false);
+
+
+    // document.querySelectorAll('.card-media-photographer').forEach((media) => {
+
+    //     media.setAttribute('tabindex',0);
+
+    // })
+
 
     if (`${target}` === '#media_modal') {
 

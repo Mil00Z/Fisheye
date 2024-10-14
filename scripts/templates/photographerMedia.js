@@ -18,6 +18,7 @@ export class CardMedia {
             article.setAttribute('aria-label','Element média du photographe')
             article.dataset.mediaIndex = `${this.index}`;
             article.dataset.mediaRelease = `${this.date}`;
+            
 
                 //Create Texts and url Datas for Media
                 const mediaTexts = document.createElement('div');
