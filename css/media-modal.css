@@ -20,14 +20,14 @@
 
 .modal-body {
     display: flex;
-    width: 75dvw;
+    width: 72dvw;
     height: 90dvh;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     row-gap: 1.5rem;
-    padding: 1rem .75rem;
+    padding: 1.5rem .75rem;
     border-radius: var(--radius);
     background-color: var(--white-color);
     transition: var(--regTransi);
@@ -71,26 +71,28 @@
 }
 
 .modal-item-title {
+    margin-block: 5px;
+    /* text-indent: -445px; */
     color:var(--main-color);
 }
 
 
  
 .player-buttons {
-    --offsetPosY:2%;
+    --offsetPosY:5%;
     --sizes:38px;
     position: absolute;
     top:50%;
-    width: var(--sizes);
-    height:var(--sizes);
+    /* width: var(--sizes);
+    height:var(--sizes); */
     display: flex;
     justify-content: center;
     align-items: center;
-    background:var(--main-color);
-    border-radius: 50px;
-    border:3px solid var(--black-color);
-    color:var(--white-color);
-    font-size:.95rem;
+    /* background:var(--main-color); */
+    /* border-radius: 50px; */
+    /* border:3px solid var(--black-color); */
+    color:var(--main-color);
+    font-size:3.2rem;
     z-index: 666;
     cursor: pointer;
     transition: var(--regTransi);
@@ -107,8 +109,8 @@
 
 .player-buttons:hover,
 .player-buttons:focus {
-    color:var(--main-color);
-    background:var(--white-color);
+    /* color:var(--main-color);
+    background:var(--white-color); */
 }
 
 

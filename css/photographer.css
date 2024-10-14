@@ -82,7 +82,7 @@
     position: relative;
     border-radius: var(--radius);
     overflow: hidden;
-    box-shadow:1px 1px 3px rgba(0,0,0,.05);
+    /* box-shadow:1px 1px 3px rgba(0,0,0,.05); */
 }
 
 .card-media-photographer:hover,
@@ -100,9 +100,10 @@
 
 .photographer-media-assets {
     width: 100%;
-    height: 200px;
+    height: 320px;
     object-fit: cover;
-    border-radius: var(--radius) 0 0;
+    /* border-radius: var(--radius) 0 0; */
+    border-radius: var(--radius);
     background:var(--main-color);
     color:var(--white-color);
 }
@@ -118,7 +119,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding:.3rem;
+    padding:.45rem .3rem;
+    /* padding-block:1rem; */
 }
 
 .photographer-media-title {
